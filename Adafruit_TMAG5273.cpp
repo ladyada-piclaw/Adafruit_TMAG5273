@@ -24,9 +24,9 @@
 #include "Adafruit_TMAG5273.h"
 
 // Temperature conversion constants from datasheet
-#define TMAG5273_TEMP_ADC_T0 17508 // ADC code at 25C
-#define TMAG5273_TEMP_SENS_T0 25.0 // Reference temperature
-#define TMAG5273_TEMP_ADC_RES 60.1 // LSB per degree C
+#define TMAG5273_TEMP_ADC_T0 17508  ///< ADC code at 25°C reference
+#define TMAG5273_TEMP_SENS_T0 25.0  ///< Reference temperature in °C
+#define TMAG5273_TEMP_ADC_RES 60.1  ///< Temperature ADC resolution (LSB/°C)
 
 /*!
  * @brief Constructor for the TMAG5273 sensor class

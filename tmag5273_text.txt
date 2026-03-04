@@ -1,0 +1,7384 @@
+TMAG5273
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+TMAG5273 Low-Power Linear 3D Hall-Effect Sensor With I2C Interface
+1 Features
+
+3 Description
+
+•
+
+The TMAG5273 is a low-power linear 3D Hall-effect
+sensor designed for a wide range of industrial
+and personal electronics applications. This device
+integrates three independent Hall-effect sensors in
+the X, Y, and Z axes. A precision analog signalchain along with an integrated 12-bit ADC digitizes
+the measured analog magnetic field values. The
+I2C interface, while supporting multiple operating
+VCC ranges, ensures seamless data communication
+with low-voltage microcontrollers. The device has an
+integrated temperature sensor available for multiple
+system functions, such as thermal budget check or
+temperature compensation calculation for a given
+magnetic field.
+
+•
+
+•
+•
+•
+•
+•
+•
+•
+
+•
+•
+•
+•
+
+Configurable power modes including:
+– 2.3mA active mode current
+– 1µA wake-up and sleep mode current
+– 5nA sleep mode current
+Selectable linear magnetic range at X, Y, or Z axis:
+– TMAG5273x1: ±40mT, ±80mT
+– TMAG5273x2: ±133mT, ±266mT
+Interrupt signal from user-defined magnetic and
+temperature threshold cross
+5% (typical) sensitivity drift
+Integrated angle CORDIC calculation with gain
+and offset adjustment
+20kSPS single axis conversion rate
+Configurable averaging up to 32x for noise
+reduction
+Conversion trigger by I2C or dedicated INT pin
+Optimized I2C interface with cyclic redundancy
+check (CRC):
+– Maximum 1-MHz I2C clock speed
+– Special I2C frame reads for improved
+throughput
+– Factory-programmed and user-configurable I2C
+addresses
+Integrated temperature compensation for multiple
+magnet types
+Built-in temperature sensor
+1.7-V to 3.6-V supply voltage VCC range
+Operating temperature range: –40℃ to +125℃
+
+2 Applications
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Electricity meters
+Electronic smart lock
+Smart thermostat
+Joystick & gaming controllers
+Drone payload control
+Door & window sensor
+Magnetic proximity sensor
+Mobile robot motor control
+E-bike
+
+The TMAG5273 can be configured through the I2C
+interface to enable any combination of magnetic
+axes and temperature measurements. Additionally,
+the device can be configured to various power
+options (including wake-up and sleep mode) allowing
+designers to optimize system power consumption
+based on their system-level needs. Multiple sensor
+conversion schemes and I2C read frames help
+optimize throughput and accuracy. A dedicated INT
+pin can act as a system interrupt during low power
+wake-up and sleep mode, and can also be used by a
+microcontroller to trigger a new sensor conversion.
+An integrated angle calculation engine (CORDIC)
+provides full 360° angular position information for both
+on-axis and off-axis angle measurement topologies.
+The angle calculation is performed using two
+user-selected magnetic axes. The device features
+magnetic gain and offset correction to mitigate the
+impact of system mechanical error sources.
+
+An IMPORTANT NOTICE at the end of this data sheet addresses availability, warranty, changes, use in safety-critical applications,
+intellectual property matters and other important disclaimers. PRODUCTION DATA.
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+The TMAG5273 is offered in four different factory-programmed I2C addresses. The device also supports
+additional I2C addresses through the modification of a user-configurable I2C address register. Each orderable
+part can be configured to select one of two magnetic field ranges that suits the magnet strength and component
+placement during system calibration.
+The device performs consistently across a wide ambient temperature range of –40°C to +125°C.
+Package Information (1)
+PART NUMBER
+TMAG5273
+(1)
+(2)
+
+PACAKGE SIZE(2)
+
+PACKAGE
+DBV (SOT-23, 6)
+
+2.9mm × 2.8mm
+
+For all available packages, see the package option addendum at the end of the data sheet.
+The package size (length × width) is a nominal value and includes pins, where applicable.
+
+1.7V to 3.6V
+
+1.2V to 5.5V
+
+INT
+SCL
+SDA
+
+µController
+
+TEST
+
+TMAG5273
+
+VCC
+
+GND
+
+Application Block Diagram
+
+2
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Table of Contents
+1 Features............................................................................1
+2 Applications..................................................................... 1
+3 Description.......................................................................1
+4 Pin Configuration and Functions...................................4
+5 Specifications.................................................................. 5
+5.1 Absolute Maximum Ratings........................................ 5
+5.2 ESD Ratings............................................................... 5
+5.3 Recommended Operating Conditions.........................5
+5.4 Thermal Information....................................................6
+5.5 Electrical Characteristics.............................................6
+5.6 Temperature Sensor................................................... 7
+5.7 Magnetic Characteristics For A1, B1, C1, D1............. 8
+5.8 Magnetic Characteristics For A2, B2, C2, D2............. 9
+5.9 Magnetic Temp Compensation Characteristics...........9
+5.10 I2C Interface Timing................................................10
+5.11 Power up & Conversion Time..................................10
+5.12 Typical Characteristics............................................ 11
+6 Detailed Description......................................................12
+6.1 Overview................................................................... 12
+6.2 Functional Block Diagram......................................... 12
+6.3 Feature Description...................................................13
+
+6.4 Device Functional Modes..........................................18
+6.5 Programming............................................................ 20
+7 Application and Implementation.................................. 28
+7.1 Application Information............................................. 28
+7.2 Typical Application.................................................... 32
+7.3 Best Design Practices...............................................39
+7.4 Power Supply Recommendations.............................40
+7.5 Layout....................................................................... 40
+8 Register Maps................................................................ 41
+8.1 TMAG5273 Registers............................................... 41
+9 Device and Documentation Support............................52
+9.1 Documentation Support............................................ 52
+9.2 Receiving Notification of Documentation Updates....52
+9.3 Support Resources................................................... 52
+9.4 Trademarks............................................................... 52
+9.5 Electrostatic Discharge Caution................................52
+9.6 Glossary....................................................................52
+10 Revision History.......................................................... 52
+11 Mechanical, Packaging, and Orderable
+Information.................................................................... 53
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+3
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+4 Pin Configuration and Functions
+SCL
+
+1
+
+6
+
+SDA
+
+GND
+
+2
+
+5
+
+INT
+
+GND (TEST)
+
+3
+
+4
+
+VCC
+
+Not to scale
+
+Figure 4-1. DBV Package, 6-Pin SOT-23 (Top View)
+Table 4-1. Pin Functions
+PIN
+
+4
+
+TYPE
+
+DESCRIPTION
+
+NAME
+
+NO.
+
+SCL
+
+1
+
+IO
+
+GND
+
+2
+
+Ground
+
+Ground reference.
+
+GND (TEST)
+
+3
+
+Input
+
+TI Test Pin. Connect to ground in application.
+
+VCC
+
+4
+
+Power supply
+
+INT
+
+5
+
+IO
+
+Interrupt input/ output. If not used and connected to ground, set
+MASK_INTB = 1b.
+
+SDA
+
+6
+
+IO
+
+Serial data.
+
+Serial clock.
+
+Power supply.
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+5 Specifications
+5.1 Absolute Maximum Ratings
+over operating free-air temperature range (unless otherwise noted)(1)
+MIN
+
+MAX
+
+UNIT
+
+VCC
+
+Main supply voltage
+
+–0.3
+
+4
+
+V
+
+IOUT
+
+Output current, SDA, INT
+
+0
+
+10
+
+mA
+
+VOUT
+
+Output voltage, SDA, INT
+
+–0.3
+
+7
+
+V
+
+VIN
+
+Input voltage, SCL, SDA, INT
+
+–0.3
+
+7
+
+V
+
+BMAX
+
+Magnetic flux density
+
+Unlimited
+
+T
+
+TJ
+
+Junction temperature
+
+–40
+
+150
+
+°C
+
+Tstg
+
+Storage temperature
+
+–65
+
+170
+
+°C
+
+(1)
+
+Operation outside the Absolute Maximum Ratings may cause permanent device damage. Absolute Maximum Ratings do not imply
+functional operation of the device at these or any other conditions beyond those listed under Recommended Operating Conditions.
+If used outside the Recommended Operating Conditions but within the Absolute Maximum Ratings, the device may not be fully
+functional, and this may affect device reliability, functionality, performance, and shorten the device lifetime.
+
+5.2 ESD Ratings
+VALUE
+
+V(ESD)
+
+(1)
+(2)
+
+Electrostatic discharge
+
+Human body model (HBM), per ANSI/ESDA/
+JEDEC JS-001, all pins(1)
+
+±2000
+
+Charged device model (CDM), per JEDEC
+specification JS-002, all pins(2)
+
+±500
+
+UNIT
+
+V
+
+JEDEC document JEP155 states that 500V HBM allows safe manufacturing with a standard ESD control process.
+JEDEC document JEP157 states that 250V CDM allows safe manufacturing with a standard ESD control process.
+
+5.3 Recommended Operating Conditions
+over operating free-air temperature range (unless otherwise noted)
+over recommended VCC range (unless otherwise noted)
+MIN
+VCC
+
+Main supply voltage
+
+VOUT
+
+Output voltage, SDA, INT
+
+IOUT
+
+Output current, SDA, INT
+
+VIH
+
+Input HIGH voltage, SCL, SDA, INT
+
+VIL
+
+Input LOW voltage, SCL, SDA, INT
+
+ΔVCC
+TA
+(1)
+
+/Δt(1)
+
+MAX
+
+UNIT
+
+1.7
+
+NOM
+
+3.6
+
+V
+
+0
+
+5.5
+
+V
+
+2
+
+mA
+
+0.7
+
+VCC
+0.3
+
+Supply voltage ramp rate
+
+3
+
+Operating free air temperature
+
+–40
+
+VCC
+V/ms
+
+125
+
+℃
+
+If the VCC ramp rate is slower than the recommended supply voltage ramp rate, run a wake-up and sleep cycle after power-up or
+power-up reset to avoid I2C address glitch during sleep mode. This action is not required while operating in stand-by or continuous
+modes.
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+5
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+5.4 Thermal Information
+TMAG5273
+THERMAL METRIC(1)
+
+DBV (SOT-23)
+
+UNIT
+
+6 pins
+RθJA
+
+Junction-to-ambient thermal resistance
+
+162
+
+°C/W
+
+RθJC(top)
+
+Junction-to-case (top) thermal resistance
+
+81.6
+
+°C/W
+
+RθJB
+
+Junction-to-board thermal resistance
+
+50.1
+
+°C/W
+
+ΨJT
+
+Junction-to-top characterization parameter
+
+30.7
+
+°C/W
+
+ΨJB
+
+Junction-to-board characterization parameter
+
+49.8
+
+°C/W
+
+(1)
+
+For more information about traditional and new thermal metrics, see the Semiconductor and IC Package Thermal Metrics application
+note.
+
+5.5 Electrical Characteristics
+over operating free-air temperature range (unless otherwise noted)
+over recommended VCC range (unless otherwise noted)
+PARAMETER
+
+TEST CONDITIONS
+
+MIN
+
+TYP
+
+MAX
+
+UNIT
+
+SDA, INT
+VOL
+
+Output LOW voltage, SDA, INT pin
+
+IOUT = 2mA
+
+IOZ
+
+Output leakage current, SDA, INT pin
+
+Output disabled, VOZ = 5.5V
+
+0
+
+0.4
+
+V
+
+±100
+
+nA
+
+tFALL_INT
+
+INT output fall time
+
+RPU =10KΩ, CL =20pF, VPU =1.65V to
+5.5V
+
+6
+
+ns
+
+tINT (INT)
+
+INT Interrupt time duration during
+pulse mode
+
+INT_MODE =001b or 010b
+
+10
+
+µs
+
+tINT (SCL)
+
+SCL Interrupt time duration
+
+INT_MODE =011b or 100b
+
+10
+
+µs
+
+DC POWER SECTION
+VCCUV (1)
+
+6
+
+Undervoltage threshold at VCC
+
+VCC = 2.3V to 3.6V
+
+IACTIVE
+
+Active mode current
+
+X, Y, Z, or thermal sensor active
+conversion, LP_LN =0b
+
+2.3
+
+mA
+
+IACTIVE
+
+Active mode current
+
+X, Y, Z, or thermal sensor active
+conversion, LP_LN =1b
+
+3.0
+
+mA
+
+ISTANDBY
+
+Stand-by mode current
+
+Device in trigger mode, no conversion
+started
+
+0.45
+
+mA
+
+ISLEEP
+
+Sleep mode current
+
+5
+
+nA
+
+Submit Document Feedback
+
+1.9
+
+2.0
+
+2.2
+
+V
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+over operating free-air temperature range (unless otherwise noted)
+over recommended VCC range (unless otherwise noted)
+PARAMETER
+
+TEST CONDITIONS
+
+MIN
+
+TYP
+
+MAX
+
+UNIT
+
+AVERAGE POWER DURING WAKE-UP AND SLEEP (W&S) MODE
+
+W&S mode current consumption
+Wake-up interval 1ms
+LP_LN =0b
+
+ICC_DCM
+
+W&S mode current consumption
+Wake-up interval 5000ms
+LP_LN =0b
+
+(1)
+
+Magnetic 1 channel conversion
+VCC =3.3V
+
+160
+
+µA
+
+Magnetic 1 channel conversion
+VCC =1.8V
+
+156
+
+µA
+
+Magnetic 4 channel conversion
+VCC =3.3V
+
+240
+
+µA
+
+Magnetic 4 channel conversion
+VCC =1.8V
+
+233
+
+µA
+
+Magnetic 1 channel conversion
+VCC =3.3V
+
+1.21
+
+µA
+
+Magnetic 1 channel conversion
+VCC =1.8V
+
+1.00
+
+µA
+
+Magnetic 4 channel conversion
+VCC =3.3V
+
+1.22
+
+µA
+
+Magnetic 4-channel conversion
+VCC =1.8V
+
+1.02
+
+µA
+
+The DIAG_STATUS and VCC_UV_ER bits are not valid for VCC < 2.3V
+
+5.6 Temperature Sensor
+over operating free-air temperature range (unless otherwise noted)
+over recommended VCC range (unless otherwise noted)
+PARAMETER
+
+TEST CONDITIONS
+
+MIN
+
+TYP
+
+MAX
+
+UNIT
+℃
+
+Temperature sensing range
+
+TADC_T0
+
+Temperature result in decimal value
+(from 16-bit format) for TSENS_T0
+
+17508
+
+TSENS_T0
+
+Reference temperature for TADC_T0
+
+25
+
+℃
+
+TADC_RES
+
+Temp sensing resolution (in 16-bit
+format)
+
+60.1
+
+LSB/℃
+
+NRMS_T
+
+RMS (1 Sigma) temperature noise
+
+CONV_AVG = 000b
+
+0.4
+
+℃
+
+NRMS_T
+
+RMS (1 Sigma) temperature noise
+
+CONV_AVG = 101b
+
+0.2
+
+℃
+
+(1)
+
+–40
+
+170(1)
+
+TSENS_RANGE
+
+TI recommends not to exceed the specified Operating free air temperature per Recommended Operating Conditions table
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+7
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+5.7 Magnetic Characteristics For A1, B1, C1, D1
+over operating free-air temperature range (unless otherwise noted)
+PARAMETER
+BIN
+
+TEST CONDITIONS
+
+Linear magnetic range for X, Y, and Z
+
+_RANGE = 0b
+
+TYP
+±80
+
+mT
+LSB/mT
+
+SENSER
+
+Sensitivity error, X, Y, Z axis
+
+SENSER_DR
+
+Sensitivity error drift from 25°C
+X, Y, Z axis
+
+SENSLER
+
+Sensitivity linearity error
+TA = 25°C
+
+X, Y Axis
+
+±0.10%
+
+Z Axis
+
+±0.10%
+
+SENSMS
+
+Sensitivity mismatch
+TA = 25°C
+
+X-Y axes
+
+±0.50%
+
+Y-Z, or X-Z axes
+
+±1.0%
+
+SENSMS_DR
+
+Sensitivity mismatch drift
+
+Boff
+
+Offset
+
+Boff_TC
+
+Offset drift
+
+_RANGE = 1b, ±80mT
+TA = 25°C
+
+RMS (1 Sigma) magnetic noise
+CONV_AVG = 000b
+TA = 25°C
+RMS (1 Sigma) magnetic noise
+CONV_AVG = 101b
+TA = 25°C
+
+AERR
+
+Angle error
+CONV_AVG = 101b
+TA = 25°C
+
+410
+±5.0%
+
+LSB/mT
+±20.0%
+
+±5.0%
+
+Y-Z, or X-Z axes
+TA = 25°C
+
+NRMS
+
+mT
+
+820
+
+Sensitivity, X, Y, or Z axis
+
+RMS (1 Sigma) magnetic noise
+CONV_AVG = 101b
+TA = 25°C
+
+UNIT
+
+_RANGE = 0b, ±40mT
+
+SENS
+
+RMS (1 Sigma) magnetic noise
+CONV_AVG = 000b
+TA = 25°C
+
+MAX
+
+±40
+
+_RANGE = 1b
+
+X-Y axes
+
+8
+
+MIN
+
+±5%
+±15%
+±300
+
+±1000
+
+µT
+
+±3.0
+
+±10.0
+
+µT/°C
+
+LP_LN = 0b
+X, Y Axis
+
+125
+
+µT
+
+LP_LN = 1b
+X, Y Axis
+
+110
+
+µT
+
+LP_LN = 0b
+X, Y Axis
+
+22
+
+µT
+
+LP_LN = 1b
+X, Y Axis
+
+22
+
+µT
+
+LP_LN = 0b
+Z Axis
+
+68
+
+µT
+
+LP_LN = 1b
+Z Axis
+
+66
+
+µT
+
+LP_LN = 0b
+Z Axis
+
+11
+
+µT
+
+LP_LN = 1b
+Z Axis
+
+9
+
+µT
+
+Y-Z
+
+±1.0
+
+Degree
+
+X-Z
+
+±1.0
+
+Degree
+
+X-Y
+
+±0.5
+
+Degree
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+5.8 Magnetic Characteristics For A2, B2, C2, D2
+over operating free-air temperature range (unless otherwise noted)
+PARAMETER
+BIN
+
+TEST CONDITIONS
+
+Linear magnetic range for X, Y, and Z
+
+SENS
+
+Sensitivity, X, Y, or Z axis
+
+SENSER
+
+Sensitivity error. X, Y, Z axis
+
+SENSER_DR
+
+Sensitivity error drift. X, Y, Z axis
+
+SENSLER
+SENSMS
+SENSMS_DR
+Boff
+
+TYP
+±266
+
+mT
+
+_RANGE = 0b, ±133mT
+
+250
+
+LSB/mT
+
+_RANGE = 0b, ±266mT
+
+Sensitivity linearity error
+TA = 25°C
+
+±0.10%
+
+Z Axis
+
+±0.10%
+
+Sensitivity mismatch
+TA = 25°C
+
+X-Y axes
+
+±0.50%
+
+Y-Z, or X-Z axes
+
+±1.0%
+
+NRMS
+RMS (1 Sigma) magnetic noise
+CONV_AVG = 000b
+TA = 25°C
+RMS (1 Sigma) magnetic noise
+CONV_AVG = 101b
+TA = 25°C
+
+X-Y axes
+
+±5%
+
+Y-Z, or X-Z axes
+
+±15%
+
+TA = 25°C
+
+±300
+
+±1000
+
+µT
+
+±3.0
+
+±10
+
+µT/°C
+
+LP_LN = 0b
+X, Y Axis
+
+147
+
+µT
+
+LP_LN = 1b
+X, Y Axis
+
+145
+
+µT
+
+LP_LN = 0b
+X, Y Axis
+
+24
+
+µT
+
+LP_LN = 1b
+X, Y Axis
+
+24
+
+µT
+
+LP_LN = 0b
+Z Axis
+
+89
+
+µT
+
+LP_LN = 1b
+Z Axis
+
+88
+
+µT
+
+LP_LN = 0b
+Z Axis
+
+15
+
+µT
+
+LP_LN = 1b
+Z Axis
+
+15
+
+µT
+
+±1.0
+
+Degree
+
+X-Z
+
+±1.0
+
+Degree
+
+X-Y
+
+±0.50
+
+Degree
+
+Y-Z
+
+Angle error
+CONV_AVG = 101b
+TA = 25°C
+
+LSB/mT
+±20.0%
+
+±5.0%
+
+Offset drift
+
+RMS (1 Sigma) magnetic noise
+CONV_AVG = 101b
+TA = 25°C
+
+mT
+
+125
+
+X, Y Axis
+
+Offset
+
+UNIT
+
+_RANGE = 1b
+
+±5.0%
+
+Sensitivity mismatch drift
+
+MAX
+
+±133
+
+TA = 25°C
+
+RMS (1 Sigma) magnetic noise
+CONV_AVG = 000b
+TA = 25°C
+
+AERR
+
+MIN
+
+_RANGE = 0b
+
+5.9 Magnetic Temp Compensation Characteristics
+over operating free-air temperature range (unless otherwise noted)
+PARAMETER
+
+TEST CONDITIONS
+
+MIN
+
+TYP
+
+MAX
+
+UNIT
+
+TC_00
+
+Temperature compensation (X, Y, Z-axes)
+
+MAG_TEMPCO = 00b
+
+0
+
+%/°C
+
+TC_12
+
+Temperature compensation (X, Y, Z-axes)
+
+MAG_TEMPCO = 01b
+
+0.12
+
+%/°C
+
+TC_20
+
+Temperature compensation (X, Y, Z-axes)
+
+MAG_TEMPCO = 11b
+
+0.2
+
+%/°C
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+9
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+5.10 I2C Interface Timing
+over operating free-air temperature range (unless otherwise noted)
+PARAMETER
+
+TEST CONDITIONS
+
+MIN
+
+TYP
+
+MAX UNIT
+
+I2C Interface Fast Mode Plus (VCC =2.3V to 3.6V)
+LOAD = 50pF
+VCC = 2.3V to 3.6V
+
+fI2C_fmp
+
+I2C clock (SCL) frequency
+
+1000
+
+KHz
+
+twhigh_fmp
+
+High time: SCL logic high time duration
+
+350
+
+ns
+
+twlo_wfmp
+
+Low time: SCL logic low time duration
+
+500
+
+ns
+
+tsu_cs_fmp
+
+SDA data setup time
+
+50
+
+ns
+
+th_cs_fmp
+
+SDA data hold time
+
+120
+
+ns
+
+ticr_fmp
+
+SDA, SCL input rise time
+
+120
+
+ns
+
+ticf_fmp
+
+SDA, SCL input fall time
+
+55
+
+ns
+
+th_ST_fmp
+
+Start condition hold time
+
+0.1
+
+µs
+
+tsu_SR_fmp
+
+Repeated start condition setup time
+
+0.1
+
+µs
+
+tsu_SP_fmp
+
+Stop condition setup time
+
+0.1
+
+µs
+
+tw_SP_SR_fmp
+
+Bus free time between stop and start condition
+
+0.2
+
+µs
+
+I2C Interface Fast Mode (VCC =1.7V to 3.6V)
+LOAD = 50pF
+VCC = 1.7V to 3.6V
+
+fI2C
+
+I2C clock (SCL) frequency
+
+400
+
+KHz
+
+twhigh
+
+High time: SCL logic high time duration
+
+600
+
+ns
+
+twlow
+
+Low time: SCL logic low time duration
+
+1300
+
+ns
+
+tsu_cs
+
+SDA data setup time
+
+100
+
+ns
+
+th_cs
+
+SDA data hold time
+
+0
+
+ns
+
+ticr
+
+SDA, SCL input rise time
+
+300
+
+ns
+
+ticf
+
+SDA, SCL input fall time
+
+300
+
+ns
+
+th_ST
+
+Start condition hold time
+
+0.3
+
+µs
+
+tsu_SR
+
+Repeated start condition setup time
+
+0.3
+
+µs
+
+tsu_SP
+
+Stop condition setup time
+
+0.3
+
+µs
+
+tw_SP_SR
+
+Bus free time between stop and start condition
+
+0.6
+
+µs
+
+5.11 Power up & Conversion Time
+over operating free-air temperature range (unless otherwise noted)
+TYP
+
+MAX UNIT
+
+tstart_power_up
+
+Time to go to standby mode after VCC supply voltage
+crossing VCC_MIN
+
+PARAMETER
+
+270
+
+µs
+
+tstart_sleep
+
+Time to go from sleep mode to standby mode(1)
+
+50
+
+µs
+
+tstart_measure
+
+Time to go from standby mode to continuous measure mode
+
+tmeasure
+
+Conversion time
+Only one channel enabled
+OPERATING_MODE = 10b
+
+tgo_sleep
+
+Time to go into sleep mode after SCL goes high
+
+(1)
+(2)
+(3)
+
+10
+
+TEST CONDITIONS
+
+MIN
+
+70
+
+µs
+
+CONV_AVG = 000b(2)
+
+50
+
+µs
+
+CONV_AVG = 101b(3)
+
+825
+
+µs
+
+20
+
+µs
+
+The device only recognizes the I2C communication from a primary during standby or continuous measure modes. While the device is
+in sleep mode, a valid secondary address wakes up the device but no acknowledge is sent to the primary. Consider the start-up time
+before addressing the device after wake up.
+Add 25µs for each additional magnetic channel enabled for conversion with CONV_AVG = 000b. When CONV_AVG = 000b, the
+conversion time doesn't change with the T_CH_EN bit setting.
+For conversion with CONV_AVG =101b, each channel data is collected 32 times. If an additional channel is enabled with CONV_AVG
+=101b, add 32×25µs = 800µs to the tmeasure to calculate the conversion time for two channels.
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+5.12 Typical Characteristics
+
+0.6
+
+3
+
+0.5
+
+2.5
+
+0.4
+
+2
+
+Current (mA)
+
+Current (mA)
+
+at TA = 25°C typical (unless otherwise noted)
+
+0.3
+0.2
+0.1
+0
+-40
+
+0
+
+20
+40
+60
+Te mperature (C)
+
+80
+
+100
+
+0
+-40
+
+120
+
+Figure 5-1. Standby Mode ICC vs Temperature
+
+Vcc = 1.8 V
+Vcc = 3.3 V
+-20
+
+0
+
+20
+40
+60
+Te mperature (C)
+
+80
+
+100
+
+120
+
+Figure 5-2. Active Mode ICC vs Temperature
+16
+
+25
+VCC = 1.8 V
+VCC = 3.3 V
+
+TXYZ Selected, VCC = 1.8 V
+TX Selected, VCC = 1.8 V
+TXYZ Selected, VCC = 3.3 V
+TX Selected, VCC = 3.3 V
+
+14
+
+20
+
+12
+
+ICC Current (A)
+
+ICC Current (nA)
+
+1
+0.5
+
+Vcc = 1.8 V
+Vcc = 3.3 V
+-20
+
+1.5
+
+15
+
+10
+
+10
+8
+6
+4
+
+5
+
+0
+-40
+
+2
+
+-20
+
+0
+
+20
+
+40
+60
+80
+Te mperature (C)
+
+100
+
+120
+
+140
+
+Figure 5-3. Sleep Mode ICC vs Temperature
+
+0
+20
+
+1020
+
+2020
+3020
+Sleep-time (ms)
+
+4020
+
+5020
+
+Figure 5-4. Average ICC vs W&S Mode Sleep Time
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+11
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+6 Detailed Description
+6.1 Overview
+The TMAG5273 IC is based on the Hall-effect technology and precision mixed signal circuitry from Texas
+Instruments. The output signals (raw X, Y, Z magnetic data and temperature data) are accessible through the I2C
+interface.
+The IC consists of the following functional and building blocks:
+• The Power Management & Oscillator block contains a low-power oscillator, biasing circuitry, undervoltage
+detection circuitry, and a fast oscillator.
+• The sensing and temperature measurement block contains the Hall biasing, Hall sensors with multiplexers,
+noise filters, integrator circuit, temperature sensor, and the ADC. The Hall-effect sensor data and temperature
+data are multiplexed through the same ADC.
+• The Interface block contains the I2C control circuitry, ESD protection circuits, and all the I/O circuits. The
+TMAG5273 supports multiple I2C read frames along with integrated cyclic redundancy check (CRC).
+
+6.2 Functional Block Diagram
+VCC
+
+SCL
+
+Power Management and Oscillator
+
+Result Registers
+
+Z
+X
+
++
+MUX
+
+TEST
+
+Gain and
+Filtering
+
+ADC
+
+Interface
+
+SDA
+
+Y
+–
+Config Registers
+
+Temperature sensor
+
+INT
+
+Digital Core
+
+GND
+
+12
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+6.3 Feature Description
+6.3.1 Magnetic Flux Direction
+As shown in Figure 6-1, the TMAG5273 generates positive ADC codes in response to a magnetic north pole in
+proximity. Similarly, the TMAG5273 generates negative ADC codes if the magnetic south poles approach from
+the same directions.
+
+S
+
+S
+XA
+xis
+
+Z Axis
+
+N
+
+N
+
+Y Ax
+
+is
+
+1
+2
+
+N
+S
+
+3
+
+Figure 6-1. Direction of Sensitivity
+6.3.2 Sensor Location
+Figure 6-2 shows the location of X, Y, Z hall elements inside the TMAG5273.
+
+1.85-mm
+
+Y
+X
+
+Z
+
+0.73-mm
+
+0.68-mm
+
+Figure 6-2. Location of X, Y, Z Hall Elements
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+13
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+6.3.3 Interrupt Function
+The TMAG5273 supports flexible and configurable interrupt functions through either the INT or the SCL pin.
+Table 6-1 shows different conversion completion events where result registers and SET_COUNT bits update,
+and where they do not.
+Table 6-1. Result Register & SET_COUNT Update After Conversion Completion
+INT_MODE
+
+MODE
+DESCRIPTION
+
+000b
+
+I2C BUS BUSY, NOT TALKING
+TO DEVICE
+
+I2C BUS BUSY & TALKING TO
+DEVICE
+
+I2C BUS NOT BUSY
+
+RESULT
+UPDATE?
+
+RESULT
+UPDATE?
+
+RESULT
+UPDATE?
+
+SET_COUNT
+UPDATE?
+
+SET_COUNT
+UPDATE?
+
+SET_COUNT
+UPDATE?
+
+No interrupt
+
+Yes
+
+Yes
+
+No
+
+No
+
+Yes
+
+Yes
+
+001b
+
+Interrupt
+through INT
+
+Yes
+
+Yes
+
+No
+
+No
+
+Yes
+
+Yes
+
+010b
+
+Interrupt
+through INT
+except when
+I2C busy
+
+Yes
+
+Yes
+
+No
+
+No
+
+Yes
+
+Yes
+
+011b
+
+Interrupt
+through SCL
+
+Yes
+
+Yes
+
+No
+
+No
+
+Yes
+
+Yes
+
+100b
+
+Interrupt
+through SCL
+except when
+I2C busy
+
+No
+
+No
+
+No
+
+No
+
+Yes
+
+Yes
+
+Note
+I2C
+
+TI does not recommend sharing the same
+bus with multiple secondary devices when using
+the SCL pin for interrupt function. The SCL interrupt may corrupt transactions with other secondary
+devices if present in the same I2C bus.
+Interrupt Through SCL
+Figure 6-3 shows an example for interrupt function through the SCL pin with the device programmed to wake
+up and sleep mode for threshold cross at a predefined intervals. The wake-up intervals can be set through the
+SLEEPTIME bits. When the device detects a magnetic threshold cross, the TMAG5273 asserts a fixed width
+interrupt signal through the SCL pin, and goes back to standby mode.
+
+14
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Wake-up & Sleep
+Mode
+
+Standby Mode
+
+Operating Mode
+
+X Ch Threshold
+
+X Magnetic
+Field
+
+Interrupt through
+SCL
+
+Time
+
+Figure 6-3. Interrupt Through SCL
+Fixed Width Interrupt Through INT
+Figure 6-4 shows an example for fixed-width interrupt function through the INT pin. The device is programmed to
+be in wake-up and sleep mode to detect a magnetic threshold. The INT_STATE register bit is set 1b. When the
+device detects a magnetic threshold cross, the TMAG5273 asserts a fixed width interrupt signal through the INT
+pin, and goes back to standby mode.
+Wake-up & Sleep
+Mode
+
+Standby Mode
+
+Operating Mode
+
+X Ch Threshold
+
+X Magnetic
+Field
+
+Interrupt through INT
+(Fixed Width)
+
+SCL Line
+
+Time
+
+Figure 6-4. Fixed Width Interrupt Through INT
+Latched Interrupt Through INT
+Figure 6-5 shows an example for latched interrupt function through the INT pin. The device is programmed to
+be in wake-up and sleep mode to detect a magnetic threshold. The INT_STATE register bit is set 0b. When the
+device detects a magnetic threshold cross, the TMAG5273 asserts a latched interrupt signal through the INT pin
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+15
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+and goes back to standby mode. The interrupt latch is cleared only after the device receives a valid address
+through the SCL line.
+Wake-up & Sleep
+Mode
+
+Standby Mode
+
+Operating Mode
+
+X Ch Threshold
+
+X Magnetic
+Field
+
+Interrupt through INT
+(Latched)
+
+SCL Line
+
+Time
+
+Figure 6-5. Latched Interrupt Through INT
+6.3.4 Device I2C Address
+Table 6-2 shows the default factory programmed I2C addresses of the TMAG5273. The device needs to be
+addressed with the factory default I2C address after power up. If required, a primary can assign a new I2C
+address through the I2C_ADDRESS register bits after power up.
+Table 6-2. I2C Default Address
+DEVICE VERSION
+
+MAGNETIC
+RANGE
+
+I2C READ ADDRESS (8BIT)
+
+TMAG5273A1
+
+35h
+
+6Ah
+
+6Bh
+
+TMAG5273B1
+
+22h
+
+44h
+
+45h
+
+TMAG5273C1
+
+±40 mT, ±80 mT
+
+78h
+
+F0h
+
+F1h
+
+TMAG5273D1
+
+44h
+
+88h
+
+89h
+
+TMAG5273A2
+
+35h
+
+6Ah
+
+6Bh
+
+TMAG5273B2
+
+22h
+
+44h
+
+45h
+
+78h
+
+F0h
+
+F1h
+
+44h
+
+88h
+
+89h
+
+TMAG5273C2
+
+±133 mT, ±266 mT
+
+TMAG5273D2
+
+16
+
+I2C ADDRESS (7 MSB BITS) I2C WRITE ADDRESS (8-BIT)
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+6.3.5 Magnetic Range Selection
+Table 6-3 shows the magnetic range selection for the TMAG5273 device. The X, Y, and Z axes range can be
+selected with the X_Y_RANGE and Z_RANGE register bits.
+Table 6-3. Magnetic Range Selection
+X, Y Axis Field
+Z Axis Field
+
+RANGE REGISTER SETTING
+
+TMAG5273A1
+
+TMAG5273A2
+
+X_Y_RANGE = 0b
+
+±40-mT
+
+±133-mT
+
+X_Y_RANGE = 1b
+
+±80-mT
+
+±266-mT
+
+Z_RANGE = 0b
+
+±40-mT
+
+±133-mT
+
+Z_RANGE = 1b
+
+±80-mT
+
+±266-mT
+
+COMMENT
+Better SNR performance
+Better SNR performance
+
+6.3.6 Update Rate Settings
+The TMAG5273 offers multiple update rates to offer design flexibility to system designers. The different update
+rates can be selected with the CONV_AVG register bits. Table 6-4 shows different update rate settings for the
+TMAG5273.
+Table 6-4. Update Rate Settings
+OPERATING
+MODE
+
+REGISTER SETTING
+
+X, Y, Z Axis
+
+UPDATE RATE
+SINGLE AXIS
+
+TWO AXES
+
+THREE AXES
+
+CONV_AVG = 000b
+
+20.0-kSPS
+
+13.3-kSPS
+
+10.0-kSPS
+
+X, Y, Z Axis
+
+CONV_AVG = 001b
+
+13.3-kSPS
+
+8.0-kSPS
+
+5.7-kSPS
+
+X, Y, Z Axis
+
+CONV_AVG = 010b
+
+8.0-kSPS
+
+4.4-kSPS
+
+3.1-kSPS
+
+X, Y, Z Axis
+
+CONV_AVG = 011b
+
+4.4-kSPS
+
+2.4-kSPS
+
+1.6-kSPS
+
+X, Y, Z Axis
+
+CONV_AVG = 100b
+
+2.4-kSPS
+
+1.2-kSPS
+
+0.8-kSPS
+
+X, Y, Z Axis
+
+CONV_AVG = 101b
+
+1.2-kSPS
+
+0.6-kSPS
+
+0.4-kSPS
+
+COMMENT
+Fastest update rate
+
+Best SNR case
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+17
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+6.4 Device Functional Modes
+The TMAG5273 supports multiple functional modes for wide array of applications as explained in Figure 6-6.
+A specific functional mode is selected by setting the corresponding value in the OPERATING_MODE register
+bits. The device starts powering up after VCC supply crosses the minimum threshold as specified in the
+Recommended Operating Condition (ROC) table.
+6.4.1 Standby (Trigger) Mode
+The TMAG5273 goes to standby mode after first time powering up. At this mode the digital circuitry and
+oscillators are on, and the device is ready to accept commands from the primary device. Based off the
+commands the device can start a sensor data conversion, go to power saving mode, or start data transfer
+through I2C interface. A new conversion can be triggered through I2C command or through INT pin. In this mode
+the device retains the immediate past conversion result data in the corresponding result registers. The time for
+the device to go from power up to standby mode is listed as Tstart_power_up in the Power up & Conversion Time
+table.
+6.4.2 Sleep Mode
+The TMAG5273 supports an ultra-low power sleep mode where the device retains the critical user configuration
+settings. The device does not retain the conversion result data in sleep mode. A primary can wake up the
+device from sleep mode through I2C interface or the INT pin. During the transition from sleep mode to standby
+mode through I2C interface the INT pin briefly asserts an interrupt. The INT pin recovers after the device fully
+transitions to the standby mode with RESULT_STATUS bit set to 0h indicating no conversion is completed. The
+time it takes for the device to go to standby mode from sleep mode is denoted by Tstart_sleep.
+6.4.3 Wake-up and Sleep (W&S) Mode
+In this mode the TMAG5273 can be configured to go to sleep and wake up at a certain interval, and measure
+sensor data based off the SLEEPTIME register bits setting. The device can be set to generate an interrupt
+through the INT_CONFIG_1 register. After the conversion is complete and the interrupt condition is met,
+the TMAG5273 exits the W&S mode and goes into standby mode. The last measured data is stored in the
+corresponding result registers before the device goes to the standby mode. If the interrupt condition is not met,
+the device continues in W&S mode to wake up and measure data at the specified interval. A primary can wake
+up the TMAG5273 anytime during the W&S mode through I2C bus or INT pin. The result interrupt function is not
+available during the W&S mode. The time for the device to go from W&S mode to standby mode is listed as
+Tstart_sleep in the Power up & Conversion Time table.
+
+18
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+6.4.4 Continuous Measure Mode
+In this mode the TMAG5273 continuously measures the sensor data per SENSOR_CONFIG &
+DEVICE_CONFIG register settings. In this mode the result registers can be accessed through the I2C lines.
+The time for the device to go from continuous measure mode to standby mode is listed as Tstart_measure in the
+Power up & Conversion Time table.
+Device Startup: (VCC crossing MIN threshold specified in the ROC
+table)
+
+Sleep Mode
+
+Wake-up & Sleep Mode
+
+Tstart_power_up
+
+Tstart_sleep
+
+Tgo_sleep
+
+Stand-by (Trigger) Mode
+
+Tstart_measure
+
+Continuous Measure Mode
+
+Figure 6-6. TMAG5273 Power-Up Sequence
+Table 6-5 shows different device operational modes of the TMAG5273.
+Table 6-5. Operating Modes
+OPERATING
+MODE
+
+DEVICE FUNCTION
+
+ACCESS
+TO USER
+REGISTERS
+
+RETAIN USER
+CONFIGURATION
+
+COMMENT
+
+Continuous
+Measure Mode
+
+Continuously measuring x, y, z
+axis, or temperature data
+
+Yes
+
+Yes
+
+Standby Mode
+
+Device is ready to accept I2C
+commands and start active
+conversion
+
+Yes
+
+Yes
+
+Wake-up and
+Sleep Mode
+
+Wakes up at a certain interval
+to measure the x, y, z axis, or
+temperature data
+
+No
+
+Yes
+
+1ms, 5ms, 10ms, 15ms, 20ms,
+30ms, 50ms, 100ms, 500ms, 1000ms,
+2000ms, 5000ms, and 20000ms intervals
+supported.
+
+Sleep Mode
+
+Device retains key configuration
+settings, but does not retain the
+measurement data
+
+Yes
+
+The primary device can use sleep mode
+to implement other power saving intervals
+not supported by wake-up and sleep
+mode.
+
+No
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+19
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+6.5 Programming
+6.5.1 I2C Interface
+The TMAG5273 offers I2C interface, a two-wire interface to connect low-speed devices like microcontrollers, A/D
+and D/A converters, I/O interfaces and other similar peripherals in embedded systems.
+6.5.1.1 SCL
+
+The SCL is the clock line used to synchronize all data transfers over the I2C bus.
+6.5.1.2 SDA
+
+SDA is the bidirectional data line for the I2C interface.
+6.5.1.3 I2C Read/Write
+
+The TMAG5273 supports multiple I2C read and write frames targeting different applications. I2C_RD and
+CRC_EN bits offers multiple read frames to optimize the read time, data resolution and data integrity for a
+select application.
+6.5.1.3.1 Standard I2C Write
+
+Figure 6-7 shows an example of standard I2C two byte write command supported by TMAG5273. The starting
+byte contains 7-bit secondary device address and a 0 at the R/W command bit. The MSB of the second byte
+contains the conversion trigger bit. Write 1 at this trigger bit to start a new conversion after the register address
+decoding is complete. The seven LSB bits of the second byte contains the starting register address for the
+write command. After the two command bytes, the primary device starts to send the data to be written at the
+corresponding register address. Each successive write byte sends the data for the successive register address
+in the secondary device.
+Primary Data
+
+ACK from Secondary
+
+No ACK from Primary
+
+Secondary Data
+
+ACK from Primary
+
+Start/ Stop from Primary
+
+Conversion Trigger
+
+Data[Reg_Add]
+
+Register address
+
+Data[Reg_Add+1]
+
+Data[Reg_Add+n]
+
+Stop
+
+R/W
+
+Start
+
+0
+Secondary address
+
+Figure 6-7. Standard I2C Write
+6.5.1.3.2 General Call Write
+
+Figure 6-8 shows an example of the general call I2C write command supported by the TMAG5273. This
+command is useful to configure multiple I2C devices in a I2C bus simultaneously. The starting byte contains
+8-bit 0s. The MSB of the second byte contains the conversion trigger bit. Write 1 at this trigger bit to start a new
+conversion after the register address decoding is completed. The seven LSB bits of the second byte contains the
+starting register address for the write command. After the two command bytes, the primary device starts to send
+the data to be written at the corresponding register address of all the secondary devices in the I2C bus. Each
+successive write byte sends the data for the successive register address in the secondary devices.
+Primary Data
+
+ACK from Secondary
+
+No ACK from Primary
+
+Secondary Data
+
+ACK from Primary
+
+Start/ Stop from Primary
+
+Conversion Trigger
+
+Register address
+
+Data[Reg_Add]
+
+Data[Reg_Add+1]
+
+Data[Reg_Add+N]
+
+Stop
+
+General call address
+
+R/W
+
+Start
+
+0 0 0 0 0 0 0 0
+
+Figure 6-8. General Call I2C Write
+
+20
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+6.5.1.3.3 Standard 3-Byte I2C Read
+
+Figure 6-9 and Figure 6-10 show examples of standard I2C three byte read command supported by the
+TMAG5273. The starting byte contains 7-bit secondary device address and the R/W command bit 0. The
+MSB of the second byte contains the conversion trigger command bit. Write 1 at this trigger bit to start a
+new conversion after the register address decoding is completed. The seven LSB bits of the second byte
+contains the starting register address for the write command. After receiving ACK signal from secondary, the
+primary send the secondary address once again with R/W command bit as 1. The secondary starts to send the
+corresponding register data, and sends successive register data with each successive ACK from the primary. If
+CRC is enabled, the secondary sends the fifth CRC byte based off the CRC calculation of immediate past four
+register bytes.
+Primary Data
+
+ACK from Secondary
+
+No ACK from Primary
+
+Secondary Data
+
+ACK from Primary
+
+Start/ Stop from Primary
+
+Data[Reg_Add]
+
+Data[Reg_Add+1]
+
+Data[Reg_Add+n]
+
+Stop
+
+Secondary address
+
+R/W
+
+ReStart
+
+1
+Register address
+
+R/W
+
+Start
+
+0
+Secondary address
+
+Conversion Trigger
+
+Figure 6-9. Standard 3-Byte I2C Read With CRC Disabled, CRC_EN = 0b
+Primary Data
+
+ACK from Secondary
+
+No ACK from Primary
+
+Secondary Data
+
+Conversion Trigger
+
+ACK from Primary
+
+Data[Reg_Add+3]
+
+CRC
+
+Secondary address
+
+R/W
+
+ReStart
+
+1
+Register address
+
+Data[Reg_Add]
+
+Data[Reg_Add+1]
+
+Data[Reg_Add+2]
+
+Stop
+
+Secondary address
+
+R/W
+
+Start
+
+0
+
+Start/ Stop from Primary
+
+Figure 6-10. Standard 3-Byte I2C Read With CRC Enabled, CRC_EN = 1b
+6.5.1.3.4 1-Byte I2C Read Command for 16-Bit Data
+
+Figure 6-11 and Figure 6-12 show examples of 1-byte I2C read command supported by the TMAG5273. Select
+I2C_RD =01b to enable this mode. The command byte contains 7-bit secondary device address and a 1 at the
+R/W bit. In this mode, per MAG_CH_EN and T_CH_EN bits setting, the device sends 16-bit data of the enabled
+channels and the CONV_STATUS register data byte. If CRC is enabled, the device sends an additional CRC
+byte based off the CRC calculation of the command byte and the data sent in the current packet. When multiple
+channels are enabled, the sent data follows the T, X, Y, and Z sequence in the successive data bytes.
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+21
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+Primary Data
+
+ACK from Secondary
+
+No ACK from Primary
+
+Secondary Data
+
+ACK from Primary
+
+Start/ Stop from Primary
+
+Data[Axis1_MSB]
+
+Data[Axis1_LSB]
+
+Data[CONV_STATUS]
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Single Axis Measurement Example,. X or Y or Z
+
+Data[Axis1_LSB]
+
+Data[Axis2_MSB]
+
+Data[Axis2_LSB]
+
+Data[CONV_STATUS]
+
+Data[Y_MSB]
+
+Data[Y_LSB]
+
+Data[Z_MSB]
+
+Data[Z_LSB]
+
+Data[X_MSB]
+
+Data[X_LSB]
+
+Data[Y_MSB]
+
+Data[Y_LSB]
+
+Stop
+
+Data[Axis1_MSB]
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Two Axes Measurement Example, XY or YZ or XZ
+
+Data[X_MSB]
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Stop
+
+Data[CONV_STATUS]
+
+Data[X_LSB]
+
+Three Axes Measurement Example, XYZ
+
+Data[Z_MSB]
+
+Data[T_LSB]
+
+Data[Z_LSB]
+
+Data[CONV_STATUS]
+
+Stop
+
+Data[T_MSB]
+
+R/W
+
+Start
+
+1
+Secondary address
+
+All Sensors Measurement Example, TXYZ
+
+Figure 6-11. 1-Byte I2C Read Command for 16-Bit Data With CRC Disabled, CRC_EN = 0b
+Primary Data
+
+ACK from Secondary
+
+No ACK from Primary
+
+Secondary Data
+
+ACK from Primary
+
+Start/ Stop from Primary
+
+Data[Axis1_MSB]
+
+Data[Axis1_LSB]
+
+Data[CONV_STATUS]
+
+CRC
+
+Data[Axis2_MSB]
+
+Data[Axis2_LSB]
+
+Data[CONV_STATUS]
+
+CRC
+
+Data[Y_MSB]
+
+Data[Y_LSB]
+
+Data[Z_MSB]
+
+Data[Z_LSB]
+
+Data[Y_MSB]
+
+Data[Y_LSB]
+
+Data[Z_MSB]
+
+Data[Z_LSB]
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Single Axis Measurement Example,. X or Y or Z
+
+Data[Axis1_MSB]
+
+Data[Axis1_LSB]
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Two Axes Measurement Example, XY or YZ or XZ
+
+Data[CONV_STATUS]
+
+Data[X_MSB]
+
+CRC
+
+Data[X_LSB]
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Three Axes Measurement Example, XYZ
+
+Data[T_MSB]
+
+CRC
+
+Data[T_LSB]
+
+Stop
+
+Data[CONV_STATUS]
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Three Axes Measurement Example, TYZ
+
+Figure 6-12. 1-Byte I2C Read Command for 16-Bit Data With CRC Enabled, CRC_EN = 1b
+
+22
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+6.5.1.3.5 1-Byte I2C Read Command for 8-Bit Data
+
+Figure 6-13 and Figure 6-14 show examples of 1-byte I2C read command supported by the TMAG5273. Select
+I2C_RD =10b to enable this mode. The command byte contains 7-bit secondary device address and a 1 at the
+R/W bit. In this mode, per MAG_CH_EN and T_CH_EN bits setting, the device sends 8-bit data of the enabled
+channels and the CONV_STATUS register data byte. If CRC is enabled, the device sends an additional CRC
+byte based off the CRC calculation of the command byte and the data sent in the current packet. When multiple
+channels are enabled, the sent data follows the T, X, Y, and Z sequence in the successive data bytes.
+Primary Data
+
+ACK from Secondary
+
+No ACK from Primary
+
+Secondary Data
+
+ACK from Primary
+
+Start/ Stop from Primary
+
+Data[Axis1_MSB]
+
+Data[CONV_STATUS]
+
+Stop
+
+Secondary address
+
+R/W
+
+Start
+
+1
+
+Single Axis Measurement Example,. X or Y or Z
+
+Data[Axis1_MSB]
+
+Data[Axis2_MSB]
+
+Data[CONV_STATUS]
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Two Axes Measurement Example, XY or YZ or XZ
+
+Data[X_MSB]
+
+Data[Y_MSB]
+
+Data[Z_MSB]
+
+Data[CONV_STATUS]
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Three Axes Measurement Example, XYZ
+
+Data[T_MSB]
+
+Data[Y_MSB]
+
+Data[X_MSB]
+
+Data[Z_MSB]
+
+Data[CONV_STATUS]
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+All Sensors Measurement Example, TXYZ
+
+Figure 6-13. 1-Byte I2C Read Command for 8-Bit Data With CRC Disabled, CRC_EN = 0b
+Primary Data
+
+ACK from Secondary
+
+No ACK from Primary
+
+Secondary Data
+
+ACK from Primary
+
+Start/ Stop from Primary
+
+Data[Axis1_MSB]
+
+Data[CONV_STATUS]
+
+CRC
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Single Axis Measurement Example, X or Y or Z
+
+Data[Axis1_MSB]
+
+Data[Axis2_MSB]
+
+Data[CONV_STATUS]
+
+CRC
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Two Axes Measurement Example, XY or YZ or XZ
+
+Data[X_MSB]
+
+Data[Y_MSB]
+
+Data[Z_MSB]
+
+Data[CONV_STATUS]
+
+CRC
+
+Data[Y_MSB]
+
+Data[Z_MSB]
+
+Data[CONV_STATUS]
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Three Axes Measurement Example, XYZ
+
+Data[T_MSB]
+
+Data[X_MSB]
+
+CRC
+
+Stop
+
+R/W
+
+Start
+
+1
+Secondary address
+
+Three Axes & Temperature Measurement Example, TXYZ
+
+Figure 6-14. 1-Byte I2C Read Command for 8-Bit Data With CRC Enabled, CRC_EN = 1b
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+23
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Note
+In the 1-byte read command for 8-bit data any combinations of channels can be sent without
+restrictions.
+6.5.1.3.6 I2C Read CRC
+
+The TMAG5273 supports optional CRC during I2C read. The CRC can be enabled through the CRC_EN register
+bit. The CRC is performed on a data string that is determined by the I2C read type. The CRC information is sent
+as a single byte after the data bytes. The code is generated by the polynomial x8 + x2 + x + 1. Initial CRC bits are
+FFh.
+The following equations can be employed to calculate CRC:
+d = Data Input, c = Initial CRC (FFh)
+
+(1)
+
+newcrc[0] = d[7] ^ d[6] ^ d[0] ^ c[0] ^ c[6] ^ c[7]
+
+(2)
+
+newcrc[1] = d[6] ^ d[1] ^ d[0] ^ c[0] ^ c[1] ^ c[6]
+
+(3)
+
+newcrc[2] = d[6] ^ d[2] ^ d[1] ^ d[0] ^ c[0] ^ c[1] ^ c[2] ^ c[6]
+
+(4)
+
+newcrc[3] = d[7] ^ d[3] ^ d[2] ^ d[1] ^ c[1] ^ c[2] ^ c[3] ^ c[7]
+
+(5)
+
+newcrc[4] = d[4] ^ d[3] ^ d[2] ^ c[2] ^ c[3] ^ c[4]
+
+(6)
+
+newcrc[5] = d[5] ^ d[4] ^ d[3] ^ c[3] ^ c[4] ^ c[5]
+
+(7)
+
+newcrc[6] = d[6] ^ d[5] ^ d[4] ^ c[4] ^ c[5] ^ c[6]
+
+(8)
+
+newcrc[7] = d[7] ^ d[6] ^ d[5] ^ c[5] ^ c[6] ^ c[7]
+
+(9)
+
+The following examples show calculated CRC byte based off various input data:
+I2C Data 00h : CRC = F3h
+I2C Data FFh : CRC = 00h
+I2C Data 80h : CRC = 7Ah
+I2C Data 4Ch : CRC = 10h
+I2C Data E0h : CRC = 5Dh
+I2C Data 00000000h : CRC = D1h
+I2C Data FFFFFFFFh : CRC = 0Fh
+6.5.2 Data Definition
+6.5.2.1 Magnetic Sensor Data
+
+The X, Y, and Z magnetic sensor data are stored in x_MSB_RESULT and x_LSB_RESULT registers. Figure 6-15
+shows that each sensor output stored in a 16-bit 2's complement format in two 8-bit registers. The data can be
+retrieved as 16-bit format combining both MSB and LSB registers, or as 8-bit format through the MSB register.
+
+24
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+x_MSB_RESULT
+
+D03
+D02
+D01
+D00
+
+D04
+
+D07
+D06
+D05
+
+D11
+D10
+D09
+D08
+
+D12
+
+D15
+D14
+D13
+
+x_LSB_RESULT
+
+Figure 6-15. Magnetic Sensor Data Definition
+The measured magnetic field can be calculated using Equation 10 for 16-bit data, and using Equation 11 for 8-bit
+data.
+
+where
+•
+•
+•
+
+B=
+
+i
+− D15 × 215 + ∑14
+i = 0 Di × 2
+× 2 BR
+216
+
+(10)
+
+B is magnetic field in mT.
+Di is the data bit shown in Figure 6-15.
+BR is the magnetic range in mT for the corresponding channel.
+B=
+
+6
+− D15 × 27 + ∑i = 0 Di + 8 × 2i
+× 2 BR
+28
+
+(11)
+
+6.5.2.2 Temperature Sensor Data
+
+The TMAG5273 will measure temperature from –40 °C to 170 °C. The temperature sensor data are stored in
+T_MSB_RESULT and T_LSB_RESULT registers. Figure 6-16 shows the sensor output stored in a 16-bit 2's
+complement format in two 8-bit registers. The data can be retrieved as 16-bit format combining both MSB and
+LSB registers, or as 8-bit format through the MSB register.
+T_MSB_RESULT
+
+D03
+D02
+D01
+D00
+
+D04
+
+D07
+D06
+D05
+
+D11
+D10
+D09
+D08
+
+D12
+
+D15
+D14
+D13
+
+T_LSB_RESULT
+
+Figure 6-16. Temperature Sensor Data Definition
+The measured temperature in degree Celsius can be calculated using Equation 12 for 16-bit data, and using
+Equation 13 for 8-bit data.
+
+where
+•
+•
+•
+
+T
+− TADC_T0
+T = TSENS_T0 + ADC_T
+T
+
+(12)
+
+ADC_RES
+
+T is the measured temperature in degree Celsius.
+TSENS_T0 as listed in the Electrical Characteristics table.
+TADC_RES is the change in ADC code per degree Celsius.
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+25
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+•
+•
+
+TADC_T0 as listed in the Electrical Characteristics table.
+TADC_T is the measured ADC code for temperature T.
+T
+256 × TADC_T − ADC_T0
+256
+T = TSENS_T0 +
+TADC_RES
+
+(13)
+
+6.5.2.3 Angle and Magnitude Data Definition
+
+The TMAG5273 calculates the angle from a pair of magnetic axes based off the ANGLE_EN register bits setting.
+Figure 6-17 shows the angle information stored in the ANGLE_RESULT_MSB and ANGLE_RESULT_LSB
+registers. Bits D04-D12 store angle integer value from 0 to 360 degree. Bits D00-D03 store fractional angle
+value. The 3-MSB bits are always populated as b000. The angle can be calculated using Equation 14.
+3
+
+where
+•
+•
+
+i
+
+i − 4 ∑i = 0 Di × 2
+A = ∑12
++
+i = 4 Di × 2
+16
+
+(14)
+
+A is the angle measured in degree.
+Di is the data bit as shown in Figure 6-17.
+
+For example: a 354.50 degree is populated as 0001 0110 0010 1000b and a 17.25 degree is populated as 000
+0001 0001 0100b.
+Reserved bits
+
+9-bit Angle integer value
+4-bit Angle fraction value
+
+D03
+D02
+D01
+D00
+
+D04
+
+D07
+D06
+D05
+
+D11
+D10
+D09
+D08
+
+D12
+
+D15
+D14
+D13
+
+0 0 0
+
+Figure 6-17. Angle Data Definition
+During the angle calculation, use Equation 15 to calculate the resultant vector magnitude.
+
+where
+•
+
+M = MADCCh12 + MADCCh22
+
+(15)
+
+MADCCh1, MADCCh2 are the ADC codes of the two magnetic channels selected for the angle calculation.
+
+Figure 6-18 shows the magnitude value stored in the MAGNITUDE_RESULT register. For on-axis angular
+measurement the magnitude value should remain constant across the full 360° measurement.
+
+D03
+D02
+D01
+D00
+
+D04
+
+D07
+D06
+D05
+
+MAGNITUDE_RESULT
+
+Figure 6-18. Magnitude Result Data Definition
+
+26
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+6.5.2.4 Magnetic Sensor Offset Correction
+
+The TMAG5273 enables offset correction for a pair of magnetic axes (see Figure 6-19). The
+MAG_OFFSET_CONFIG_1 and MAG_OFFSET_CONFIG_2 registers store the offset values to be corrected
+in 2's complement data format. As an example, if the uncorrected waveform for a particular axis has a value that
+is +2mT too high, enter an offset correction value of –2mT in the corresponding offset correction register. The
+selection and order of the sensors are defined in the ANGLE_EN register bits setting. The default value of these
+offset correction registers are set as zero.
+
+ΔOffset
+0-mT Reference Axis
+
+Figure 6-19. Magnetic Sensor Data Offset Correction
+The amount of offset for each axis can be calculated using Equation 16. As an example, with a ±40mT range,
+MAG_OFFSET_CONFIG_1 set at 1000 0000b, and MAG_OFFSET_CONFIG_2 set at 0001 0000b, the offset
+correction for the first axis is −2.5mT and second axis is 0.312mT.
+
+where
+•
+•
+•
+
+∆Offset =
+
+6
+− D7 × 27 + ∑i = 0 Di × 2i
+× 2 BR
+212
+
+(16)
+
+ΔOffset is the amount of offset correction to be applied in mT.
+Di is the data bit in the MAG_OFFSET_CONFIG_1 or MAG_OFFSET_CONFIG_2 register.
+BR is the magnetic range in mT for the corresponding channel.
+
+Alternately values for MAG_OFFSET_CONFIG_1 or MAG_OFFSET_CONFIG_2 can be calculated for a target
+offset correction using Equation 17.
+
+where
+•
+•
+•
+
+MAG_OFFSET =
+
+212 × ∆ Offset
+2 BR
+
+(17)
+
+MAG_OFFSET is the decimal value to be entered in the MAG_OFFSET_CONFIG_1 or
+MAG_OFFSET_CONFIG_2 register.
+ΔOffset is the amount of offset correction to be applied in mT.
+BR is the magnetic range in mT for the corresponding channel.
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+27
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+7 Application and Implementation
+Note
+Information in the following applications sections is not part of the TI component specification,
+and TI does not warrant its accuracy or completeness. TI’s customers are responsible for
+determining suitability of components for their purposes, as well as validating and testing their design
+implementation to confirm system functionality.
+
+7.1 Application Information
+7.1.1 Select the Sensitivity Option
+Select the highest TMAG5273 sensitivity option that can measure the required range of magnetic flux density so
+that the ADC input range is maximized.
+Larger-sized magnets and farther sensing distances can generally enable better positional accuracy than very
+small magnets at close distances, because magnetic flux density increases exponentially with the proximity to a
+magnet. TI created an online tool to help with simple magnet calculations under the TMAG5273 product folder
+on ti.com.
+7.1.2 Temperature Compensation for Magnets
+The TMAG5273 temperature compensation is designed to directly compensate the average temperature drift
+of several magnets as specified in the MAG_TEMPCO register bits. The residual induction (Br) of a magnet
+typically reduces by 0.12%/°C for NdFeB, and 0.20%/°C for ferrite magnets as the temperature increases. Set
+the MAG_TEMPCO bit to default 00b if the device temperature compensation is not needed.
+7.1.3 Sensor Conversion
+Multiple conversion schemes can be adopted based off the MAG_CH_EN and CONV_AVG register bits settings.
+7.1.3.1 Continuous Conversion
+
+The TMAG5273 can be set in continuous conversion mode when OPERATING_MODE is set to 10b. Figure 7-1
+shows few examples of continuous conversion. The input magnetic field is processed in two steps. In the first
+step the device spins the hall sensor elements, and integrates the sampled data. In the second step the ADC
+block converts the analog signal into digital bits and stores in the corresponding result register. While the ADC
+starts processing the first magnetic sample, the spin block can start processing another magnetic sample. In this
+mode the temperature data is taken at the beginning of each new conversion. This temperature data is used to
+compensate for the magnetic thermal drift.
+
+28
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+tstart_measure
+
+HALL Spin &
+Integraon
+
+X-Axis
+
+X-Axis
+
+Temp
+
+ADC
+
+Iniate
+
+Start
+
+X-Axis
+
+Conv me
+
+X-Axis
+
+Temp
+
+Start next
+Time
+
+OPERATING_MODE = 10b, MAG_CH_EN = 0001b, CONV_AVG = 000b
+tstart_measure
+
+HALL Spin &
+Integraon
+ADC
+
+Iniate
+
+X-Axis
+
+X-Axis
+
+Temp
+
+X-Axis
+
+X-Axis
+
+Conv me
+
+Start
+
+X-Axis
+
+X-Axis
+
+Temp
+
+X-Axis
+
+X-Axis
+
+Start next
+Time
+
+OPERATING_MODE = 10b, MAG_CH_EN = 0001b, CONV_AVG = 001b
+
+tstart_measure
+
+HALL Spin &
+Integraon
+ADC
+
+Iniate
+
+X-Axis
+
+Y-Axis
+
+Z-Axis
+
+Temp
+
+X-Axis
+
+Y-Axis
+
+Conversion me
+
+Start
+
+Z-Axis
+
+X-Axis
+
+Y-Axis
+
+Z-Axis
+
+Temp
+
+X-Axis
+
+Y-Axis
+
+Z-Axis
+
+Start next
+Time
+
+OPERATING_MODE = 10b, MAG_CH_EN = 0111b, CONV_AVG = 000b
+
+Figure 7-1. Continuous Conversion Examples
+7.1.3.2 Trigger Conversion
+
+The TMAG5273 supports trigger conversion with OPERATING_MODE set to 00b. The trigger event can
+be initiated through I2C command or INT signal. Figure 7-2 shows an example of trigger conversion with
+temperature, X, Y, and Z sensors activated.
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+29
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+tstart_measure
+
+HALL Spin &
+Integraon
+
+X-Axis
+
+Temp
+
+ADC
+
+Trigger
+
+Y-Axis
+
+Z-Axis
+
+Y-Axis
+
+X-Axis
+
+Z-Axis
+
+Conversion me
+
+Start
+
+Time
+
+Figure 7-2. Trigger Conversion for Temperature, X, Y, & Z Sensors
+7.1.3.3 Pseudo-Simultaneous Sampling
+
+In absolute angle measurement, application sensor data from multiple axes are required to calculate an accurate
+angle. The magnetic field data collected at different times through the same signal chain introduces error in
+angle calculation. The TMAG5273 offers pseudo-simultaneous sampling data collection modes to eliminate this
+error. Figure 7-3 shows an example where MAG_CH_EN is set at 1011b to collect XZX data. Equation 18 shows
+that the time stamps for the X and Z sensor data are the same.
+t
+
+where
+•
+
++t
+
+tZ = X1 2 X2
+
+(18)
+
+tX1, tZ, tX2 are time stamps for X, Z, X sensor data completion as defined in Figure 7-3.
+HALL Spin &
+Integraon
+ADC
+
+X-Axis
+
+Z-Axis
+
+X-Axis
+
+Temp
+
+X-Axis
+
+Z-Axis
+
+tX1
+
+X-Axis
+
+tZ
+
+tX2
+Time
+
+Figure 7-3. XZX Magnetic Field Conversion
+The vertical X, Y sensors of the TMAG5273 exhibit more noise than the horizontal Z sensor. The pseudosimultaneous sampling can be used to equalize the noise floor when two set of vertical sensor data are collected
+against one set of horizontal sensor data, as in examples of XZX or YZY modes.
+7.1.4 Magnetic Limit Check
+The TMAG5273 enables magnetic limit checks for single or multiple axes at the same time. Figure 7-4 to
+Figure 7-7 show examples of magnetic limit cross detection events while the field going above, below, exiting a
+magnetic band, and entering a magnetic band. The device generates an interrupt with each new conversion if
+the magnetic fields remain in the shaded regions of the figures. The MAG_THR_DIR and THR_HYST register
+bits help select different limit cross modes.
+
+30
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+X Ch Threshold
+
+X Ch Threshold
+
+0 mT
+
+0 mT
+
+X Magnec Field
+
+X Magnec Field
+
+Interrupt
+
+Interrupt
+
+Time
+
+Time
+
+Figure 7-5. Magnetic Lower Limit Cross Check
+With MAG_THR_DIR =1b, THR_HYST = 000b
+
+Figure 7-4. Magnetic Upper Limit Cross Check
+With MAG_THR_DIR =0b, THR_HYST = 000b
+
+X Ch Threshold
+X Ch Threshold
+
+0 mT
+
+0 mT
+
+X Magnec Field
+
+X Magnec Field
+
+- X Ch Threshold
+
+- X Ch Threshold
+
+Interrupt
+
+Interrupt
+
+Time
+
+Figure 7-6. Magnetic Field Going Out of Band
+Check With MAG_THR_DIR =0b, THR_HYST = 001b
+
+Time
+
+Figure 7-7. Magnetic Field Entering a Band Check
+With MAG_THR_DIR =1b, THR_HYST = 001b
+
+7.1.5 Error Calculation During Linear Measurement
+The TMAG5273 offers independent configurations to perform linear position measurements in X, Y, and Z
+axes. To calculate the expected error during linear measurement, the contributions from each of the individual
+error sources must be understood. The relevant error sources include sensitivity error, offset, noise, cross axis
+sensitivity, hysteresis, nonlinearity, drift across temperature, drift across life time, and so forth. For a 3-axis Hall
+sensor like the TMAG5273, the cross-axis sensitivity and hysteresis error sources are insignificant. Use Equation
+19 to estimate the linear measurement error calculation at room temperature.
+
+where
+•
+•
+•
+•
+•
+
+ErrorLM_25C =
+
+B × SENSER
+
+2
+
+2
+2
++ Boff + NRMS_25
+× 100%
+B
+
+(19)
+
+ErrorLM_25C is total error in % during linear measurement at 25°C.
+B is input magnetic field.
+SENSER is sensitivity error in decimal number at 25°C. As an example, enter 0.05 for sensitivity error of 5%.
+Boff is offset error at 25°C.
+NRMS_25 is RMS noise at 25°C.
+
+In many applications, system level calibration at room temperature can nullify the offset and sensitivity errors
+at 25°C. The noise errors can be reduced by internally averaging by up to 32x on the device in addition to the
+averaging that can be done in the microcontroller. Use Equation 20 to estimate the linear measurement error
+across temperature after calibration at room temperature.
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+31
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+where
+•
+•
+•
+•
+•
+
+ErrorLM_Temp =
+
+B × SENSDR
+
+2
+
+2
++ Boff _DR + N2
+RMS_Temp
+× 100%
+B
+
+(20)
+
+ErrorLM_Temp is total error in % during linear measurement across temperature after room temperature
+calibration.
+B is input magnetic field.
+SENSDR is sensitivity drift in decimal number from value at 25°C. As an example, enter 0.05 for sensitivity
+drift of 5%.
+Boff_DR is offset drift from value at 25°C.
+NRMS_Temp is RMS noise across temperature.
+
+If room temperature calibration is not performed, sensitivity and offset errors at room temperature must also
+account for total error calculation across temperature (see Equation 21).
+
+where
+•
+
+ErrorLM_Temp_NCal =
+
+B × SENSER
+
+2
+
++ B × SENSDR
+
+2
+
+B
+
+2
+2
+2
++ Boff + Boff _DR + NRMS_Temp
+
+× 100%
+
+(21)
+
+ErrorLM_Temp_NCal is total error in % during linear measurement across temperature without room temperature
+calibration.
+Note
+In this section, error sources such as system mechanical vibration, magnet temperature gradient,
+earth magnetic field, nonlinearity, lifetime drift, and so forth, are not considered. The user must take
+these additional error sources into account while calculating overall system error budgets.
+
+7.1.6 Error Calculation During Angular Measurement
+The TMAG5273 offers on-chip CORDIC to measure angle data from any of the two magnetic axes. The
+linear magnetic axis data can be used to calculate the angle using an external CORDIC as well. To calculate
+the expected error during angular measurement, the contributions from each individual error source must be
+understood. The relevant error sources include sensitivity error, offset, noise, axis-axis mismatch, nonlinearity,
+drift across temperature, drift across life time, and so forth. Use the Angle Error Calculation Tool to estimate the
+total error during angular measurement.
+
+7.2 Typical Application
+Magnetic 3D sensors are very popular due to contactless and reliable measurements, especially in applications
+requiring long-term measurements in rugged environments. The TMAG5273 offers design flexibility in wide
+range of industrial and personal electronics applications. In this section three common application examples are
+discussed in details.
+7.2.1 Magnetic Tamper Detection
+Given the susceptibility to magnetic tampering, electricity meters often include magnetic sensors designed to
+detect external magnetic fields and take appropriate actions, such as disconnecting services to the electricity
+meter or applying a penalty fee for tampering. Figure 7-8 shows that magnetic tampering can result from a
+permanent magnet in any of the three orientations. Another form of magnetic tampering can be generated
+through an external coil powered from AC supply mains. The TMAG5273 offers flexible operating modes and
+configuration of three independent Hall-sensors to detect tampering.
+
+32
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+AC Mains
+
+Figure 7-8. TMAG5273 Magnetic Tamper Detection
+
+AC-DC
+Converter
+
+Main Supply
+OUT
+
+Power Mux
+Main Supply
+Status
+Back-up Power
+
+VCC
+
+TMAG5273
+
+VCC
+
+TEST
+
+INT
+SCL
+SDA
+
+GND
+
+µController
+
+Back-up
+Battery
+
+GND
+
+Figure 7-9. TMAG5273 Application Diagram for Tamper Detection
+7.2.1.1 Design Requirements
+
+Use the parameters listed in Table 7-3 for this design example.
+Table 7-1. Design Parameters
+DESIGN PARAMETERS
+
+OPERATING ON AC SUPPLY
+
+OPERATING ON BACK-UP BATTERY
+
+Device
+
+TMAG5273-A2
+
+TMAG5273-A2
+
+VCC
+
+3.3V
+
+3.6V to 1.7V
+
+Operating Mode
+
+Continuous measure mode
+
+Wake-up and sleep mode
+
+Design Objective
+
+Read the raw magnetic data and determine
+the magnitude and type of tampering (AC or
+DC magnetic field)
+
+Wake up the microcontroller if magnetic
+tampering occurs
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+33
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Table 7-1. Design Parameters (continued)
+DESIGN PARAMETERS
+
+OPERATING ON AC SUPPLY
+
+OPERATING ON BACK-UP BATTERY
+
+Timing Budget to Detect Tampering
+
+<100ms
+
+<5s
+
+Desired Battery Life
+
+N/A
+
+5 Year
+
+7.2.1.2 Detailed Design Procedure
+
+Select a power multiplexer that allows powering the system from AC power line as default option. In case of
+power outage the power multiplexer automatically switches to back-up battery for powering the system. A status
+signal from, either the AC-DC regulator or the multiplexer, notifies the microcontroller on power outage events.
+The microcontroller, upon receiving the status signal, configures the TMAG5273 to operate in wake-up and sleep
+mode. The TMAG5273 wakes up and measures the magnetic field at a prespecified interval. The device repeats
+the cycle if no tampering happens. In case of tampering, the device can exit the wake-up and sleep mode and
+send an interrupt signal to the microcontroller.
+Perform the following steps to set the device in continuous measure mode and minimize the number of steps
+required during battery back-up modes:
+• Set the DEVICE_CONFIG_1 register to 1h.
+• Set the SENSOR_CONFIG_1 register to 79h.
+• Set the T_CONFIG register to 1h.
+• Set the INT_CONFIG_1 register to A4h.
+• Set the DEVICE_CONFIG_2 register to 22h.
+• Wait for the INT signal assert low to indicate conversion complete. When INT goes low, perform the 16-bit T,
+X, Y, Z register read with one single read command (see Figure 7-10).
+Continuous
+Conversion
+
+1st set
+
+2nd set
+
+3rd set
+
+4th set
+
+5th set
+
+Interrupt
+I2C Read
+
+Time
+
+Figure 7-10. Continuous Conversion With AC Line Power
+During power outage event perform only the following steps to set the sensor in the wake-up and sleep mode:
+•
+•
+•
+
+34
+
+Set the INT_CONFIG_1 register to 64h.
+Set the DEVICE_CONFIG_2 register to 23h.
+If a threshold detection even occurs, the INT signal asserts low to wake-up the microcontroller. When INT
+goes low, perform the 16-bit T, X, Y, Z register read with one single read command (see Figure 7-11).
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+Wake-up & Sleep Mode
+
+Standby Mode
+
+Operating Mode
+
+X Ch Threshold
+
+X Magnetic Field
+
+Interrupt through INT
+(Latched)
+
+SCL Line
+
+Time
+
+Figure 7-11. Wake-Up and Sleep Mode Operation With Back-Up Battery
+7.2.1.3 Application Curves
+
+Figure 7-12. Tamper Detection During Continuous Conversion
+7.2.2 I2C Address Expansion
+The TMAG5273 is offered in four different factory-programmed I2C addresses. The device also supports
+additional I2C addresses through the configuration of the I2C_ADDRESS register. There are 7-bits to select
+128 different addresses. Take system limitations like bus loading, maximum clock frequency, available GPIOs
+from a microcontroller, and so forth, in account before selecting maximum number of sensors in a single I2C bus.
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+35
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+TMAG5273A1
+#4
+
+VCC
+
+TEST
+
+INT
+SCL
+SDA
+
+GND
+
+TMAG5273A1
+#3
+
+VCC
+
+TEST
+
+INT
+SCL
+SDA
+
+GND
+
+TEST
+
+TMAG5273A1
+#2
+
+VCC
+INT
+SCL
+SDA
+
+GND
+
+TEST
+
+VCC
+
+GPIO1
+
+GPIO2
+
+TMAG5273A1
+#1
+
+VCC
+
+GPIO3
+
+GPIO4
+
+3.3-V
+Supply
+
+INT
+SCL
+
+µController
+
+SDA
+
+GND
+
+Figure 7-13. TMAG5273 Application Diagram for I2C Address Expansion
+7.2.2.1 Design Requirements
+
+Use the parameters listed in Table 7-3 for this design example.
+Table 7-2. Design Parameters
+
+36
+
+PARAMETERS
+
+DESIGN TARGET
+
+Device orderable
+
+TMAG5273A1
+
+VCC
+
+3.3V
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Table 7-2. Design Parameters (continued)
+PARAMETERS
+
+DESIGN TARGET
+
+# of Devices in same bus
+
+4 (same method can be used to expand the number of sensors in the
+I2C bus)
+
+Design objective
+
+Optimize the # GPIO and component count
+
+Current supply per sensor
+
+5mA, supplied by a microcontroller GPIO
+
+7.2.2.2 Detailed Design Procedure
+
+Select GPIO with current supply capability of 5mA. Figure 7-13 shows that the SCL, SDA lines and INT pin can
+be shared. However, the function of the INT pin needs to be analyzed when shared by multiple sensors. As an
+example, if the sensors are configured to generate interrupt through the INT pin, the microcontroller needs to
+read all the sensors to determine which specific one sending the interrupt. Take the following steps sequentially
+to assign new I2C addresses to the four TMAG5273 shown in Figure 7-14:
+• Turn on the GPIO#1 and wait until tstart_power_up time is elapsed.
+• Address the device#1 with factory programmed address. Write to the I2C_ADDRESS register to assign a new
+address.
+• Turn on the GPIO#2 and wait until tstart_power_up time is elapsed.
+• Address the device#2 with factory programmed address. Write to the I2C_ADDRESS register to assign a new
+unique address.
+• Turn on the GPIO#3 and wait until tstart_power_up time is elapsed.
+• Address the device#3 with factory programmed address. Write to the I2C_ADDRESS register to assign a new
+unique address.
+• Turn on the GPIO#4 and wait until tstart_power_up time is elapsed.
+• Address the device#4 with factory programmed address. Write to the I2C_ADDRESS register to assign a new
+unique address.
+Repeat the above steps if there is a power outage or power-up reset condition.
+tstart_power_up
+
+GPIO1
+
+GPIO2
+
+GPIO3
+
+GPIO4
+
+Write I2C
+Address #1
+
+I2C Line
+
+Write I2C
+Address #2
+
+Write I2C
+Address #3
+
+Write I2C
+Address #4
+
+Time
+
+Figure 7-14. Power-Up Timing and I2C Address Allocation for the Four Sensors
+7.2.3 Angle Measurement
+Magnetic angle sensors are very popular due to contactless and reliable measurements, especially in
+applications requiring long-term measurements in rugged environments. The TMAG5273 offers an on-chip angle
+calculator providing angular measurement based off any two of the magnetic axes. The two axes of interest can
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+37
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+be selected in the ANGLE_EN register bits. The device offers angle output in complete 360 degree scale. Take
+several error sources into account for angle calculation, including sensitivity error, offset error, linearity error,
+noise, mechanical vibration, temperature drift, and so forth.
+1.7 V to 3.6 V
+
+1.2 V to 5.5 V
+
+µController
+
+TEST
+
+TMAG5273
+
+VCC
+INT
+
+SCL
+SDA
+
+GND
+
+Figure 7-15. TMAG5273 Application Diagram for Angle Measurement
+7.2.3.1 Design Requirements
+
+Use the parameters listed in Table 7-3 for this design example.
+Table 7-3. Design Parameters
+DESIGN PARAMETERS
+
+ON-AXIS MEASUREMENT
+
+OFF-AXIS MEASUREMENT
+
+Device
+
+TMAG5273-A1
+
+TMAG5273-A1
+
+VCC
+
+3.3V
+
+3.3V
+
+Directly under the magnet
+
+At the adjacent side of the magnet
+
+Device Position
+Magnet
+
+Cylinder: 4.7625mm diameter, 12.7mm thick, Cylinder: 4.7625mm diameter, 12.7mm thick,
+neodymium N52, Br = 1480
+neodymium N52, Br = 1480
+
+Magnetic Range Selection
+
+Select the same range for both axes based
+off the highest possible magnetic field seen
+by the sensor
+
+Select the same range for both axes based
+off the highest possible magnetic field seen
+by the sensor
+
+RPM
+
+<600
+
+<600
+
+Desired Accuracy
+
+<2° for 360° rotation
+
+<2° for 360° rotation
+
+7.2.3.2 Detailed Design Procedure
+
+For accurate angle measurement, the two axes amplitudes must be normalized by selecting the proper gain
+adjustment value in the MAG_GAIN_CONFIG register. The gain adjustment value is a fractional decimal number
+between 0 and 1. The following steps must be followed to calculate this fractional value:
+• Set the device at 32x average mode and rotate the shaft full 360 degree.
+• Record the two axes sensor ADC codes for the full 360 degree rotation.
+• A normalized plot for the full 360 degree rotations are represented in Figure 7-17 or Figure 7-18.
+• Measure the maximum peak-peak ADC code delta for each axis, AX and AY.
+•
+•
+•
+
+A
+
+If AX>AY, set the MAG_GAIN_CH register bit to 0b. Calculate the gain adjustment value for X axis: GX = AY
+
+X
+
+If AX<AY, set the MAG_GAIN_CH register bit to 1b. Calculate the gain adjustment value for Y axis: GY = G1
+
+X
+
+The target binary gain setting at the GAIN_VALUE register bits are calculated from the equation, GX or GY =
+GAIN_VALUEdecimal/ 256.
+
+Example 1: If AX = AY = 60,000, the GAIN_VALUE register bits are set at default 0000 0000b.
+38
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Example 2: If AX= 60,000, AY = 45,000, the GX = 45,000/60,000 =0.75. Set MAG_GAIN_CH to 0b and
+GAIN_VALUE to 1100 0000b.
+Example 3: If AX= 45,000, AY = 60,000, the GX = (60,000/45,000) =1.33. Since GX >1, the gain adjustment
+needs to be applied to Y axis with GY =1/GX. Set MAG_GAIN_CH to 1b and GAIN_VALUE to 1100 0000b.
+7.2.3.2.1 Gain Adjustment for Angle Measurement
+
+Common measurement topology include angular position measurements in on-axis or off-axis angular
+measurements shown in Figure 7-16. Select the on-axis measurement topology whenever possible as this offers
+the best optimization of magnetic field and the device measurement ranges. The TMAG5273 offers on-chip gain
+adjustment option to account for mechanical position misalignments.
+
+On-axis
+
+N
+
+Off-axis
+
+S
+
+S
+
+N
+
+Figure 7-16. On-Axis vs. Off-Axis Angle Measurements
+7.2.3.3 Application Curves
+
+Figure 7-17. X and Y Sensor Data for Full 360
+Degree Rotation for On-Axis Measurement
+
+Figure 7-18. X and Y Sensor Data for Full 360
+Degree Rotation for Off-Axis Measurement
+
+7.3 Best Design Practices
+The TMAG5273 updates the result registers at the end of a conversion. I2C read of the result register needs to
+be synchronized with the conversion update time to avoid reading a result data while the result register is being
+updated. For applications with tight timing budget use the INT signal to notify the primary when a conversion is
+complete.
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+39
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+7.4 Power Supply Recommendations
+A decoupling capacitor close to the device must be used to provide local energy with minimal inductance. TI
+recommends using a ceramic capacitor with a value of at least 0.01µF. Connect the TEST pin to ground.
+
+7.5 Layout
+7.5.1 Layout Guidelines
+Magnetic fields pass through most nonferromagnetic materials with no significant disturbance. Embedding Hall
+effect sensors within plastic or aluminum enclosures and sensing magnets on the outside is common practice.
+Magnetic fields also easily pass through most printed-circuit boards (PCBs), which makes placing the magnet on
+the opposite side of the PCB possible.
+7.5.2 Layout Example
+
+SCL
+
+SDA
+
+GND
+
+INT
+
+GND (TEST)
+
+VCC
+
+Figure 7-19. Layout Example With TMAG5273
+
+40
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+8 Register Maps
+8.1 TMAG5273 Registers
+Table 8-1 lists the TMAG5273 registers. All register offset addresses not listed in Table 8-1 should be considered
+as reserved locations and the register contents should not be modified.
+User Configuration Registers
+Table 8-1. TMAG5273 Registers
+Offset
+
+Acronym
+
+Register Name
+
+Section
+
+0h
+
+DEVICE_CONFIG_1
+
+Configure Device Operation Modes
+
+Go
+
+1h
+
+DEVICE_CONFIG_2
+
+Configure Device Operation Modes
+
+Go
+
+2h
+
+SENSOR_CONFIG_1
+
+Sensor Device Operation Modes
+
+Go
+
+3h
+
+SENSOR_CONFIG_2
+
+Sensor Device Operation Modes
+
+Go
+
+4h
+
+X_THR_CONFIG
+
+X Threshold Configuration
+
+Go
+
+5h
+
+Y_THR_CONFIG
+
+Y Threshold Configuration
+
+Go
+
+6h
+
+Z_THR_CONFIG
+
+Z Threshold Configuration
+
+Go
+
+7h
+
+T_CONFIG
+
+Temp Sensor Configuration
+
+Go
+
+8h
+
+INT_CONFIG_1
+
+Configure Device Operation Modes
+
+Go
+
+9h
+
+MAG_GAIN_CONFIG
+
+Configure Device Operation Modes
+
+Go
+
+Ah
+
+MAG_OFFSET_CONFIG_1
+
+Configure Device Operation Modes
+
+Go
+
+Bh
+
+MAG_OFFSET_CONFIG_2
+
+Configure Device Operation Modes
+
+Go
+
+Ch
+
+I2C_ADDRESS
+
+I2C Address Register
+
+Go
+
+Dh
+
+DEVICE_ID
+
+ID for the device die
+
+Go
+
+Eh
+
+MANUFACTURER_ID_LSB
+
+Manufacturer ID lower byte
+
+Go
+
+Fh
+
+MANUFACTURER_ID_MSB
+
+Manufacturer ID upper byte
+
+Go
+
+10h
+
+T_MSB_RESULT
+
+Conversion Result Register
+
+Go
+
+11h
+
+T_LSB_RESULT
+
+Conversion Result Register
+
+Go
+
+12h
+
+X_MSB_RESULT
+
+Conversion Result Register
+
+Go
+
+13h
+
+X_LSB_RESULT
+
+Conversion Result Register
+
+Go
+
+14h
+
+Y_MSB_RESULT
+
+Conversion Result Register
+
+Go
+
+15h
+
+Y_LSB_RESULT
+
+Conversion Result Register
+
+Go
+
+16h
+
+Z_MSB_RESULT
+
+Conversion Result Register
+
+Go
+
+17h
+
+Z_LSB_RESULT
+
+Conversion Result Register
+
+Go
+
+18h
+
+CONV_STATUS
+
+Conversion Status Register
+
+Go
+
+19h
+
+ANGLE_RESULT_MSB
+
+Conversion Result Register
+
+Go
+
+1Ah
+
+ANGLE_RESULT_LSB
+
+Conversion Result Register
+
+Go
+
+1Bh
+
+MAGNITUDE_RESULT
+
+Conversion Result Register
+
+Go
+
+1Ch
+
+DEVICE_STATUS
+
+Device_Diag Status Register
+
+Go
+
+Complex bit access types are encoded to fit into small table cells. Table 8-2 shows the codes that are used for
+access types in this section.
+Table 8-2. TMAG5273 Access Type Codes
+Access Type
+
+Code
+
+Description
+
+R
+
+Read
+
+W
+
+Write
+
+Read Type
+R
+Write Type
+W
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+41
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Table 8-2. TMAG5273 Access Type Codes (continued)
+Access Type
+
+Code
+
+Description
+
+W1CP
+
+W
+1C
+P
+
+Write
+1 to clear
+Requires privileged access
+
+Reset or Default Value
+-n
+
+Value after reset or the default value
+
+8.1.1 DEVICE_CONFIG_1 Register (Offset = 0h) [Reset = 0h]
+DEVICE_CONFIG_1 is shown in Table 8-3.
+Return to the Summary Table.
+Table 8-3. DEVICE_CONFIG_1 Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7
+
+CRC_EN
+
+R/W
+
+0h
+
+Enables I2C CRC byte to be sent
+0h = CRC disabled
+1h = CRC enabled
+
+6-5
+
+MAG_TEMPCO
+
+R/W
+
+0h
+
+Temperature coefficient of the magnet
+0h = 0% (No temperature compensation)
+1h = 0.12%/ deg C (NdBFe)
+2h = Reserved
+3h = 0.2%/deg C (Ceramic)
+
+4-2
+
+CONV_AVG
+
+R/W
+
+0h
+
+Enables additional sampling of the sensor data to reduce the noise
+effect (or to increase resolution)
+0h = 1x average, 10.0-kSPS (3-axes) or 20-kSPS (1 axis)
+1h = 2x average, 5.7-kSPS (3-axes) or 13.3-kSPS (1 axis)
+2h = 4x average, 3.1-kSPS (3-axes) or 8.0-kSPS (1 axis)
+3h = 8x average, 1.6-kSPS (3-axes) or 4.4-kSPS (1 axis)
+4h = 16x average, 0.8-kSPS (3-axes) or 2.4-kSPS (1 axis)
+5h = 32x average, 0.4-kSPS (3-axes) or 1.2-kSPS (1 axis)
+
+1-0
+
+I2C_RD
+
+R/W
+
+0h
+
+Defines the I2C read mode
+0h = Standard I2C 3-byte read command
+1h = 1-byte I2C read command for 16bit sensor data and conversion
+status
+2h = 1-byte I2C read command for 8 bit sensor MSB data and
+conversion status
+3h = Reserved
+
+8.1.2 DEVICE_CONFIG_2 Register (Offset = 1h) [Reset = 0h]
+DEVICE_CONFIG_2 is shown in Table 8-4.
+Return to the Summary Table.
+Table 8-4. DEVICE_CONFIG_2 Register Field Descriptions
+
+42
+
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-5
+
+THR_HYST
+
+R/W
+
+0h
+
+Select thresholds for the interrupt function
+0h = Takes the 2's complement value of each x_THR_CONFIG
+register to create a magnetic threshold of the corresponding axis
+1h = Takes the 7 LSB bits of the x_THR_CONFIG register to create
+two opposite magnetic thresholds (one north, and another south) of
+equal magnitude.
+2h = Reserved
+3h = Reserved
+4h = Reserved
+5h = Reserved
+6h = Reserved
+7h = Reserved
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Table 8-4. DEVICE_CONFIG_2 Register Field Descriptions (continued)
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+4
+
+LP_LN
+
+R/W
+
+0h
+
+Selects the modes between low active current or low-noise modes
+0h = Low active current mode
+1h = Low noise mode
+
+3
+
+I2C_GLITCH_FILTER
+
+R/W
+
+0h
+
+I2C glitch filter
+0h = Glitch filter on
+1h = Glitch filter off
+
+2
+
+TRIGGER_MODE
+
+R/W
+
+0h
+
+Selects a condition which initiates a single conversion based
+off already configured registers. A running conversion completes
+before executing a trigger. Redundant triggers are ignored.
+TRIGGER_MODE is available only during the mode explicitly
+mentioned in OPERATING_MODE.
+0h = Conversion Start at I2C Command Bits, DEFAULT
+1h = Conversion starts through trigger signal at INT pin
+
+1-0
+
+OPERATING_MODE
+
+R/W
+
+0h
+
+Selects Operating Mode and updates value based on operating
+mode if device transitions from Wake-up and sleep mode to Standby
+mode.
+0h = Standby mode (starts new conversion at trigger event)
+1h = Sleep mode
+2h = Continuous measure mode
+3h = Wake-up and sleep mode (W&S mode)
+
+8.1.3 SENSOR_CONFIG_1 Register (Offset = 2h) [Reset = 0h]
+SENSOR_CONFIG_1 is shown in Table 8-5.
+Return to the Summary Table.
+Table 8-5. SENSOR_CONFIG_1 Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-4
+
+MAG_CH_EN
+
+R/W
+
+0h
+
+Enables data acquisition of the magnetic axis channel(s)
+0h = All magnetic channels of off, DEFAULT
+1h = X channel enabled
+2h = Y channel enabled
+3h = X, Y channel enabled
+4h = Z channel enabled
+5h = Z, X channel enabled
+6h = Y, Z channel enabled
+7h = X, Y, Z channel enabled
+8h = XYX channel enabled
+9h = YXY channel enabled
+Ah = YZY channel enabled
+Bh = XZX channel enabled
+Ch = Reserved
+Dh = Reserved
+Eh = Reserved
+Fh = Reserved
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+43
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Table 8-5. SENSOR_CONFIG_1 Register Field Descriptions (continued)
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+3-0
+
+SLEEPTIME
+
+R/W
+
+0h
+
+Selects the time spent in low power mode between conversions
+when OPERATING_MODE =11b
+0h = 1ms
+1h = 5ms
+2h = 10ms
+3h = 15ms
+4h = 20ms
+5h = 30ms
+6h = 50ms
+7h = 100ms
+8h = 500ms
+9h = 1000ms
+Ah = 2000ms
+Bh = 5000ms
+Ch = 20000ms
+
+8.1.4 SENSOR_CONFIG_2 Register (Offset = 3h) [Reset = 0h]
+SENSOR_CONFIG_2 is shown in Table 8-6.
+Return to the Summary Table.
+Table 8-6. SENSOR_CONFIG_2 Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7
+
+RESERVED
+
+R
+
+0h
+
+Reserved
+
+6
+
+THRX_COUNT
+
+R/W
+
+0h
+
+Number of threshold crossings before the interrupt is asserted
+0h = 1 threshold crossing
+1h = 4 threshold crossing
+
+5
+
+MAG_THR_DIR
+
+R/W
+
+0h
+
+Selects the direction of threshold check. This bit is ignored when
+THR_HYST > 001b
+0h = sets interrupt for field above the threshold
+1h = sets interrupt for field below the threshold
+
+4
+
+MAG_GAIN_CH
+
+R/W
+
+0h
+
+Selects the axis for magnitude gain correction value entered in
+MAG_GAIN_CONFIG register
+0h = 1st channel is selected for gain adjustment
+1h = 2nd channel is selected for gain adjustment
+
+3-2
+
+ANGLE_EN
+
+R/W
+
+0h
+
+Enables angle calculation, magnetic gain, and offset corrections
+between two selected magnetic channels
+0h = No angle calculation, magnitude gain, and offset correction
+enabled
+1h = X 1st, Y 2nd
+2h = Y 1st, Z 2nd
+3h = X 1st, Z 2nd
+
+1
+
+X_Y_RANGE
+
+R/W
+
+0h
+
+Select the X and Y axes magnetic range from 2 different options.
+0h = ±40mT (TMAG5273A1) or ±133mT (TMAG5273A2), DEFAULT
+1h = ±80mT (TMAG5273A1) or ±266mT (TMAG5273A2)
+
+0
+
+Z_RANGE
+
+R/W
+
+0h
+
+Select the Z axis magnetic range from 2 different options.
+0h = ±40mT (TMAG5273A1) or ±133mT (TMAG5273A2), DEFAULT
+1h = ±80mT (TMAG5273A1) or ±266mT (TMAG5273A2)
+
+8.1.5 X_THR_CONFIG Register (Offset = 4h) [Reset = 0h]
+X_THR_CONFIG is shown in Table 8-7.
+Return to the Summary Table.
+
+44
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Table 8-7. X_THR_CONFIG Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+X_THR_CONFIG
+
+R/W
+
+0h
+
+8-bit, 2's complement X axis threshold code for limit
+check. The range of possible threshold entrees can be
++/-128. The threshold value in mT is calculated for
+A1 as (40(1+X_Y_RANGE)/128)*X_THR_CONFIG, for A2 as
+(133(1+X_Y_RANGE)/128)*X_THR_CONFIG. Default 0h means no
+threshold comparison.
+
+8.1.6 Y_THR_CONFIG Register (Offset = 5h) [Reset = 0h]
+Y_THR_CONFIG is shown in Table 8-8.
+Return to the Summary Table.
+Table 8-8. Y_THR_CONFIG Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+Y_THR_CONFIG
+
+R/W
+
+0h
+
+8-bit, 2's complement Y axis threshold code for limit
+check. The range of possible threshold entrees can be
++/-128. The threshold value in mT is calculated for
+A1 as (40(1+X_Y_RANGE)/128)*X_THR_CONFIG, for A2 as
+(133(1+X_Y_RANGE)/128)*X_THR_CONFIG. Default 0h means no
+threshold comparison.
+
+8.1.7 Z_THR_CONFIG Register (Offset = 6h) [Reset = 0h]
+Z_THR_CONFIG is shown in Table 8-9.
+Return to the Summary Table.
+Table 8-9. Z_THR_CONFIG Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+Z_THR_CONFIG
+
+R/W
+
+0h
+
+8-bit, 2's complement Z axis threshold code for limit
+check. The range of possible threshold entrees can be
++/-128. The threshold value in mT is calculated for
+A1 as (40(1+Z_RANGE)/128)*Z_THR_CONFIG, for A2 as
+(133(1+Z_RANGE)/128)*Z_THR_CONFIG. Default 0h means no
+threshold comparison.
+
+8.1.8 T_CONFIG Register (Offset = 7h) [Reset = 0h]
+T_CONFIG is shown in Table 8-10.
+Return to the Summary Table.
+Table 8-10. T_CONFIG Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-1
+
+T_THR_CONFIG
+
+R/W
+
+0h
+
+Temperature threshold code entered by user. The valid temperature
+threshold ranges are -41C to 170C with the threshold codes for -41C
+= 1Ah, and 170C = 34h. Resolution is 8 degree C/ LSB. Default 0h
+means no threshold comparison.
+
+0
+
+T_CH_EN
+
+R/W
+
+0h
+
+Enables data acquisition of the temperature channel
+0h = Temp channel disabled
+1h = Temp channel enabled
+
+8.1.9 INT_CONFIG_1 Register (Offset = 8h) [Reset = 0h]
+INT_CONFIG_1 is shown in Table 8-11.
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+45
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Return to the Summary Table.
+Table 8-11. INT_CONFIG_1 Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7
+
+RSLT_INT
+
+R/W
+
+0h
+
+Enable interrupt response on conversion complete.
+0h = Interrupt is not asserted when the configured set of conversions
+are complete
+1h = Interrupt is asserted when the configured set of conversions are
+complete
+
+6
+
+THRSLD_INT
+
+R/W
+
+0h
+
+Enable interrupt response on a predefined threshold cross.
+0h = Interrupt is not asserted when a threshold is crossed
+1h = Interrupt is asserted when a threshold is crossed
+
+5
+
+INT_STATE
+
+R/W
+
+0h
+
+INT interrupt latched or pulsed.
+0h = INT interrupt latched until clear by a primary addressing the
+device
+1h = INT interrupt pulse for 10us
+
+4-2
+
+INT_MODE
+
+R/W
+
+0h
+
+Interrupt mode select.
+0h = No interrupt
+1h = Interrupt through INT
+2h = Interrupt through INT except when I2C bus is busy.
+3h = Interrupt through SCL
+4h = Interrupt through SCL except when I2C bus is busy.
+5h = Reserved
+6h = Reserved
+7h = Reserved
+
+1
+
+RESERVED
+
+R
+
+0h
+
+Reserved
+
+0
+
+MASK_INTB
+
+R/W
+
+0h
+
+Mask INT pin when INT connected to GND
+0h = INT pin is enabled
+1h = INT pin is disabled (for wake-up and trigger functions)
+
+8.1.10 MAG_GAIN_CONFIG Register (Offset = 9h) [Reset = 0h]
+MAG_GAIN_CONFIG is shown in Table 8-12.
+Return to the Summary Table.
+Table 8-12. MAG_GAIN_CONFIG Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+GAIN_VALUE
+
+R/W
+
+0h
+
+8-bit gain value determined by a primary to adjust a Hall axis
+gain. The particular axis is selected based off the settings of
+MAG_GAIN_CH and ANGLE_EN register bits. The binary 8-bit input
+is interpreted as a fractional value in between 0 and 1 based off
+the formula, 'user entered value in decimal/256'. Gain value of 0 is
+interpreted by the device as 1.
+
+8.1.11 MAG_OFFSET_CONFIG_1 Register (Offset = Ah) [Reset = 0h]
+MAG_OFFSET_CONFIG_1 is shown in Table 8-13.
+Return to the Summary Table.
+Table 8-13. MAG_OFFSET_CONFIG_1 Register Field Descriptions
+
+46
+
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+OFFSET_VALUE_1ST
+
+R/W
+
+0h
+
+8-bit, 2's complement offset value determined by a primary to adjust
+first axis offset value. The range of possible offset valid entrees can
+be +/-128. The offset value is calculated by multiplying bit resolution
+with the entered value.
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+8.1.12 MAG_OFFSET_CONFIG_2 Register (Offset = Bh) [Reset = 0h]
+MAG_OFFSET_CONFIG_2 is shown in Table 8-14.
+Return to the Summary Table.
+Table 8-14. MAG_OFFSET_CONFIG_2 Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+OFFSET_VALUE_2ND
+
+R/W
+
+0h
+
+8-bit, 2's complement offset value determined by a primary to adjust
+second axis offset value. The range of possible offset valid entrees
+can be +/-128. The offset value is calculated by multiplying bit
+resolution with the entered value.
+
+8.1.13 I2C_ADDRESS Register (Offset = Ch) [Reset = 6Ah]
+I2C_ADDRESS is shown in Table 8-15.
+Return to the Summary Table.
+Table 8-15. I2C_ADDRESS Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-1
+
+I2C_ADDRESS
+
+R/W
+
+35h
+
+7-bit default factory I2C address is loaded from OTP during first
+power up. Change these bits to a new setting if a new I2C address
+is required (at each power cycle these bits must be written again to
+avoid going back to default factory address).
+
+0
+
+I2C_ADDRESS_UPDATE R/W
+_EN
+
+0h
+
+Enable a new user defined I2C address.
+0h = Disable update of I2C address
+1h = Enable update of I2C address with bits (7:1)
+
+8.1.14 DEVICE_ID Register (Offset = Dh) [Reset = xh]
+DEVICE_ID is shown in Table 8-16.
+Return to the Summary Table.
+Table 8-16. DEVICE_ID Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-2
+
+RESERVED
+
+R
+
+xh
+
+Reserved
+
+1-0
+
+VER
+
+R
+
+xh
+
+Device version indicator. Reset value of DEVICE_ID depends on the
+orderable part number.
+0h = Reserved
+1h = ±40-mT and ±80-mT range
+2h = ±133-mT and ±266-mT range
+3h = Reserved
+
+8.1.15 MANUFACTURER_ID_LSB Register (Offset = Eh) [Reset = 49h]
+MANUFACTURER_ID_LSB is shown in Table 8-17.
+Return to the Summary Table.
+Table 8-17. MANUFACTURER_ID_LSB Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+7-0
+
+MANUFACTURER_ID_[7: R
+0]
+
+Reset
+
+Description
+
+49h
+
+8-bit unique manufacturer ID
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+47
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+8.1.16 MANUFACTURER_ID_MSB Register (Offset = Fh) [Reset = 54h]
+MANUFACTURER_ID_MSB is shown in Table 8-18.
+Return to the Summary Table.
+Table 8-18. MANUFACTURER_ID_MSB Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+7-0
+
+MANUFACTURER_ID_[15 R
+:8]
+
+Reset
+
+Description
+
+54h
+
+8-bit unique manufacturer ID
+
+8.1.17 T_MSB_RESULT Register (Offset = 10h) [Reset = 0h]
+T_MSB_RESULT is shown in Table 8-19.
+Return to the Summary Table.
+Table 8-19. T_MSB_RESULT Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+T_CH_RESULT [15:8]
+
+R
+
+0h
+
+T-channel data conversion results, MSB 8 bits.
+
+8.1.18 T_LSB_RESULT Register (Offset = 11h) [Reset = 0h]
+T_LSB_RESULT is shown in Table 8-20.
+Return to the Summary Table.
+Table 8-20. T_LSB_RESULT Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+T_CH_RESULT [7:0]
+
+R
+
+0h
+
+T-channel data conversion results, LSB 8 bits.
+
+8.1.19 X_MSB_RESULT Register (Offset = 12h) [Reset = 0h]
+X_MSB_RESULT is shown in Table 8-21.
+Return to the Summary Table.
+Table 8-21. X_MSB_RESULT Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+X_CH_RESULT [15:8]
+
+R
+
+0h
+
+X-channel data conversion results, MSB 8 bits.
+
+8.1.20 X_LSB_RESULT Register (Offset = 13h) [Reset = 0h]
+X_LSB_RESULT is shown in Table 8-22.
+Return to the Summary Table.
+Table 8-22. X_LSB_RESULT Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+X_CH_RESULT [7:0]
+
+R
+
+0h
+
+X-channel data conversion results, LSB 8 bits.
+
+8.1.21 Y_MSB_RESULT Register (Offset = 14h) [Reset = 0h]
+Y_MSB_RESULT is shown in Table 8-23.
+Return to the Summary Table.
+48
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Table 8-23. Y_MSB_RESULT Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+Y_CH_RESULT [15:8]
+
+R
+
+0h
+
+Y-channel data conversion results, MSB 8 bits.
+
+8.1.22 Y_LSB_RESULT Register (Offset = 15h) [Reset = 0h]
+Y_LSB_RESULT is shown in Table 8-24.
+Return to the Summary Table.
+Table 8-24. Y_LSB_RESULT Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+Y_CH_RESULT [7:0]
+
+R
+
+0h
+
+Y-channel data conversion results, LSB 8 bits.
+
+8.1.23 Z_MSB_RESULT Register (Offset = 16h) [Reset = 0h]
+Z_MSB_RESULT is shown in Table 8-25.
+Return to the Summary Table.
+Table 8-25. Z_MSB_RESULT Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+Z_CH_RESULT [15:8]
+
+R
+
+0h
+
+Z-channel data conversion results, MSB 8 bits.
+
+8.1.24 Z_LSB_RESULT Register (Offset = 17h) [Reset = 0h]
+Z_LSB_RESULT is shown in Table 8-26.
+Return to the Summary Table.
+Table 8-26. Z_LSB_RESULT Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+Z_CH_RESULT [7:0]
+
+R
+
+0h
+
+Z-channel data conversion results, LSB 8 bits.
+
+8.1.25 CONV_STATUS Register (Offset = 18h) [Reset = 10h]
+CONV_STATUS is shown in Table 8-27.
+Return to the Summary Table.
+Table 8-27. CONV_STATUS Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-5
+
+SET_COUNT
+
+R
+
+0h
+
+Rolling Count of Conversion Data Sets
+
+4
+
+POR
+
+R/W1CP
+
+1h
+
+Device powered up, or experienced power-on-reset. Bit is clear when
+host writes back 1.
+0h = No POR
+1h = POR occurred
+
+3-2
+
+RESERVED
+
+R
+
+0h
+
+Reserved
+
+1
+
+DIAG_STATUS
+
+R
+
+0h
+
+Detect any internal diagnostics fail which include VCC UV, internal
+memory CRC error, INT pin error and internal clock error. Ignore this
+bit status if VCC < 2.3V.
+0h = No diag fail
+1h = Diag fail detected
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+49
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Table 8-27. CONV_STATUS Register Field Descriptions (continued)
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+0
+
+RESULT_STATUS
+
+R
+
+0h
+
+Conversion data buffer is ready to be read.
+0h = Conversion data not complete
+1h = Conversion data complete
+
+8.1.26 ANGLE_RESULT_MSB Register (Offset = 19h) [Reset = 0h]
+ANGLE_RESULT_MSB is shown in Table 8-28.
+Return to the Summary Table.
+Table 8-28. ANGLE_RESULT_MSB Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+ANGLE_RESULT_MSB
+
+R
+
+0h
+
+Angle measurement result in degree. The data is displayed
+from 0 to 360 degree in 13 LSB bits after combining the
+ANGLE_RESULT_MSB and _LSB bits. The 4 LSB bits allocated for
+fraction of an angle in the format (xxxx/16).
+
+8.1.27 ANGLE_RESULT_LSB Register (Offset = 1Ah) [Reset = 0h]
+ANGLE_RESULT_LSB is shown in Table 8-29.
+Return to the Summary Table.
+Table 8-29. ANGLE_RESULT_LSB Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+ANGLE_RESULT_LSB
+
+R
+
+0h
+
+Angle measurement result in degree. The data is displayed
+from 0 to 360 degree in 13 LSB bits after combining the
+ANGLE_RESULT_MSB and _LSB bits. The 4 LSB bits allocated for
+fraction of an angle in the format (xxxx/16).
+
+8.1.28 MAGNITUDE_RESULT Register (Offset = 1Bh) [Reset = 0h]
+MAGNITUDE_RESULT is shown in Table 8-30.
+Return to the Summary Table.
+Table 8-30. MAGNITUDE_RESULT Register Field Descriptions
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-0
+
+MAGNITUDE_RESULT
+
+R
+
+0h
+
+Resultant vector magnitude (during angle measurement) result. This
+value should be constant during 360 degree measurements
+
+8.1.29 DEVICE_STATUS Register (Offset = 1Ch) [Reset = 10h]
+DEVICE_STATUS is shown in Table 8-31.
+Return to the Summary Table.
+Table 8-31. DEVICE_STATUS Register Field Descriptions
+
+50
+
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+7-5
+
+RESERVED
+
+R
+
+0h
+
+Reserved
+
+4
+
+INTB_RB
+
+R
+
+1h
+
+Indicates the level that the device is reading back from INT pin. The
+reset value of DEVICE_STATUS depends on the status of the INT
+pin at power-up.
+0h = INT pin driven low
+1h = INT pin status high
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Table 8-31. DEVICE_STATUS Register Field Descriptions (continued)
+Bit
+
+Field
+
+Type
+
+Reset
+
+Description
+
+3
+
+OSC_ER
+
+R/W1CP
+
+0h
+
+Indicates if Oscillator error is detected. Bit is clear when host writes
+back 1.
+0h = No Oscillator error detected
+1h = Oscillator error detected
+
+2
+
+INT_ER
+
+R/W1CP
+
+0h
+
+Indicates if INT pin error is detected. Bit is clear when host writes
+back 1.
+0h = No INT error detected
+1h = INT error detected
+
+1
+
+OTP_CRC_ER
+
+R/W1CP
+
+0h
+
+Indicates if OTP CRC error is detected. Bit is clear when host writes
+back 1.
+0h = No OTP CRC error detected
+1h = OTP CRC error detected
+
+0
+
+VCC_UV_ER
+
+R/W1CP
+
+0h
+
+Indicates if VCC undervoltage was detected. Bit is clear when host
+writes back 1. Ignore this bit status if VCC < 2.3V.
+0h = No VCC UV detected
+1h = VCC UV detected
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+51
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+9 Device and Documentation Support
+9.1 Documentation Support
+9.1.1 Related Documentation
+For related documentation see the following:
+• Texas Instruments, HALL-ADAPTER-EVM User's Guide
+• Texas Instruments, TMAG5173 Evaluation Manual user's guide
+• Texas Instruments, Angle Measurement With Multi-Axis Linear Hall-Effect Sensors application note
+• Texas Instruments, Absolute Angle Measurements for Rotational Motion Using Hall-Effect Sensors
+application brief
+• Texas Instruments, Limit Detection for Tamper and End-of-Travel Detection Using Hall-Effect Sensors
+application brief
+
+9.2 Receiving Notification of Documentation Updates
+To receive notification of documentation updates, navigate to the device product folder on ti.com. Click on
+Notifications to register and receive a weekly digest of any product information that has changed. For change
+details, review the revision history included in any revised document.
+
+9.3 Support Resources
+TI E2E™ support forums are an engineer's go-to source for fast, verified answers and design help — straight
+from the experts. Search existing answers or ask your own question to get the quick design help you need.
+Linked content is provided "AS IS" by the respective contributors. They do not constitute TI specifications and do
+not necessarily reflect TI's views; see TI's Terms of Use.
+
+9.4 Trademarks
+TI E2E™ is a trademark of Texas Instruments.
+All trademarks are the property of their respective owners.
+
+9.5 Electrostatic Discharge Caution
+This integrated circuit can be damaged by ESD. Texas Instruments recommends that all integrated circuits be handled
+with appropriate precautions. Failure to observe proper handling and installation procedures can cause damage.
+ESD damage can range from subtle performance degradation to complete device failure. Precision integrated circuits may
+be more susceptible to damage because very small parametric changes could cause the device not to meet its published
+specifications.
+
+9.6 Glossary
+TI Glossary
+
+This glossary lists and explains terms, acronyms, and definitions.
+
+10 Revision History
+NOTE: Page numbers for previous revisions may differ from page numbers in the current version.
+Changes from Revision A (September 2021) to Revision B (July 2024)
+Page
+• Updated formatting of ICC_DCM parameter in the Electrical Characteristics section........................................6
+• Updated the formatting of the Magnetic Characteristics for A1 test conditions.................................................. 8
+• Updated the formatting of the Magnetic Characteristics for A2 test conditions.................................................. 9
+• Updated the formatting of the Power up & Conversion Time test conditions................................................... 10
+• Added information about the INT function during the transition from sleep mode to standby mode................ 18
+• Added sentence: The result interrupt function is not available during the W&S mode.....................................18
+• Removed the exception note with CRC support for long data stream ............................................................ 21
+• Removed the exception note with CRC enabled .............................................................................................21
+• Changed DEVICE_ID register reset from 1h to xh........................................................................................... 41
+
+52
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Changes from Revision * (June 2021) to Revision A (September 2021)
+Page
+• Changed data sheet status from Advanced Information to Production Data......................................................1
+
+11 Mechanical, Packaging, and Orderable Information
+The following pages include mechanical, packaging, and orderable information. This information is the most
+current data available for the designated devices. This data is subject to change without notice and revision of
+this document. For browser-based versions of this data sheet, refer to the left-hand navigation.
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+53
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+54
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+55
+
+TMAG5273
+
+www.ti.com
+
+SLYS045B – JUNE 2021 – REVISED JULY 2024
+
+56
+
+Submit Document Feedback
+
+Copyright © 2024 Texas Instruments Incorporated
+
+Product Folder Links: TMAG5273
+
+PACKAGE OPTION ADDENDUM
+www.ti.com
+
+14-Oct-2025
+
+PACKAGING INFORMATION
+Orderable part number
+
+(1)
+
+Status
+
+Material type
+
+(1)
+
+(2)
+
+Package | Pins
+
+Package qty | Carrier
+
+RoHS
+(3)
+
+Lead finish/
+Ball material
+
+MSL rating/
+Peak reflow
+
+(4)
+
+(5)
+
+Op temp (°C)
+
+Part marking
+(6)
+
+TMAG5273A1QDBVR
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52A1
+
+TMAG5273A1QDBVR.A
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52A1
+
+TMAG5273A2QDBVR
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52A2
+
+TMAG5273A2QDBVR.A
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52A2
+
+TMAG5273B1QDBVR
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52B1
+
+TMAG5273B1QDBVR.A
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52B1
+
+TMAG5273B2QDBVR
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52B2
+
+TMAG5273B2QDBVR.A
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52B2
+
+TMAG5273C1QDBVR
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52C1
+
+TMAG5273C1QDBVR.A
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52C1
+
+TMAG5273C2QDBVR
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52C2
+
+TMAG5273C2QDBVR.A
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52C2
+
+TMAG5273D1QDBVR
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52D1
+
+TMAG5273D1QDBVR.A
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52D1
+
+TMAG5273D2QDBVR
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52D2
+
+TMAG5273D2QDBVR.A
+
+Active
+
+Production
+
+SOT-23 (DBV) | 6
+
+3000 | LARGE T&R
+
+Yes
+
+SN
+
+Level-3-260C-168 HR
+
+-40 to 125
+
+52D2
+
+Status: For more details on status, see our product life cycle.
+
+(2)
+
+Material type: When designated, preproduction parts are prototypes/experimental devices, and are not yet approved or released for full production. Testing and final process, including without limitation quality assurance,
+reliability performance testing, and/or process qualification, may not yet be complete, and this item is subject to further changes or possible discontinuation. If available for ordering, purchases will be subject to an additional
+waiver at checkout, and are intended for early internal evaluation purposes only. These items are sold without warranties of any kind.
+(3)
+
+RoHS values: Yes, No, RoHS Exempt. See the TI RoHS Statement for additional information and value definition.
+
+(4)
+
+Lead finish/Ball material: Parts may have multiple material finish options. Finish options are separated by a vertical ruled line. Lead finish/Ball material values may wrap to two lines if the finish value exceeds the maximum
+column width.
+(5)
+
+MSL rating/Peak reflow: The moisture sensitivity level ratings and peak solder (reflow) temperatures. In the event that a part has multiple moisture sensitivity ratings, only the lowest level per JEDEC standards is shown.
+Refer to the shipping label for the actual reflow temperature that will be used to mount the part to the printed circuit board.
+
+Addendum-Page 1
+
+PACKAGE OPTION ADDENDUM
+www.ti.com
+
+(6)
+
+14-Oct-2025
+
+Part marking: There may be an additional marking, which relates to the logo, the lot trace code information, or the environmental category of the part.
+
+Multiple part markings will be inside parentheses. Only one part marking contained in parentheses and separated by a "~" will appear on a part. If a line is indented then it is a continuation of the previous line and the two
+combined represent the entire part marking for that device.
+Important Information and Disclaimer:The information provided on this page represents TI's knowledge and belief as of the date that it is provided. TI bases its knowledge and belief on information provided by third parties, and
+makes no representation or warranty as to the accuracy of such information. Efforts are underway to better integrate information from third parties. TI has taken and continues to take reasonable steps to provide representative
+and accurate information but may not have conducted destructive testing or chemical analysis on incoming materials and chemicals. TI and TI suppliers consider certain information to be proprietary, and thus CAS numbers
+and other limited information may not be available for release.
+In no event shall TI's liability arising out of such information exceed the total purchase price of the TI part(s) at issue in this document sold by TI to Customer on an annual basis.
+
+Addendum-Page 2
+
+PACKAGE MATERIALS INFORMATION
+www.ti.com
+
+25-Sep-2024
+
+TAPE AND REEL INFORMATION
+REEL DIMENSIONS
+
+TAPE DIMENSIONS
+K0
+
+P1
+
+B0 W
+Reel
+Diameter
+Cavity
+A0
+B0
+K0
+W
+P1
+
+A0
+
+Dimension designed to accommodate the component width
+Dimension designed to accommodate the component length
+Dimension designed to accommodate the component thickness
+Overall width of the carrier tape
+Pitch between successive cavity centers
+
+Reel Width (W1)
+QUADRANT ASSIGNMENTS FOR PIN 1 ORIENTATION IN TAPE
+Sprocket Holes
+
+Q1
+
+Q2
+
+Q1
+
+Q2
+
+Q3
+
+Q4
+
+Q3
+
+Q4
+
+User Direction of Feed
+
+Pocket Quadrants
+
+*All dimensions are nominal
+
+Device
+
+Package Package Pins
+Type Drawing
+
+SPQ
+
+Reel
+Reel
+A0
+Diameter Width (mm)
+(mm) W1 (mm)
+
+B0
+(mm)
+
+K0
+(mm)
+
+P1
+(mm)
+
+W
+Pin1
+(mm) Quadrant
+
+TMAG5273A1QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+178.0
+
+9.0
+
+3.3
+
+3.2
+
+1.4
+
+4.0
+
+8.0
+
+Q3
+
+TMAG5273A2QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+178.0
+
+TMAG5273B1QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+178.0
+
+9.0
+
+3.3
+
+3.2
+
+1.4
+
+4.0
+
+8.0
+
+Q3
+
+9.0
+
+3.3
+
+3.2
+
+1.4
+
+4.0
+
+8.0
+
+Q3
+
+TMAG5273B2QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+178.0
+
+9.0
+
+3.3
+
+3.2
+
+1.4
+
+4.0
+
+8.0
+
+Q3
+
+TMAG5273C1QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+178.0
+
+9.0
+
+3.3
+
+3.2
+
+1.4
+
+4.0
+
+8.0
+
+Q3
+
+TMAG5273C2QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+178.0
+
+9.0
+
+3.3
+
+3.2
+
+1.4
+
+4.0
+
+8.0
+
+Q3
+
+TMAG5273D1QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+178.0
+
+9.0
+
+3.3
+
+3.2
+
+1.4
+
+4.0
+
+8.0
+
+Q3
+
+TMAG5273D2QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+178.0
+
+9.0
+
+3.3
+
+3.2
+
+1.4
+
+4.0
+
+8.0
+
+Q3
+
+Pack Materials-Page 1
+
+PACKAGE MATERIALS INFORMATION
+www.ti.com
+
+25-Sep-2024
+
+TAPE AND REEL BOX DIMENSIONS
+
+Width (mm)
+
+W
+
+L
+
+H
+
+*All dimensions are nominal
+
+Device
+
+Package Type
+
+Package Drawing
+
+Pins
+
+SPQ
+
+Length (mm)
+
+Width (mm)
+
+Height (mm)
+
+TMAG5273A1QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+190.0
+
+190.0
+
+30.0
+
+TMAG5273A2QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+190.0
+
+190.0
+
+30.0
+
+TMAG5273B1QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+190.0
+
+190.0
+
+30.0
+
+TMAG5273B2QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+190.0
+
+190.0
+
+30.0
+
+TMAG5273C1QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+190.0
+
+190.0
+
+30.0
+
+TMAG5273C2QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+190.0
+
+190.0
+
+30.0
+
+TMAG5273D1QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+190.0
+
+190.0
+
+30.0
+
+TMAG5273D2QDBVR
+
+SOT-23
+
+DBV
+
+6
+
+3000
+
+190.0
+
+190.0
+
+30.0
+
+Pack Materials-Page 2
+
+IMPORTANT NOTICE AND DISCLAIMER
+TI PROVIDES TECHNICAL AND RELIABILITY DATA (INCLUDING DATA SHEETS), DESIGN RESOURCES (INCLUDING REFERENCE
+DESIGNS), APPLICATION OR OTHER DESIGN ADVICE, WEB TOOLS, SAFETY INFORMATION, AND OTHER RESOURCES “AS IS”
+AND WITH ALL FAULTS, AND DISCLAIMS ALL WARRANTIES, EXPRESS AND IMPLIED, INCLUDING WITHOUT LIMITATION ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT OF THIRD
+PARTY INTELLECTUAL PROPERTY RIGHTS.
+These resources are intended for skilled developers designing with TI products. You are solely responsible for (1) selecting the appropriate
+TI products for your application, (2) designing, validating and testing your application, and (3) ensuring your application meets applicable
+standards, and any other safety, security, regulatory or other requirements.
+These resources are subject to change without notice. TI grants you permission to use these resources only for development of an
+application that uses the TI products described in the resource. Other reproduction and display of these resources is prohibited. No license
+is granted to any other TI intellectual property right or to any third party intellectual property right. TI disclaims responsibility for, and you
+will fully indemnify TI and its representatives against, any claims, damages, costs, losses, and liabilities arising out of your use of these
+resources.
+TI’s products are provided subject to TI’s Terms of Sale or other applicable terms available either on ti.com or provided in conjunction with
+such TI products. TI’s provision of these resources does not expand or otherwise alter TI’s applicable warranties or warranty disclaimers for
+TI products.
+TI objects to and rejects any additional or different terms you may have proposed. IMPORTANT NOTICE
+Mailing Address: Texas Instruments, Post Office Box 655303, Dallas, Texas 75265
+Copyright © 2025, Texas Instruments Incorporated
+
+
