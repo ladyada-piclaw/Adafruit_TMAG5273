@@ -13,8 +13,8 @@ var searchData=
   ['setsleeptime',['setSleepTime',['../class_adafruit___t_m_a_g5273.html#a40802497b72ece2ed56327a662f77e4c',1,'Adafruit_TMAG5273']]],
   ['settemperaturethreshold',['setTemperatureThreshold',['../class_adafruit___t_m_a_g5273.html#abd9ec1c158935846e54e15b5a0dc742b',1,'Adafruit_TMAG5273']]],
   ['setxthreshold',['setXThreshold',['../class_adafruit___t_m_a_g5273.html#abafe137443c4133f75aec94f3ffd45d0',1,'Adafruit_TMAG5273']]],
-  ['setxyrange',['setXYRange',['../class_adafruit___t_m_a_g5273.html#a00ba48f9b9d96facecb32c42657623b6',1,'Adafruit_TMAG5273']]],
+  ['setxyrangewide',['setXYRangeWide',['../class_adafruit___t_m_a_g5273.html#aaf69562d79a7357d1f7b7ce5d5dd74bc',1,'Adafruit_TMAG5273']]],
   ['setythreshold',['setYThreshold',['../class_adafruit___t_m_a_g5273.html#aeeb8c436865d6005fc90bb75c8f6d630',1,'Adafruit_TMAG5273']]],
-  ['setzrange',['setZRange',['../class_adafruit___t_m_a_g5273.html#a1cbda26cf6f53ba2881271c3f0552319',1,'Adafruit_TMAG5273']]],
+  ['setzrangewide',['setZRangeWide',['../class_adafruit___t_m_a_g5273.html#a795b11e29e021df33780e5bad2ccb13b',1,'Adafruit_TMAG5273']]],
   ['setzthreshold',['setZThreshold',['../class_adafruit___t_m_a_g5273.html#af8b0c0eaf4f4692124635f5bca55004e',1,'Adafruit_TMAG5273']]]
 ];

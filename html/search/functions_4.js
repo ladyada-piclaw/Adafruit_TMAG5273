@@ -20,8 +20,8 @@ var searchData=
   ['gettemperature',['getTemperature',['../class_adafruit___t_m_a_g5273.html#a6f1ba1b2104cb0a5037efa0905b2c311',1,'Adafruit_TMAG5273']]],
   ['gettemperaturethreshold',['getTemperatureThreshold',['../class_adafruit___t_m_a_g5273.html#ad9d7f4b76ba10f6d6d9c9fa2b0ce7d1c',1,'Adafruit_TMAG5273']]],
   ['getxthreshold',['getXThreshold',['../class_adafruit___t_m_a_g5273.html#af4b192f95213b34310082ffab9d03bf6',1,'Adafruit_TMAG5273']]],
-  ['getxyrange',['getXYRange',['../class_adafruit___t_m_a_g5273.html#ad184c2ad6c805c0bc9e85cb14f271b0d',1,'Adafruit_TMAG5273']]],
+  ['getxyrangewide',['getXYRangeWide',['../class_adafruit___t_m_a_g5273.html#a24c00c744b8dc16b26f3cad064ac9506',1,'Adafruit_TMAG5273']]],
   ['getythreshold',['getYThreshold',['../class_adafruit___t_m_a_g5273.html#a9bf1704a172a4c30d1c6a03a42a65cdc',1,'Adafruit_TMAG5273']]],
-  ['getzrange',['getZRange',['../class_adafruit___t_m_a_g5273.html#ab7b04ee68290c86088774411d3fefeba',1,'Adafruit_TMAG5273']]],
+  ['getzrangewide',['getZRangeWide',['../class_adafruit___t_m_a_g5273.html#a731ad832dea69391f9026a1c7ebb3dd9',1,'Adafruit_TMAG5273']]],
   ['getzthreshold',['getZThreshold',['../class_adafruit___t_m_a_g5273.html#a0b35c1cf32961ef418609e4b5c0180b1',1,'Adafruit_TMAG5273']]]
 ];
