@@ -209,7 +209,14 @@ void setup() {
   //          TMAG5273_INT_INT_EXCEPT_I2C (INT except during I2C)
   //          TMAG5273_INT_THROUGH_SCL (SCL pin)
   //          TMAG5273_INT_SCL_EXCEPT_I2C (SCL except during I2C)
-  // Also available: enableResultInterrupt(), enableThresholdInterrupt()
+  // Also available: enableThresholdInterrupt() for magnetic threshold alerts
+
+  tmag.enableResultInterrupt(true);
+  // true = INT pin asserts on conversion complete (data ready)
+  // false = no data ready interrupt
+  Serial.print(F("Data Ready INT: "));
+  Serial.println(F("Enabled"));
+
   Serial.print(F("Interrupt Mode: "));
   switch (tmag.getInterruptMode()) {
     case TMAG5273_INT_NONE:

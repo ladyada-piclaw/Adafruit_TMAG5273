@@ -110,6 +110,9 @@ bool Adafruit_TMAG5273::begin(uint8_t addr, TwoWire* theWire) {
   if (!setInterruptMode(TMAG5273_INT_THROUGH_INT)) {
     return false;
   }
+  if (!enableResultInterrupt(true)) {
+    return false;
+  }
 
   return true;
 }
