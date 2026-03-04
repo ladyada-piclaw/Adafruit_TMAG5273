@@ -32,6 +32,9 @@ void setup() {
   Serial.println(tmag.getManufacturerID(), HEX);
   Serial.print(F("Device ID: 0x"));
   Serial.println(tmag.getDeviceID(), HEX);
+  Serial.print(F("Variant: "));
+  Serial.println((tmag.getDeviceID() & 0x03) == 0x02 ? F("x2 (+/-133/266 mT)")
+                                                     : F("x1 (+/-40/80 mT)"));
 
   // === Magnetic Channels ===
   Serial.println(F("\n--- Magnetic Channels ---"));
