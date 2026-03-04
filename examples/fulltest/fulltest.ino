@@ -106,19 +106,19 @@ void setup() {
 
   // === XY Range ===
   Serial.println(F("\n--- XY Range ---"));
-  tmag.setXYRange(false);
+  tmag.setXYRangeWide(false);
   // false = normal (+/-40mT for x1 / +/-133mT for x2)
   // true = wide (+/-80mT for x1 / +/-266mT for x2)
   Serial.print(F("XY Range: "));
-  Serial.println(tmag.getXYRange() ? F("Wide") : F("Normal"));
+  Serial.println(tmag.getXYRangeWide() ? F("Wide") : F("Normal"));
 
   // === Z Range ===
   Serial.println(F("\n--- Z Range ---"));
-  tmag.setZRange(false);
+  tmag.setZRangeWide(false);
   // false = normal (+/-40mT for x1 / +/-133mT for x2)
   // true = wide (+/-80mT for x1 / +/-266mT for x2)
   Serial.print(F("Z Range: "));
-  Serial.println(tmag.getZRange() ? F("Wide") : F("Normal"));
+  Serial.println(tmag.getZRangeWide() ? F("Wide") : F("Normal"));
 
   // === Operating Mode ===
   Serial.println(F("\n--- Operating Mode ---"));

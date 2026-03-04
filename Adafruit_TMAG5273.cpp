@@ -172,7 +172,7 @@ tmag5273_mag_ch_en_t Adafruit_TMAG5273::getMagneticChannels() {
  * @param wide True for wide range (80mT/266mT), false for narrow (40mT/133mT)
  * @return True on success
  */
-bool Adafruit_TMAG5273::setXYRange(bool wide) {
+bool Adafruit_TMAG5273::setXYRangeWide(bool wide) {
   Adafruit_BusIO_Register reg =
       Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_SENSOR_CONFIG_2, 1);
   Adafruit_BusIO_RegisterBits x_y_range =
@@ -195,7 +195,7 @@ bool Adafruit_TMAG5273::setXYRange(bool wide) {
  * @brief Get the XY axis range setting
  * @return True if wide range
  */
-bool Adafruit_TMAG5273::getXYRange() {
+bool Adafruit_TMAG5273::getXYRangeWide() {
   Adafruit_BusIO_Register reg =
       Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_SENSOR_CONFIG_2, 1);
   Adafruit_BusIO_RegisterBits x_y_range =
@@ -208,7 +208,7 @@ bool Adafruit_TMAG5273::getXYRange() {
  * @param wide True for wide range (80mT/266mT), false for narrow (40mT/133mT)
  * @return True on success
  */
-bool Adafruit_TMAG5273::setZRange(bool wide) {
+bool Adafruit_TMAG5273::setZRangeWide(bool wide) {
   Adafruit_BusIO_Register reg =
       Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_SENSOR_CONFIG_2, 1);
   Adafruit_BusIO_RegisterBits z_range = Adafruit_BusIO_RegisterBits(&reg, 1, 0);
@@ -230,7 +230,7 @@ bool Adafruit_TMAG5273::setZRange(bool wide) {
  * @brief Get the Z axis range setting
  * @return True if wide range
  */
-bool Adafruit_TMAG5273::getZRange() {
+bool Adafruit_TMAG5273::getZRangeWide() {
   Adafruit_BusIO_Register reg =
       Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_SENSOR_CONFIG_2, 1);
   Adafruit_BusIO_RegisterBits z_range = Adafruit_BusIO_RegisterBits(&reg, 1, 0);

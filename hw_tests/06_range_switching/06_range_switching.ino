@@ -52,8 +52,8 @@ void setup() {
 
   // Test 1: Narrow range (±40mT for A1, ±133mT for A2)
   Serial.println(F("\n1. Narrow range:"));
-  sensor.setXYRange(false); // false = narrow
-  sensor.setZRange(false);
+  sensor.setXYRangeWide(false); // false = narrow
+  sensor.setZRangeWide(false);
   delay(50);
 
   // Take multiple RAW readings and average
@@ -75,8 +75,8 @@ void setup() {
 
   // Test 2: Wide range (±80mT for A1, ±266mT for A2)
   Serial.println(F("\n2. Wide range:"));
-  sensor.setXYRange(true); // true = wide
-  sensor.setZRange(true);
+  sensor.setXYRangeWide(true); // true = wide
+  sensor.setZRangeWide(true);
   delay(50);
 
   long wideRawSum = 0;

@@ -155,10 +155,10 @@ class Adafruit_TMAG5273 : public Adafruit_Sensor {
   tmag5273_mag_ch_en_t getMagneticChannels();
 
   // Range configuration
-  bool setXYRange(bool wide);
-  bool getXYRange();
-  bool setZRange(bool wide);
-  bool getZRange();
+  bool setXYRangeWide(bool wide);
+  bool getXYRangeWide();
+  bool setZRangeWide(bool wide);
+  bool getZRangeWide();
 
   // Averaging
   bool setConversionAverage(tmag5273_conv_avg_t avg);
