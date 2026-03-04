@@ -1,10 +1,10 @@
 /*!
- * hw_test_04_servo_sweep.ino - Magnetic Field Rotation Test for TMAG5273
+ * hw_test_04_servo_sweep.ino - Magnetic Field vs Servo Position for TMAG5273
  *
  * Verifies:
- * - Sweep servo 0° to 180° in 10° steps
- * - X-axis shows monotonic DECREASE trend (allow 1-2 violations)
- * - X difference between 0° and 180° > 300 µT
+ * - Sweep servo 0 to 180 in 10 degree steps
+ * - Total field magnitude at 180 > magnitude at 0 by at least 2x
+ * - At least one axis changes by > 1000 uT across the sweep
  *
  * Hardware: Metro Mini, TMAG5273A2 at 0x35, Servo on D4
  */
@@ -18,23 +18,9 @@
 #define SENSOR_ADDR 0x35
 #define NUM_STEPS 19
 
-// ReadType enum for medianRead
-enum ReadType {
-  READ_X,
-  READ_Y,
-  READ_Z,
-  READ_TEMP,
-  READ_MAG_X,
-  READ_MAG_Y,
-  READ_MAG_Z,
-  READ_ANGLE,
-  READ_MAGNITUDE
-};
-
 // Forward declarations
 void testResult(bool pass);
 void moveServo(int angle);
-float medianRead(Adafruit_TMAG5273& sens, ReadType type, int samples = 5);
 
 // Globals
 Adafruit_TMAG5273 sensor;
@@ -46,7 +32,7 @@ void setup() {
     delay(10);
 
   Serial.println(F("=== hw_test_04_servo_sweep ==="));
-  Serial.println(F("Testing: Magnetic field rotation (X decreases 0->180)"));
+  Serial.println(F("Testing: Magnetic field vs servo position"));
 
   Wire.begin();
 
@@ -56,30 +42,41 @@ void setup() {
     return;
   }
 
-  // Enable all channels
   sensor.setMagneticChannels(TMAG5273_MAG_CH_XYZ);
   delay(50);
 
-  bool allPass = true;
+  servo.attach(SERVO_PIN);
 
-  // Sweep from 0 to 180
-  Serial.println(F("\nAngle | X(uT)   | Y(uT)   | Z(uT)   | Mag(uT)"));
+  float mag0 = 0, mag180 = 0;
+  float xMin = 999999, xMax = -999999;
+  float yMin = 999999, yMax = -999999;
+  float zMin = 999999, zMax = -999999;
+
+  Serial.println(F("Angle | X(uT)   | Y(uT)   | Z(uT)   | Mag(uT)"));
   Serial.println(F("------+---------+---------+---------+---------"));
 
-  float xValues[NUM_STEPS];
-  float x0 = 0;
-  float x180 = 0;
-  int idx = 0;
-
   for (int angle = 0; angle <= 180; angle += 10) {
-    moveServo(angle);
+    servo.write(angle);
+    delay(1500);
 
-    float x = medianRead(sensor, READ_MAG_X);
-    float y = medianRead(sensor, READ_MAG_Y);
-    float z = medianRead(sensor, READ_MAG_Z);
+    float x = sensor.readMagneticX();
+    float y = sensor.readMagneticY();
+    float z = sensor.readMagneticZ();
     float mag = sqrt(x * x + y * y + z * z);
 
-    xValues[idx] = x;
+    // Track min/max per axis
+    if (x < xMin)
+      xMin = x;
+    if (x > xMax)
+      xMax = x;
+    if (y < yMin)
+      yMin = y;
+    if (y > yMax)
+      yMax = y;
+    if (z < zMin)
+      zMin = z;
+    if (z > zMax)
+      zMax = z;
 
     // Print row
     if (angle < 100)
@@ -88,153 +85,77 @@ void setup() {
       Serial.print(F(" "));
     Serial.print(angle);
     Serial.print(F("   | "));
-    if (x >= 0)
-      Serial.print(F(" "));
     Serial.print(x, 0);
     Serial.print(F("\t| "));
-    if (y >= 0)
-      Serial.print(F(" "));
     Serial.print(y, 0);
     Serial.print(F("\t| "));
-    if (z >= 0)
-      Serial.print(F(" "));
     Serial.print(z, 0);
     Serial.print(F("\t| "));
     Serial.println(mag, 0);
 
     if (angle == 0)
-      x0 = x;
+      mag0 = mag;
     if (angle == 180)
-      x180 = x;
-
-    idx++;
+      mag180 = mag;
   }
 
-  // Check 1: X difference between 0 and 180 should be > 300 µT
+  servo.detach();
+
+  // Check 1: magnitude at 180 should be > 2x magnitude at 0
   Serial.println();
-  Serial.print(F("X at 0:   "));
-  Serial.print(x0, 0);
+  Serial.print(F("Magnitude at 0: "));
+  Serial.print(mag0, 0);
   Serial.println(F(" uT"));
-  Serial.print(F("X at 180: "));
-  Serial.print(x180, 0);
+  Serial.print(F("Magnitude at 180: "));
+  Serial.print(mag180, 0);
   Serial.println(F(" uT"));
 
-  float xDiff = x0 - x180; // Should be positive (X decreases)
-  Serial.print(F("X drop (0->180): "));
-  Serial.print(xDiff, 0);
-  Serial.print(F(" uT (need >300): "));
+  float ratio = mag180 / mag0;
+  Serial.print(F("Ratio (180/0): "));
+  Serial.print(ratio, 2);
+  Serial.print(F(" (need >2.0): "));
 
-  bool xDiffPass = (xDiff > 300);
-  if (xDiffPass) {
-    Serial.println(F("OK"));
-  } else {
-    Serial.println(F("FAIL"));
-  }
+  bool ratioPass = (ratio > 2.0);
+  Serial.println(ratioPass ? F("OK") : F("FAIL"));
 
-  // Check 2: X should show monotonic decrease (allow 1-2 violations)
-  int violations = 0;
-  for (int i = 1; i < NUM_STEPS; i++) {
-    if (xValues[i] > xValues[i - 1] + 50) { // Allow 50 µT noise margin
-      violations++;
-    }
-  }
+  // Check 2: at least one axis range > 1000 uT
+  float xRange = xMax - xMin;
+  float yRange = yMax - yMin;
+  float zRange = zMax - zMin;
+  float maxRange = max(xRange, max(yRange, zRange));
 
-  Serial.print(F("Monotonic violations: "));
-  Serial.print(violations);
-  Serial.print(F(" (allow <=2): "));
+  Serial.print(F("X range: "));
+  Serial.print(xRange, 0);
+  Serial.println(F(" uT"));
+  Serial.print(F("Y range: "));
+  Serial.print(yRange, 0);
+  Serial.println(F(" uT"));
+  Serial.print(F("Z range: "));
+  Serial.print(zRange, 0);
+  Serial.println(F(" uT"));
+  Serial.print(F("Max axis range: "));
+  Serial.print(maxRange, 0);
+  Serial.print(F(" uT (need >1000): "));
 
-  bool monotonicPass = (violations <= 2);
-  if (monotonicPass) {
-    Serial.println(F("OK"));
-  } else {
-    Serial.println(F("FAIL"));
-  }
-
-  // Pass if EITHER condition met
-  allPass = xDiffPass || monotonicPass;
-
-  Serial.print(F("\nOverall: "));
-  if (allPass) {
-    Serial.println(F("PASS (X decreases as expected)"));
-  } else {
-    Serial.println(F("FAIL"));
-  }
-
-  // Return to 180
-  moveServo(180);
+  bool rangePass = (maxRange > 1000);
+  Serial.println(rangePass ? F("OK") : F("FAIL"));
 
   Serial.println();
-  testResult(allPass);
+  testResult(ratioPass && rangePass);
 }
 
-void loop() {
-  // Nothing to do
-}
+void loop() {}
 
-// Helper: Print result
 void testResult(bool pass) {
   if (pass) {
     Serial.println(F("=== PASS ==="));
   } else {
     Serial.println(F("=== FAIL ==="));
   }
-  servo.detach();
 }
 
-// Helper: Move servo and wait for settle
 void moveServo(int angle) {
   servo.attach(SERVO_PIN);
   servo.write(angle);
-  delay(1500);
-  servo.detach();
-}
-
-// Helper: Median read for noise reduction
-float medianRead(Adafruit_TMAG5273& sens, ReadType type, int samples) {
-  float vals[11];
-  if (samples > 11)
-    samples = 11;
-  for (int i = 0; i < samples; i++) {
-    switch (type) {
-      case READ_X:
-        vals[i] = sens.readX();
-        break;
-      case READ_Y:
-        vals[i] = sens.readY();
-        break;
-      case READ_Z:
-        vals[i] = sens.readZ();
-        break;
-      case READ_TEMP:
-        vals[i] = sens.getTemperature();
-        break;
-      case READ_MAG_X:
-        vals[i] = sens.readMagneticX();
-        break;
-      case READ_MAG_Y:
-        vals[i] = sens.readMagneticY();
-        break;
-      case READ_MAG_Z:
-        vals[i] = sens.readMagneticZ();
-        break;
-      case READ_ANGLE:
-        vals[i] = sens.readAngle();
-        break;
-      case READ_MAGNITUDE:
-        vals[i] = (float)sens.readMagnitude();
-        break;
-    }
-    delay(20);
-  }
-  // Bubble sort
-  for (int i = 0; i < samples - 1; i++) {
-    for (int j = i + 1; j < samples; j++) {
-      if (vals[j] < vals[i]) {
-        float t = vals[i];
-        vals[i] = vals[j];
-        vals[j] = t;
-      }
-    }
-  }
-  return vals[samples / 2];
+  delay(2000);
 }

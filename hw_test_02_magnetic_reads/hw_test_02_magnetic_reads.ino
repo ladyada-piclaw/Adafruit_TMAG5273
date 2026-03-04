@@ -151,12 +151,11 @@ void testResult(bool pass) {
   servo.detach();
 }
 
-// Helper: Move servo and wait for settle
+// Helper: Move servo and wait for settle (keep attached!)
 void moveServo(int angle) {
   servo.attach(SERVO_PIN);
   servo.write(angle);
-  delay(1500);
-  servo.detach();
+  delay(2000);
 }
 
 // Helper: Median read for noise reduction

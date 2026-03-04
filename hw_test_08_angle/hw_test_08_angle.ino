@@ -2,7 +2,7 @@
  * hw_test_08_angle.ino - Angle Calculation Test for TMAG5273
  *
  * Verifies:
- * - Angle calculation in XY mode works
+ * - Angle calculation in XZ mode works (Z changes dramatically with servo)
  * - Angle values are valid (0-360°)
  * - Angles differ by at least 5° between 0° and 180° servo positions
  *
@@ -54,9 +54,9 @@ void setup() {
     return;
   }
 
-  // Enable XY channels and angle calculation
-  sensor.setMagneticChannels(TMAG5273_MAG_CH_XY);
-  sensor.setAngleCalculation(TMAG5273_ANGLE_XY);
+  // Enable XZ channels and angle calculation (Z changes most with servo)
+  sensor.setMagneticChannels(TMAG5273_MAG_CH_ZX);
+  sensor.setAngleCalculation(TMAG5273_ANGLE_XZ);
   delay(50);
 
   bool allPass = true;
@@ -78,14 +78,13 @@ void setup() {
     allPass = false;
   }
 
-  // Also print X/Y for reference
-  sensor.setMagneticChannels(TMAG5273_MAG_CH_XY);
+  // Also print X/Z for reference
   float x0 = sensor.readMagneticX();
-  float y0 = sensor.readMagneticY();
+  float z0 = sensor.readMagneticZ();
   Serial.print(F("   X: "));
   Serial.print(x0, 0);
-  Serial.print(F(" uT, Y: "));
-  Serial.print(y0, 0);
+  Serial.print(F(" uT, Z: "));
+  Serial.print(z0, 0);
   Serial.println(F(" uT"));
 
   // Test 2: Angle at 180° servo position
@@ -105,13 +104,13 @@ void setup() {
     allPass = false;
   }
 
-  // Also print X/Y for reference
+  // Also print X/Z for reference
   float x180 = sensor.readMagneticX();
-  float y180 = sensor.readMagneticY();
+  float z180 = sensor.readMagneticZ();
   Serial.print(F("   X: "));
   Serial.print(x180, 0);
-  Serial.print(F(" uT, Y: "));
-  Serial.print(y180, 0);
+  Serial.print(F(" uT, Z: "));
+  Serial.print(z180, 0);
   Serial.println(F(" uT"));
 
   // Test 3: Compare angles - should differ by at least 5°
