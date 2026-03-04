@@ -1,5 +1,5 @@
 /*!
- * hw_test_03_temperature.ino - Temperature Read Test for TMAG5273
+ * 03_temperature_reading.ino - Temperature Read Test for TMAG5273
  *
  * Verifies:
  * - Temperature in reasonable range (10°C to 60°C)

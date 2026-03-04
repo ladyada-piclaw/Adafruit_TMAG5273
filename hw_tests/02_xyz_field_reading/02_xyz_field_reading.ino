@@ -1,5 +1,5 @@
 /*!
- * hw_test_02_magnetic_reads.ino - Basic Magnetic Reads Test for TMAG5273
+ * 02_xyz_field_reading.ino - Basic Magnetic Reads Test for TMAG5273
  *
  * Verifies:
  * - Read X/Y/Z in µT at 0° position

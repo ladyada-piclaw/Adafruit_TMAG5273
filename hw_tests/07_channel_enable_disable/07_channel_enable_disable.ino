@@ -1,5 +1,5 @@
 /*!
- * hw_test_07_channels.ino - Channel Enable Test for TMAG5273
+ * 07_channel_enable_disable.ino - Channel Enable Test for TMAG5273
  *
  * Verifies:
  * - X only: readX() returns valid data

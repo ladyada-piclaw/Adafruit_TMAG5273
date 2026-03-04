@@ -1,5 +1,5 @@
 /*!
- * hw_test_10_crc.ino - CRC Mode Test for TMAG5273
+ * 10_i2c_crc.ino - CRC Mode Test for TMAG5273
  *
  * Verifies:
  * - Reads work with CRC enabled

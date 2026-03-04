@@ -1,5 +1,5 @@
 /*!
- * hw_test_05_averaging.ino - Averaging Effect on Noise Test for TMAG5273
+ * 05_noise_reduction_averaging.ino - Averaging Effect on Noise Test for TMAG5273
  *
  * Verifies:
  * - 32x averaging produces lower std dev than 1x averaging

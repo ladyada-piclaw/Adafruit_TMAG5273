@@ -1,5 +1,5 @@
 /*!
- * hw_test_01_begin.ino - Sensor Init Test for TMAG5273
+ * 01_sensor_init.ino - Sensor Init Test for TMAG5273
  *
  * Verifies:
  * - begin() succeeds at 0x35

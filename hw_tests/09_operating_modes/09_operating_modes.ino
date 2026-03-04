@@ -1,5 +1,5 @@
 /*!
- * hw_test_09_operating_modes.ino - Operating Modes Test for TMAG5273
+ * 09_operating_modes.ino - Operating Modes Test for TMAG5273
  *
  * Verifies:
  * - Continuous mode: reads work

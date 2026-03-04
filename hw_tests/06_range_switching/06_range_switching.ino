@@ -1,5 +1,5 @@
 /*!
- * hw_test_06_range.ino - Range Switching Test for TMAG5273
+ * 06_range_switching.ino - Range Switching Test for TMAG5273
  *
  * Verifies:
  * - Same field reads different RAW values at different ranges

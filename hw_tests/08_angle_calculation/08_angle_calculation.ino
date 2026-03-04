@@ -1,5 +1,5 @@
 /*!
- * hw_test_08_angle.ino - Angle Calculation Test for TMAG5273
+ * 08_angle_calculation.ino - Angle Calculation Test for TMAG5273
  *
  * Verifies:
  * - Angle calculation in XZ mode works (Z changes dramatically with servo)

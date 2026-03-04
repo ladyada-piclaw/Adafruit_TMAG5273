@@ -1,5 +1,5 @@
 /*!
- * hw_test_04_servo_sweep.ino - Magnetic Field vs Servo Position for TMAG5273
+ * 04_servo_proximity_sweep.ino - Magnetic Field vs Servo Position for TMAG5273
  *
  * Verifies:
  * - Sweep servo 0 to 180 in 10 degree steps
