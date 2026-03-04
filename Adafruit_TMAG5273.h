@@ -204,6 +204,7 @@ class Adafruit_TMAG5273 : public Adafruit_Sensor {
   // Angle and magnitude
   float readAngle();
   uint8_t readMagnitude();
+  float readMagnitudeMT();
 
   // CRC
   bool enableCRC(bool enable);

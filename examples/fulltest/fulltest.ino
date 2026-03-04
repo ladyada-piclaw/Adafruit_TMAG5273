@@ -245,7 +245,7 @@ void loop() {
   float z = tmag.readMagneticZ();
   float temp = tmag.getTemperature();
   float angle = tmag.readAngle();
-  uint8_t mag = tmag.readMagnitude();
+  float mag = tmag.readMagnitudeMT();
 
   Serial.print(F("X: "));
   Serial.print(x, 1);
@@ -258,7 +258,8 @@ void loop() {
   Serial.print(F(" C\tAng: "));
   Serial.print(angle, 1);
   Serial.print(F(" deg\tMag: "));
-  Serial.println(mag);
+  Serial.print(mag, 1);
+  Serial.println(F(" mT"));
 
   delay(100);
 }

@@ -519,6 +519,33 @@ uint8_t Adafruit_TMAG5273::readMagnitude() {
 }
 
 /*!
+ * @brief Read the calculated magnitude in milliTesla
+ * @details Converts the 8-bit magnitude register using the current range
+ *          setting. Magnitude is sqrt(ch1^2 + ch2^2) for the two axes
+ *          selected by setAngleCalculation().
+ * @return Magnitude in milliTesla
+ */
+float Adafruit_TMAG5273::readMagnitudeMT() {
+  uint8_t raw = readMagnitude();
+  // Magnitude uses the XY range for XY angle, or the appropriate range
+  // for the selected axis pair. Use XY range as the base since angle
+  // default is XY.
+  tmag5273_angle_en_t angle_mode = getAngleCalculation();
+  float range;
+  if (angle_mode == TMAG5273_ANGLE_XZ) {
+    // First axis X (XY range), second axis Z (Z range) — use max
+    range = max(_range_xy, _range_z);
+  } else if (angle_mode == TMAG5273_ANGLE_YZ) {
+    // First axis Y (XY range), second axis Z (Z range) — use max
+    range = max(_range_xy, _range_z);
+  } else {
+    // XY or OFF — both axes use XY range
+    range = _range_xy;
+  }
+  return (float)raw * range / 128.0;
+}
+
+/*!
  * @brief Enable or disable CRC
  * @param enable True to enable CRC
  * @return True on success
