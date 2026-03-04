@@ -247,17 +247,17 @@ void loop() {
   float angle = tmag.readAngle();
   uint8_t mag = tmag.readMagnitude();
 
-  Serial.print(F("X:"));
+  Serial.print(F("X: "));
   Serial.print(x, 1);
-  Serial.print(F("uT Y:"));
+  Serial.print(F(" uT\tY: "));
   Serial.print(y, 1);
-  Serial.print(F("uT Z:"));
+  Serial.print(F(" uT\tZ: "));
   Serial.print(z, 1);
-  Serial.print(F("uT T:"));
+  Serial.print(F(" uT\tT: "));
   Serial.print(temp, 1);
-  Serial.print(F("C Ang:"));
+  Serial.print(F(" C\tAng: "));
   Serial.print(angle, 1);
-  Serial.print(F("deg Mag:"));
+  Serial.print(F(" deg\tMag: "));
   Serial.println(mag);
 
   delay(100);
