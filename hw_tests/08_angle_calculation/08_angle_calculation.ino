@@ -4,7 +4,8 @@
  * Verifies:
  * - Angle calculation in XZ mode works (Z changes dramatically with servo)
  * - Angle values are valid (0-360°)
- * - Angles differ by at least 5° between 0° and 180° servo positions
+ * - Angles differ by at least 5° between 40° and 180° servo positions
+ *   (40° is field minimum, 180° is field maximum based on calibration)
  *
  * Hardware: Metro Mini, TMAG5273A2 at 0x35, Servo on D4
  */
@@ -44,7 +45,7 @@ void setup() {
     delay(10);
 
   Serial.println(F("=== hw_test_08_angle ==="));
-  Serial.println(F("Testing: Angle calculation (0 vs 180 servo)"));
+  Serial.println(F("Testing: Angle calculation (40 vs 180 servo)"));
 
   Wire.begin();
 
@@ -61,17 +62,17 @@ void setup() {
 
   bool allPass = true;
 
-  // Test 1: Angle at 0° servo position
-  Serial.println(F("\n1. Angle at servo 0 degrees:"));
-  moveServo(0);
+  // Test 1: Angle at 40° servo position (field minimum)
+  Serial.println(F("\n1. Angle at servo 40 degrees:"));
+  moveServo(40);
 
-  float angle0 = medianRead(sensor, READ_ANGLE);
+  float angle40 = medianRead(sensor, READ_ANGLE);
   Serial.print(F("   Calculated angle: "));
-  Serial.print(angle0, 1);
+  Serial.print(angle40, 1);
   Serial.print(F(" deg - "));
 
-  bool valid0 = (angle0 >= 0 && angle0 <= 360);
-  if (valid0) {
+  bool valid40 = (angle40 >= 0 && angle40 <= 360);
+  if (valid40) {
     Serial.println(F("valid"));
   } else {
     Serial.println(F("INVALID"));
@@ -79,15 +80,15 @@ void setup() {
   }
 
   // Also print X/Z for reference
-  float x0 = sensor.readMagneticX();
-  float z0 = sensor.readMagneticZ();
+  float x40 = sensor.readMagneticX();
+  float z40 = sensor.readMagneticZ();
   Serial.print(F("   X: "));
-  Serial.print(x0, 0);
+  Serial.print(x40, 0);
   Serial.print(F(" uT, Z: "));
-  Serial.print(z0, 0);
+  Serial.print(z40, 0);
   Serial.println(F(" uT"));
 
-  // Test 2: Angle at 180° servo position
+  // Test 2: Angle at 180° servo position (field maximum)
   Serial.println(F("\n2. Angle at servo 180 degrees:"));
   moveServo(180);
 
@@ -115,14 +116,14 @@ void setup() {
 
   // Test 3: Compare angles - should differ by at least 5°
   Serial.println(F("\n3. Angle comparison:"));
-  Serial.print(F("   Angle at 0:   "));
-  Serial.print(angle0, 1);
+  Serial.print(F("   Angle at 40:  "));
+  Serial.print(angle40, 1);
   Serial.println(F(" deg"));
   Serial.print(F("   Angle at 180: "));
   Serial.print(angle180, 1);
   Serial.println(F(" deg"));
 
-  float diff = abs(angle0 - angle180);
+  float diff = abs(angle40 - angle180);
   // Handle wrap-around (e.g., 350° vs 10° = 20° difference, not 340°)
   if (diff > 180) {
     diff = 360 - diff;

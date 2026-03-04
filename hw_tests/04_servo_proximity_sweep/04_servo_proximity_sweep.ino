@@ -3,7 +3,8 @@
  *
  * Verifies:
  * - Sweep servo 0 to 180 in 10 degree steps
- * - Total field magnitude at 180 > magnitude at 0 by at least 2x
+ * - Total field magnitude at 180 > magnitude at 40 by at least 2x
+ *   (40° is field minimum, 180° is field maximum based on calibration)
  * - At least one axis changes by > 1000 uT across the sweep
  *
  * Hardware: Metro Mini, TMAG5273A2 at 0x35, Servo on D4
@@ -47,7 +48,7 @@ void setup() {
 
   servo.attach(SERVO_PIN);
 
-  float mag0 = 0, mag180 = 0;
+  float mag40 = 0, mag180 = 0;
   float xMin = 999999, xMax = -999999;
   float yMin = 999999, yMax = -999999;
   float zMin = 999999, zMax = -999999;
@@ -93,25 +94,26 @@ void setup() {
     Serial.print(F("\t| "));
     Serial.println(mag, 0);
 
-    if (angle == 0)
-      mag0 = mag;
+    if (angle == 40)
+      mag40 = mag;
     if (angle == 180)
       mag180 = mag;
   }
 
   servo.detach();
 
-  // Check 1: magnitude at 180 should be > 2x magnitude at 0
+  // Check 1: magnitude at 180 should be > 2x magnitude at 40
+  // (40° is field minimum, 180° is field maximum)
   Serial.println();
-  Serial.print(F("Magnitude at 0: "));
-  Serial.print(mag0, 0);
+  Serial.print(F("Magnitude at 40: "));
+  Serial.print(mag40, 0);
   Serial.println(F(" uT"));
   Serial.print(F("Magnitude at 180: "));
   Serial.print(mag180, 0);
   Serial.println(F(" uT"));
 
-  float ratio = mag180 / mag0;
-  Serial.print(F("Ratio (180/0): "));
+  float ratio = mag180 / mag40;
+  Serial.print(F("Ratio (180/40): "));
   Serial.print(ratio, 2);
   Serial.print(F(" (need >2.0): "));
 
