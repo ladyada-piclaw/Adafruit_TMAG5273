@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['getanglecalculation',['getAngleCalculation',['../class_adafruit___t_m_a_g5273.html#a73395b1370be98475411ef11b03acb94',1,'Adafruit_TMAG5273']]],
+  ['getconversionaverage',['getConversionAverage',['../class_adafruit___t_m_a_g5273.html#a1be4d75576eb64bc23951d923fc6d74b',1,'Adafruit_TMAG5273']]],
+  ['getconversionstatus',['getConversionStatus',['../class_adafruit___t_m_a_g5273.html#a0515b4314b261d8d03c9075630291cf1',1,'Adafruit_TMAG5273']]],
+  ['getdeviceid',['getDeviceID',['../class_adafruit___t_m_a_g5273.html#a77fd6abe49a12b0f8b14b322453f74a5',1,'Adafruit_TMAG5273']]],
+  ['getdevicestatus',['getDeviceStatus',['../class_adafruit___t_m_a_g5273.html#a19cf1ff44b19b123afae56090b832979',1,'Adafruit_TMAG5273']]],
+  ['getevent',['getEvent',['../class_adafruit___t_m_a_g5273.html#a98c31e08b97db513861ef122ee42f88d',1,'Adafruit_TMAG5273']]],
+  ['getgainvalue',['getGainValue',['../class_adafruit___t_m_a_g5273.html#abc4fb49cd6fa79cc55205e406e5e7ce6',1,'Adafruit_TMAG5273']]],
+  ['getinterruptmode',['getInterruptMode',['../class_adafruit___t_m_a_g5273.html#a00db50438b86225606c2935f3cba5746',1,'Adafruit_TMAG5273']]],
+  ['getlownoisemode',['getLowNoiseMode',['../class_adafruit___t_m_a_g5273.html#afcac56a89afa2cd8f3056adc714efb94',1,'Adafruit_TMAG5273']]],
+  ['getmagneticchannels',['getMagneticChannels',['../class_adafruit___t_m_a_g5273.html#afa219b646bcb35795a3b36f98c8f95b9',1,'Adafruit_TMAG5273']]],
+  ['getmagtempcomp',['getMagTempComp',['../class_adafruit___t_m_a_g5273.html#a18775932f839371bdba53552f1076a9f',1,'Adafruit_TMAG5273']]],
+  ['getmanufacturerid',['getManufacturerID',['../class_adafruit___t_m_a_g5273.html#ab0d2902ea43b27ca3842d409ae99dd55',1,'Adafruit_TMAG5273']]],
+  ['getoffset1',['getOffset1',['../class_adafruit___t_m_a_g5273.html#a70b002c3f40d36b9f1f877c9aa82a569',1,'Adafruit_TMAG5273']]],
+  ['getoffset2',['getOffset2',['../class_adafruit___t_m_a_g5273.html#aa5ced532f8a4ac3bf0af92bfde6d17e9',1,'Adafruit_TMAG5273']]],
+  ['getoperatingmode',['getOperatingMode',['../class_adafruit___t_m_a_g5273.html#a5156cc1d6a183221e45dd6ea3f85ebd0',1,'Adafruit_TMAG5273']]],
+  ['getsensor',['getSensor',['../class_adafruit___t_m_a_g5273.html#a3215ae7228212d39c3853a5c5be8f61c',1,'Adafruit_TMAG5273']]],
+  ['getsleeptime',['getSleepTime',['../class_adafruit___t_m_a_g5273.html#ae1d050473b4c7fc35f7359a8485c0287',1,'Adafruit_TMAG5273']]],
+  ['gettemperature',['getTemperature',['../class_adafruit___t_m_a_g5273.html#a6f1ba1b2104cb0a5037efa0905b2c311',1,'Adafruit_TMAG5273']]],
+  ['gettemperaturethreshold',['getTemperatureThreshold',['../class_adafruit___t_m_a_g5273.html#ad9d7f4b76ba10f6d6d9c9fa2b0ce7d1c',1,'Adafruit_TMAG5273']]],
+  ['getxthreshold',['getXThreshold',['../class_adafruit___t_m_a_g5273.html#af4b192f95213b34310082ffab9d03bf6',1,'Adafruit_TMAG5273']]],
+  ['getxyrange',['getXYRange',['../class_adafruit___t_m_a_g5273.html#ad184c2ad6c805c0bc9e85cb14f271b0d',1,'Adafruit_TMAG5273']]],
+  ['getythreshold',['getYThreshold',['../class_adafruit___t_m_a_g5273.html#a9bf1704a172a4c30d1c6a03a42a65cdc',1,'Adafruit_TMAG5273']]],
+  ['getzrange',['getZRange',['../class_adafruit___t_m_a_g5273.html#ab7b04ee68290c86088774411d3fefeba',1,'Adafruit_TMAG5273']]],
+  ['getzthreshold',['getZThreshold',['../class_adafruit___t_m_a_g5273.html#a0b35c1cf32961ef418609e4b5c0180b1',1,'Adafruit_TMAG5273']]]
+];

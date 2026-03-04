@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['setanglecalculation',['setAngleCalculation',['../class_adafruit___t_m_a_g5273.html#ad49a1703f5d03454e4dccce931cd96d8',1,'Adafruit_TMAG5273']]],
+  ['setconversionaverage',['setConversionAverage',['../class_adafruit___t_m_a_g5273.html#ab2e00c49fc94a6c11be541c5a9983cad',1,'Adafruit_TMAG5273']]],
+  ['setgainvalue',['setGainValue',['../class_adafruit___t_m_a_g5273.html#a7d7f50497cd8e7f0cc431cd693fc1c99',1,'Adafruit_TMAG5273']]],
+  ['setinterruptmode',['setInterruptMode',['../class_adafruit___t_m_a_g5273.html#aa620bcf067d8ed62c2e21a58bdf502de',1,'Adafruit_TMAG5273']]],
+  ['setlownoisemode',['setLowNoiseMode',['../class_adafruit___t_m_a_g5273.html#aaff9ebfd742fb97d5e2e35b147628f26',1,'Adafruit_TMAG5273']]],
+  ['setmagneticchannels',['setMagneticChannels',['../class_adafruit___t_m_a_g5273.html#ab032c42749f4f5e97528118ab5809d00',1,'Adafruit_TMAG5273']]],
+  ['setmagtempcomp',['setMagTempComp',['../class_adafruit___t_m_a_g5273.html#ad77538d49e03b9de2d5940a96d6b5d92',1,'Adafruit_TMAG5273']]],
+  ['setoffset1',['setOffset1',['../class_adafruit___t_m_a_g5273.html#a982691ad7ba69840c2c041f9f77cd5f8',1,'Adafruit_TMAG5273']]],
+  ['setoffset2',['setOffset2',['../class_adafruit___t_m_a_g5273.html#a69135b7fc56d9e3552fa28aec7ac2ec0',1,'Adafruit_TMAG5273']]],
+  ['setoperatingmode',['setOperatingMode',['../class_adafruit___t_m_a_g5273.html#ad9edab563ee912fb8668168ca0b05b09',1,'Adafruit_TMAG5273']]],
+  ['setsleeptime',['setSleepTime',['../class_adafruit___t_m_a_g5273.html#a40802497b72ece2ed56327a662f77e4c',1,'Adafruit_TMAG5273']]],
+  ['settemperaturethreshold',['setTemperatureThreshold',['../class_adafruit___t_m_a_g5273.html#abd9ec1c158935846e54e15b5a0dc742b',1,'Adafruit_TMAG5273']]],
+  ['setxthreshold',['setXThreshold',['../class_adafruit___t_m_a_g5273.html#abafe137443c4133f75aec94f3ffd45d0',1,'Adafruit_TMAG5273']]],
+  ['setxyrange',['setXYRange',['../class_adafruit___t_m_a_g5273.html#a00ba48f9b9d96facecb32c42657623b6',1,'Adafruit_TMAG5273']]],
+  ['setythreshold',['setYThreshold',['../class_adafruit___t_m_a_g5273.html#aeeb8c436865d6005fc90bb75c8f6d630',1,'Adafruit_TMAG5273']]],
+  ['setzrange',['setZRange',['../class_adafruit___t_m_a_g5273.html#a1cbda26cf6f53ba2881271c3f0552319',1,'Adafruit_TMAG5273']]],
+  ['setzthreshold',['setZThreshold',['../class_adafruit___t_m_a_g5273.html#af8b0c0eaf4f4692124635f5bca55004e',1,'Adafruit_TMAG5273']]]
+];
