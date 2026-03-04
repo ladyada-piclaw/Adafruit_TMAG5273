@@ -203,7 +203,7 @@ void setup() {
 
   // === Interrupt Mode ===
   Serial.println(F("\n--- Interrupt Mode ---"));
-  tmag.setInterruptMode(TMAG5273_INT_NONE);
+  tmag.setInterruptMode(TMAG5273_INT_THROUGH_INT);
   // Options: TMAG5273_INT_NONE (no interrupt)
   //          TMAG5273_INT_THROUGH_INT (INT pin)
   //          TMAG5273_INT_INT_EXCEPT_I2C (INT except during I2C)

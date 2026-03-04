@@ -85,18 +85,29 @@ bool Adafruit_TMAG5273::begin(uint8_t addr, TwoWire* theWire) {
     _range_z = 40.0;
   }
 
-  // Default configuration: XYZ channels, temperature enabled, 32x averaging,
-  // continuous mode
+  // Default configuration: max performance, all features enabled
   if (!setMagneticChannels(TMAG5273_MAG_CH_XYZ)) {
-    return false;
-  }
-  if (!enableTemperature(true)) {
     return false;
   }
   if (!setConversionAverage(TMAG5273_CONV_AVG_32X)) {
     return false;
   }
   if (!setOperatingMode(TMAG5273_MODE_CONTINUOUS)) {
+    return false;
+  }
+  if (!enableTemperature(true)) {
+    return false;
+  }
+  if (!setLowNoiseMode(true)) {
+    return false;
+  }
+  if (!setMagTempComp(TMAG5273_TEMPCO_NDFEB)) {
+    return false;
+  }
+  if (!setAngleCalculation(TMAG5273_ANGLE_XY)) {
+    return false;
+  }
+  if (!setInterruptMode(TMAG5273_INT_THROUGH_INT)) {
     return false;
   }
 
