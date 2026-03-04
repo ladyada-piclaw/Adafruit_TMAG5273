@@ -500,12 +500,11 @@ float Adafruit_TMAG5273::readAngle() {
   buffer[0] = TMAG5273_REG_ANGLE_RESULT_MSB;
   i2c_dev->write_then_read(buffer, 1, buffer, 2);
 
-  // MSB contains bits[12:5], LSB contains bits[4:0] in upper bits
-  // The angle is 13 bits: 9-bit integer + 4-bit fraction
-  uint16_t raw = ((uint16_t)buffer[0] << 4) | (buffer[1] >> 4);
+  // 13-bit value: MSB[4:0] = bits[12:8], LSB = bits[7:0]
+  // Bits [12:4] = 9-bit integer (0-360°), bits [3:0] = 4-bit fraction (/16)
+  uint16_t raw = ((uint16_t)(buffer[0] & 0x1F) << 8) | buffer[1];
 
-  // Convert to degrees: raw * (360 / 8192)
-  return raw * (360.0 / 8192.0);
+  return (float)(raw >> 4) + ((raw & 0x0F) / 16.0);
 }
 
 /*!
