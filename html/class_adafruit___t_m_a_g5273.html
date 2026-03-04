@@ -185,6 +185,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a35711e1c3bc589a92f83d4a853965e7f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___t_m_a_g5273.html#a35711e1c3bc589a92f83d4a853965e7f">readMagnitude</a> ()</td></tr>
 <tr class="memdesc:a35711e1c3bc589a92f83d4a853965e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the calculated magnitude.  <a href="#a35711e1c3bc589a92f83d4a853965e7f">More...</a><br /></td></tr>
 <tr class="separator:a35711e1c3bc589a92f83d4a853965e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88dea74cc8850576b7486d1c295c4863"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___t_m_a_g5273.html#a88dea74cc8850576b7486d1c295c4863">readMagnitudeMT</a> ()</td></tr>
+<tr class="memdesc:a88dea74cc8850576b7486d1c295c4863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the calculated magnitude in milliTesla.  <a href="#a88dea74cc8850576b7486d1c295c4863">More...</a><br /></td></tr>
+<tr class="separator:a88dea74cc8850576b7486d1c295c4863"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7568124c3369bb035d36d8448607c693"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___t_m_a_g5273.html#a7568124c3369bb035d36d8448607c693">enableCRC</a> (bool enable)</td></tr>
 <tr class="memdesc:a7568124c3369bb035d36d8448607c693"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable CRC.  <a href="#a7568124c3369bb035d36d8448607c693">More...</a><br /></td></tr>
 <tr class="separator:a7568124c3369bb035d36d8448607c693"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -989,6 +992,26 @@ Public Member Functions</h2></td></tr>
 
 <p>Read the calculated magnitude. </p>
 <dl class="section return"><dt>Returns</dt><dd>8-bit magnitude value </dd></dl>
+
+</div>
+</div>
+<a id="a88dea74cc8850576b7486d1c295c4863"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88dea74cc8850576b7486d1c295c4863">&#9670;&nbsp;</a></span>readMagnitudeMT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Adafruit_TMAG5273::readMagnitudeMT </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read the calculated magnitude in milliTesla. </p>
+<p>Converts the 8-bit magnitude register using the current range setting. Magnitude is sqrt(ch1^2 + ch2^2) for the two axes selected by <a class="el" href="class_adafruit___t_m_a_g5273.html#ad49a1703f5d03454e4dccce931cd96d8" title="Set the angle calculation axis pair. ">setAngleCalculation()</a>. </p><dl class="section return"><dt>Returns</dt><dd>Magnitude in milliTesla </dd></dl>
 
 </div>
 </div>
