@@ -32,9 +32,9 @@ void setup() {
   Serial.println(tmag.getManufacturerID(), HEX);
   Serial.print(F("Device ID: 0x"));
   Serial.println(tmag.getDeviceID(), HEX);
+  bool is_x2 = (tmag.getDeviceID() & 0x03) == 0x02;
   Serial.print(F("Variant: "));
-  Serial.println((tmag.getDeviceID() & 0x03) == 0x02 ? F("x2 (+/-133/266 mT)")
-                                                     : F("x1 (+/-40/80 mT)"));
+  Serial.println(is_x2 ? F("x2 (+/-133/266 mT)") : F("x1 (+/-40/80 mT)"));
 
   // === Magnetic Channels ===
   Serial.println(F("\n--- Magnetic Channels ---"));
@@ -113,7 +113,11 @@ void setup() {
   // false = normal (+/-40mT for x1 / +/-133mT for x2)
   // true = wide (+/-80mT for x1 / +/-266mT for x2)
   Serial.print(F("XY Range: "));
-  Serial.println(tmag.getXYRangeWide() ? F("Wide") : F("Normal"));
+  if (is_x2) {
+    Serial.println(tmag.getXYRangeWide() ? F("+/-266 mT") : F("+/-133 mT"));
+  } else {
+    Serial.println(tmag.getXYRangeWide() ? F("+/-80 mT") : F("+/-40 mT"));
+  }
 
   // === Z Range ===
   Serial.println(F("\n--- Z Range ---"));
@@ -121,7 +125,11 @@ void setup() {
   // false = normal (+/-40mT for x1 / +/-133mT for x2)
   // true = wide (+/-80mT for x1 / +/-266mT for x2)
   Serial.print(F("Z Range: "));
-  Serial.println(tmag.getZRangeWide() ? F("Wide") : F("Normal"));
+  if (is_x2) {
+    Serial.println(tmag.getZRangeWide() ? F("+/-266 mT") : F("+/-133 mT"));
+  } else {
+    Serial.println(tmag.getZRangeWide() ? F("+/-80 mT") : F("+/-40 mT"));
+  }
 
   // === Operating Mode ===
   Serial.println(F("\n--- Operating Mode ---"));
