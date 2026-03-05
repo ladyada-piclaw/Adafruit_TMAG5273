@@ -258,7 +258,6 @@ class Adafruit_TMAG5273 : public Adafruit_Sensor {
   float _range_z;              ///< Current Z range in mT
 
   float rawToMicroTesla(int16_t raw, float range_mT);
-  int16_t read16BitResult(uint8_t msb_reg);
 };
 
 #endif // ADAFRUIT_TMAG5273_H

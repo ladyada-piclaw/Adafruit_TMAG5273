@@ -410,22 +410,13 @@ bool Adafruit_TMAG5273::temperatureEnabled() {
 }
 
 /*!
- * @brief Read a 16-bit result from two consecutive registers
- * @param msb_reg Address of MSB register
- * @return 16-bit signed value
- */
-int16_t Adafruit_TMAG5273::read16BitResult(uint8_t msb_reg) {
-  Adafruit_BusIO_Register reg =
-      Adafruit_BusIO_Register(i2c_dev, msb_reg, 2, MSBFIRST);
-  return (int16_t)reg.read();
-}
-
-/*!
  * @brief Read raw X-axis value
  * @return Raw 16-bit signed value
  */
 int16_t Adafruit_TMAG5273::readX() {
-  return read16BitResult(TMAG5273_REG_X_MSB_RESULT);
+  Adafruit_BusIO_Register reg =
+      Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_X_MSB_RESULT, 2, MSBFIRST);
+  return (int16_t)reg.read();
 }
 
 /*!
@@ -433,7 +424,9 @@ int16_t Adafruit_TMAG5273::readX() {
  * @return Raw 16-bit signed value
  */
 int16_t Adafruit_TMAG5273::readY() {
-  return read16BitResult(TMAG5273_REG_Y_MSB_RESULT);
+  Adafruit_BusIO_Register reg =
+      Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_Y_MSB_RESULT, 2, MSBFIRST);
+  return (int16_t)reg.read();
 }
 
 /*!
@@ -441,7 +434,9 @@ int16_t Adafruit_TMAG5273::readY() {
  * @return Raw 16-bit signed value
  */
 int16_t Adafruit_TMAG5273::readZ() {
-  return read16BitResult(TMAG5273_REG_Z_MSB_RESULT);
+  Adafruit_BusIO_Register reg =
+      Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_Z_MSB_RESULT, 2, MSBFIRST);
+  return (int16_t)reg.read();
 }
 
 /*!
@@ -485,7 +480,9 @@ float Adafruit_TMAG5273::readMagneticZ() {
  * @return Temperature in degrees Celsius
  */
 float Adafruit_TMAG5273::getTemperature() {
-  int16_t raw = read16BitResult(TMAG5273_REG_T_MSB_RESULT);
+  Adafruit_BusIO_Register reg =
+      Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_T_MSB_RESULT, 2, MSBFIRST);
+  int16_t raw = (int16_t)reg.read();
   // Formula: T = 25.0 + (raw - 17508) / 60.1
   return TMAG5273_TEMP_SENS_T0 +
          ((raw - TMAG5273_TEMP_ADC_T0) / TMAG5273_TEMP_ADC_RES);
