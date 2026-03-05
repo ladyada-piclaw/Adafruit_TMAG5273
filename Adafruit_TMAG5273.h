@@ -49,6 +49,9 @@
 #define TMAG5273_REG_Z_MSB_RESULT 0x16        ///< Z-axis MSB
 #define TMAG5273_REG_Z_LSB_RESULT 0x17        ///< Z-axis LSB
 #define TMAG5273_REG_CONV_STATUS 0x18         ///< Conversion status
+#define TMAG5273_STATUS_RESULT_READY 0x01    ///< Conversion data ready
+#define TMAG5273_STATUS_DIAG_FAIL 0x02       ///< Diagnostic fail detected
+#define TMAG5273_STATUS_POR 0x10             ///< Power-on reset occurred
 #define TMAG5273_REG_ANGLE_RESULT_MSB 0x19    ///< Angle result MSB
 #define TMAG5273_REG_ANGLE_RESULT_LSB 0x1A    ///< Angle result LSB
 #define TMAG5273_REG_MAGNITUDE_RESULT 0x1B    ///< Magnitude result

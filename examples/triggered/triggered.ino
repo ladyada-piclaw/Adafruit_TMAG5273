@@ -42,7 +42,7 @@ void loop() {
 
   // Wait for conversion to complete (RESULT_STATUS bit set)
   // Typical conversion time is ~3ms with 1x averaging
-  while (!(tmag.getConversionStatus() & 0x01)) {
+  while (!(tmag.getConversionStatus() & TMAG5273_STATUS_RESULT_READY)) {
     delay(1);
   }
 
