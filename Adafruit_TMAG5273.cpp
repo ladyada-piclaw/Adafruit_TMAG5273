@@ -89,6 +89,12 @@ bool Adafruit_TMAG5273::begin(uint8_t addr, TwoWire* theWire) {
   if (!setMagneticChannels(TMAG5273_MAG_CH_XYZ)) {
     return false;
   }
+  if (!setXYRangeWide(true)) {
+    return false;
+  }
+  if (!setZRangeWide(true)) {
+    return false;
+  }
   if (!setConversionAverage(TMAG5273_CONV_AVG_32X)) {
     return false;
   }
@@ -616,6 +622,31 @@ bool Adafruit_TMAG5273::enableThresholdInterrupt(bool enable) {
   Adafruit_BusIO_RegisterBits thrsld_int =
       Adafruit_BusIO_RegisterBits(&reg, 1, 6);
   return thrsld_int.write(enable ? 1 : 0);
+}
+
+/*!
+ * @brief Set interrupt pin to pulsed or latched mode
+ * @param pulsed True for pulsed (10us pulse), false for latched
+ * @return True on success
+ */
+bool Adafruit_TMAG5273::setInterruptPulsed(bool pulsed) {
+  Adafruit_BusIO_Register reg =
+      Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_INT_CONFIG_1, 1);
+  Adafruit_BusIO_RegisterBits int_state =
+      Adafruit_BusIO_RegisterBits(&reg, 1, 5);
+  return int_state.write(pulsed ? 1 : 0);
+}
+
+/*!
+ * @brief Get interrupt pin mode
+ * @return True if pulsed, false if latched
+ */
+bool Adafruit_TMAG5273::getInterruptPulsed() {
+  Adafruit_BusIO_Register reg =
+      Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_INT_CONFIG_1, 1);
+  Adafruit_BusIO_RegisterBits int_state =
+      Adafruit_BusIO_RegisterBits(&reg, 1, 5);
+  return int_state.read() == 1;
 }
 
 /*!
