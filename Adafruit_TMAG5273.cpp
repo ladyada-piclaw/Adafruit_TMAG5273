@@ -792,12 +792,16 @@ uint8_t Adafruit_TMAG5273::getDeviceStatus() {
  * @return True on success
  */
 bool Adafruit_TMAG5273::triggerConversion() {
-  // In standby mode, reading from result registers triggers conversion
-  // Or we can set CONV_START by writing to DEVICE_CONFIG_2
-  // Using a dummy read approach for simplicity
-  Adafruit_BusIO_Register reg =
-      Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_CONV_STATUS, 1);
-  reg.read();
+  // Switch to continuous mode to trigger a fresh conversion, then back to
+  // standby. The sensor latches new data in continuous mode and we can read
+  // it after switching back.
+  if (!setOperatingMode(TMAG5273_MODE_CONTINUOUS)) {
+    return false;
+  }
+  delay(5); // Allow conversion to complete
+  if (!setOperatingMode(TMAG5273_MODE_STANDBY)) {
+    return false;
+  }
   return true;
 }
 
