@@ -415,10 +415,9 @@ bool Adafruit_TMAG5273::temperatureEnabled() {
  * @return 16-bit signed value
  */
 int16_t Adafruit_TMAG5273::read16BitResult(uint8_t msb_reg) {
-  uint8_t buffer[2];
-  buffer[0] = msb_reg;
-  i2c_dev->write_then_read(buffer, 1, buffer, 2);
-  return ((int16_t)buffer[0] << 8) | buffer[1];
+  Adafruit_BusIO_Register reg =
+      Adafruit_BusIO_Register(i2c_dev, msb_reg, 2, MSBFIRST);
+  return (int16_t)reg.read();
 }
 
 /*!
@@ -497,14 +496,11 @@ float Adafruit_TMAG5273::getTemperature() {
  * @return Angle in degrees (0-360)
  */
 float Adafruit_TMAG5273::readAngle() {
-  uint8_t buffer[2];
-  buffer[0] = TMAG5273_REG_ANGLE_RESULT_MSB;
-  i2c_dev->write_then_read(buffer, 1, buffer, 2);
+  Adafruit_BusIO_Register reg = Adafruit_BusIO_Register(
+      i2c_dev, TMAG5273_REG_ANGLE_RESULT_MSB, 2, MSBFIRST);
+  uint16_t raw = reg.read() & 0x1FFF; // 13-bit value
 
-  // 13-bit value: MSB[4:0] = bits[12:8], LSB = bits[7:0]
   // Bits [12:4] = 9-bit integer (0-360°), bits [3:0] = 4-bit fraction (/16)
-  uint16_t raw = ((uint16_t)(buffer[0] & 0x1F) << 8) | buffer[1];
-
   return (float)(raw >> 4) + ((raw & 0x0F) / 16.0);
 }
 
