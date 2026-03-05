@@ -1,15 +1,24 @@
 /*!
  * @file magnetic_threshold.ino
- * @brief Demonstrates X-axis magnetic threshold detection with interrupt
+ * @brief Z-axis magnetic threshold detection using hardware interrupt
  *
- * This sketch configures the TMAG5273 to trigger a threshold interrupt
- * when the X-axis magnetic field exceeds a set value. The threshold is
- * set to ~52 mT (threshold value 50 * 133/128 mT).
+ * Reads ambient Z field, sets threshold 20% above it, and uses D2
+ * interrupt pin to detect when a magnet crosses the threshold.
+ *
+ * Written by Limor 'ladyada' Fried with assistance from Claude Code
+ * MIT license
  */
 
 #include <Adafruit_TMAG5273.h>
 
+#define INT_PIN 2
+
 Adafruit_TMAG5273 tmag;
+volatile bool thresholdTriggered = false;
+
+void onThreshold() {
+  thresholdTriggered = true;
+}
 
 void setup() {
   Serial.begin(115200);
@@ -23,59 +32,76 @@ void setup() {
     while (1)
       delay(10);
   }
-
   Serial.println(F("TMAG5273 found!"));
 
-  // Configure for X channel readings
-  tmag.setMagneticChannels(TMAG5273_MAG_CH_XYZ);
-  tmag.setOperatingMode(TMAG5273_MODE_CONTINUOUS);
-  tmag.setConversionAverage(TMAG5273_CONV_AVG_8X);
+  // Read ambient Z field (average 10 samples)
+  Serial.println(F("Calibrating ambient Z field..."));
+  float ambientZ = 0;
+  for (int i = 0; i < 10; i++) {
+    ambientZ += tmag.readMagneticZ();
+    delay(20);
+  }
+  ambientZ /= 10.0;
+  Serial.print(F("Ambient Z: "));
+  Serial.print(ambientZ, 1);
+  Serial.println(F(" uT"));
 
-  // Set X-axis threshold to 50 (maps to ~52 mT: 50 * 133/128)
-  // Threshold is absolute - triggers on +/- 52 mT
-  int8_t xThreshold = 50;
-  tmag.setXThreshold(xThreshold);
-  Serial.print(F("X threshold set to: "));
-  Serial.print(tmag.getXThreshold());
-  Serial.println(F(" (approx 52 mT)"));
+  // Convert ambient to threshold value and add 20% margin
+  // Threshold register is int8_t: threshold_mT = value * range_mT / 128
+  // For x2 variant normal range: range = 133 mT
+  // For x1 variant normal range: range = 40 mT
+  bool is_x2 = (tmag.getDeviceID() & 0x03) == 0x02;
+  float range_mT = is_x2 ? 133.0 : 40.0;
+  float ambient_mT = ambientZ / 1000.0;
+  int8_t threshVal = (int8_t)(ambient_mT * 1.2 * 128.0 / range_mT);
 
-  // Enable interrupt via INT pin
-  tmag.setInterruptMode(TMAG5273_INT_THROUGH_INT);
-  Serial.println(F("Interrupt mode: INT pin"));
+  // Clamp to valid range
+  if (threshVal > 127)
+    threshVal = 127;
+  if (threshVal < -128)
+    threshVal = -128;
 
-  // Enable threshold interrupt
+  tmag.setZThreshold(threshVal);
+  float thresh_mT = threshVal * range_mT / 128.0;
+  Serial.print(F("Z threshold set to: "));
+  Serial.print(thresh_mT, 1);
+  Serial.print(F(" mT (register value: "));
+  Serial.print(threshVal);
+  Serial.println(F(")"));
+
+  // Disable data ready interrupt (enabled by begin()) so INT only fires
+  // on threshold crossing, not every conversion
+  tmag.enableResultInterrupt(false);
+
+  // Enable threshold interrupt on INT pin
   tmag.enableThresholdInterrupt(true);
-  Serial.println(F("Threshold interrupt enabled"));
+  Serial.println(F("Threshold interrupt enabled on INT pin"));
 
-  Serial.println(F("\nBring a magnet close to trigger threshold!"));
-  Serial.println(F("----------------------------------------------\n"));
+  // Set up D2 as interrupt input (INT pin is active low, open-drain)
+  pinMode(INT_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(INT_PIN), onThreshold, FALLING);
+
+  Serial.println(F("\nMove magnet closer to trigger threshold!\n"));
 }
 
 void loop() {
-  // Read magnetic field values
   float x = tmag.readMagneticX();
   float y = tmag.readMagneticY();
   float z = tmag.readMagneticZ();
 
-  // Check conversion status for threshold flag
-  uint8_t status = tmag.getConversionStatus();
-
-  // Bit 2 (0x04) is threshold crossed flag
-  bool thresholdCrossed = (status & 0x04) != 0;
-
   Serial.print(F("X: "));
   Serial.print(x, 1);
-  Serial.print(F(" uT  Y: "));
+  Serial.print(F(" uT\tY: "));
   Serial.print(y, 1);
-  Serial.print(F(" uT  Z: "));
+  Serial.print(F(" uT\tZ: "));
   Serial.print(z, 1);
   Serial.print(F(" uT"));
 
-  if (thresholdCrossed) {
-    Serial.print(F("  *** THRESHOLD CROSSED ***"));
+  if (thresholdTriggered) {
+    Serial.print(F("\t*** THRESHOLD ***"));
+    thresholdTriggered = false;
   }
 
   Serial.println();
-
   delay(100);
 }
