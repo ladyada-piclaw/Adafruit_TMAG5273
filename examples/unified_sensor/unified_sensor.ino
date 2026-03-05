@@ -71,5 +71,5 @@ void loop() {
   Serial.println(F(" C"));
 
   Serial.println();
-  delay(500);
+  delay(100);
 }
