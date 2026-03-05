@@ -1,29 +1,27 @@
 /*!
  * 10_i2c_crc.ino - CRC Mode Test for TMAG5273
  *
+ * Note: Place a magnet near the sensor for best results
+ *
  * Verifies:
  * - Reads work with CRC enabled
  * - Reads work with CRC disabled
  * - No corruption in either mode
  *
- * Hardware: Metro Mini, TMAG5273A2 at 0x35, Servo on D4
+ * Hardware: Metro Mini, TMAG5273A2 at 0x35
  */
 
 #include <Adafruit_TMAG5273.h>
-#include <Servo.h>
 #include <Wire.h>
 
-#define SERVO_PIN 4
 #define SENSOR_ADDR 0x35
 
 // Forward declarations
 void testResult(bool pass);
-void moveServo(int angle);
 bool isValidReading(float val);
 
 // Globals
 Adafruit_TMAG5273 sensor;
-Servo servo;
 
 void setup() {
   Serial.begin(115200);
@@ -44,10 +42,6 @@ void setup() {
   // Enable all channels and temperature
   sensor.setMagneticChannels(TMAG5273_MAG_CH_XYZ);
   sensor.enableTemperature(true);
-
-  // Position servo
-  Serial.println(F("\nPositioning servo at 120..."));
-  moveServo(120);
 
   bool allPass = true;
 
@@ -125,9 +119,6 @@ void setup() {
     allPass = false;
   }
 
-  // Return servo
-  moveServo(180);
-
   Serial.println();
   testResult(allPass);
 }
@@ -143,15 +134,6 @@ void testResult(bool pass) {
   } else {
     Serial.println(F("=== FAIL ==="));
   }
-  servo.detach();
-}
-
-// Helper: Move servo and wait for settle
-void moveServo(int angle) {
-  servo.attach(SERVO_PIN);
-  servo.write(angle);
-  delay(1500);
-  servo.detach();
 }
 
 // Helper: Check if reading is valid

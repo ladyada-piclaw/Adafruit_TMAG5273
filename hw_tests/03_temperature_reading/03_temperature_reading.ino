@@ -5,14 +5,12 @@
  * - Temperature in reasonable range (10°C to 60°C)
  * - Multiple reads are stable (within ±2°C)
  *
- * Hardware: Metro Mini, TMAG5273A2 at 0x35, Servo on D4
+ * Hardware: Metro Mini, TMAG5273A2 at 0x35
  */
 
 #include <Adafruit_TMAG5273.h>
-#include <Servo.h>
 #include <Wire.h>
 
-#define SERVO_PIN 4
 #define SENSOR_ADDR 0x35
 
 // Forward declarations
@@ -20,7 +18,6 @@ void testResult(bool pass);
 
 // Globals
 Adafruit_TMAG5273 sensor;
-Servo servo;
 
 void setup() {
   Serial.begin(115200);
@@ -29,12 +26,6 @@ void setup() {
 
   Serial.println(F("=== hw_test_03_temperature ==="));
   Serial.println(F("Testing: Temperature reads"));
-
-  // Position servo
-  servo.attach(SERVO_PIN);
-  servo.write(180);
-  delay(1000);
-  servo.detach();
 
   Wire.begin();
 

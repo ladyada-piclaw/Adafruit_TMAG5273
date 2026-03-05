@@ -6,14 +6,12 @@
  * - Manufacturer ID == 0x5449
  * - Device ID bits[1:0] == 0x02 (x2 variant)
  *
- * Hardware: Metro Mini, TMAG5273A2 at 0x35, Servo on D4
+ * Hardware: Metro Mini, TMAG5273A2 at 0x35
  */
 
 #include <Adafruit_TMAG5273.h>
-#include <Servo.h>
 #include <Wire.h>
 
-#define SERVO_PIN 4
 #define SENSOR_ADDR 0x35
 
 // Forward declarations
@@ -21,7 +19,6 @@ void testResult(bool pass);
 
 // Globals
 Adafruit_TMAG5273 sensor;
-Servo servo;
 
 void setup() {
   Serial.begin(115200);
@@ -30,12 +27,6 @@ void setup() {
 
   Serial.println(F("=== hw_test_01_begin ==="));
   Serial.println(F("Testing: Sensor initialization"));
-
-  // Attach and position servo
-  servo.attach(SERVO_PIN);
-  servo.write(180);
-  delay(1000);
-  servo.detach();
 
   Wire.begin();
 

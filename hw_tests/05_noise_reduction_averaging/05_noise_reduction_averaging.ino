@@ -1,30 +1,29 @@
 /*!
- * 05_noise_reduction_averaging.ino - Averaging Effect on Noise Test for TMAG5273
+ * 05_noise_reduction_averaging.ino - Averaging Effect on Noise Test for
+ * TMAG5273
+ *
+ * Note: Place a magnet near the sensor for best results
  *
  * Verifies:
  * - 32x averaging produces lower std dev than 1x averaging
  * - Any reduction in noise counts as pass
  *
- * Hardware: Metro Mini, TMAG5273A2 at 0x35, Servo on D4
+ * Hardware: Metro Mini, TMAG5273A2 at 0x35
  */
 
 #include <Adafruit_TMAG5273.h>
-#include <Servo.h>
 #include <Wire.h>
 #include <math.h>
 
-#define SERVO_PIN 4
 #define SENSOR_ADDR 0x35
 #define NUM_SAMPLES 30
 
 // Forward declarations
 void testResult(bool pass);
-void moveServo(int angle);
 float computeStdDev(float* vals, int n);
 
 // Globals
 Adafruit_TMAG5273 sensor;
-Servo servo;
 
 void setup() {
   Serial.begin(115200);
@@ -44,10 +43,6 @@ void setup() {
 
   // Enable all channels
   sensor.setMagneticChannels(TMAG5273_MAG_CH_XYZ);
-
-  // Position servo at 90° (middle position)
-  Serial.println(F("\nPositioning servo at 90 (middle)..."));
-  moveServo(90);
 
   bool allPass = true;
   float readings[NUM_SAMPLES];
@@ -128,9 +123,6 @@ void setup() {
     allPass = false;
   }
 
-  // Return servo
-  moveServo(180);
-
   Serial.println();
   testResult(allPass);
 }
@@ -146,15 +138,6 @@ void testResult(bool pass) {
   } else {
     Serial.println(F("=== FAIL ==="));
   }
-  servo.detach();
-}
-
-// Helper: Move servo and wait for settle
-void moveServo(int angle) {
-  servo.attach(SERVO_PIN);
-  servo.write(angle);
-  delay(1500);
-  servo.detach();
 }
 
 // Helper: Compute standard deviation
