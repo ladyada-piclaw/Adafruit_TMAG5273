@@ -2,8 +2,8 @@
  * @file magnetic_threshold.ino
  * @brief Z-axis magnetic threshold detection using hardware interrupt
  *
- * Reads ambient Z field, sets threshold 20% above it, and uses D2
- * interrupt pin to detect when a magnet crosses the threshold.
+ * Sets a fixed Z-axis threshold (~10 mT) and uses the INT pin to
+ * detect when a strong magnet is brought nearby.
  *
  * Written by Limor 'ladyada' Fried with assistance from Claude Code
  * MIT license
@@ -12,6 +12,7 @@
 #include <Adafruit_TMAG5273.h>
 
 #define INT_PIN 2
+#define THRESHOLD_MT 10.0 // Trigger at ~10 mT on Z axis
 
 Adafruit_TMAG5273 tmag;
 volatile bool thresholdTriggered = false;
@@ -34,54 +35,42 @@ void setup() {
   }
   Serial.println(F("TMAG5273 found!"));
 
-  // Read ambient Z field (average 10 samples)
-  Serial.println(F("Calibrating ambient Z field..."));
-  float ambientZ = 0;
-  for (int i = 0; i < 10; i++) {
-    ambientZ += tmag.readMagneticZ();
-    delay(20);
-  }
-  ambientZ /= 10.0;
-  Serial.print(F("Ambient Z: "));
-  Serial.print(ambientZ, 1);
-  Serial.println(F(" uT"));
-
-  // Convert ambient to threshold value and add 20% margin
-  // Threshold register is int8_t: threshold_mT = value * range_mT / 128
-  // For x2 variant normal range: range = 133 mT
-  // For x1 variant normal range: range = 40 mT
+  // Determine range from variant (begin() sets wide range by default)
   bool is_x2 = (tmag.getDeviceID() & 0x03) == 0x02;
-  float range_mT = is_x2 ? 133.0 : 40.0;
-  float ambient_mT = ambientZ / 1000.0;
-  int8_t threshVal = (int8_t)(ambient_mT * 1.2 * 128.0 / range_mT);
+  float range_mT = is_x2 ? 266.0 : 80.0;
+  Serial.print(F("Variant: "));
+  Serial.print(is_x2 ? F("x2") : F("x1"));
+  Serial.print(F(", Z range: +/-"));
+  Serial.print(range_mT, 0);
+  Serial.println(F(" mT"));
 
-  // Clamp to valid range
-  if (threshVal > 127)
-    threshVal = 127;
-  if (threshVal < -128)
-    threshVal = -128;
+  // Convert mT threshold to register value: val = mT * 128 / range
+  int8_t threshVal = (int8_t)(THRESHOLD_MT * 128.0 / range_mT);
+  if (threshVal < 1)
+    threshVal = 1;
 
+  // Set X and Y thresholds to max so only Z triggers
+  tmag.setXThreshold(127);
+  tmag.setYThreshold(127);
   tmag.setZThreshold(threshVal);
-  float thresh_mT = threshVal * range_mT / 128.0;
-  Serial.print(F("Z threshold set to: "));
-  Serial.print(thresh_mT, 1);
-  Serial.print(F(" mT (register value: "));
+
+  float actual_mT = threshVal * range_mT / 128.0;
+  Serial.print(F("Z threshold: "));
+  Serial.print(actual_mT, 1);
+  Serial.print(F(" mT (register: "));
   Serial.print(threshVal);
   Serial.println(F(")"));
 
-  // Disable data ready interrupt (enabled by begin()) so INT only fires
-  // on threshold crossing, not every conversion
+  // Disable data ready interrupt, enable threshold with pulsed mode
   tmag.enableResultInterrupt(false);
-
-  // Enable threshold interrupt on INT pin
   tmag.enableThresholdInterrupt(true);
-  Serial.println(F("Threshold interrupt enabled on INT pin"));
+  tmag.setInterruptPulsed(true);
 
   // Set up D2 as interrupt input (INT pin is active low, open-drain)
   pinMode(INT_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(INT_PIN), onThreshold, FALLING);
 
-  Serial.println(F("\nMove magnet closer to trigger threshold!\n"));
+  Serial.println(F("\nBring a magnet close to trigger!\n"));
 }
 
 void loop() {
