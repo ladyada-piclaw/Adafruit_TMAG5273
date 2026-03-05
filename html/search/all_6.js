@@ -4,6 +4,7 @@ var searchData=
   ['setconversionaverage',['setConversionAverage',['../class_adafruit___t_m_a_g5273.html#ab2e00c49fc94a6c11be541c5a9983cad',1,'Adafruit_TMAG5273']]],
   ['setgainvalue',['setGainValue',['../class_adafruit___t_m_a_g5273.html#a7d7f50497cd8e7f0cc431cd693fc1c99',1,'Adafruit_TMAG5273']]],
   ['setinterruptmode',['setInterruptMode',['../class_adafruit___t_m_a_g5273.html#aa620bcf067d8ed62c2e21a58bdf502de',1,'Adafruit_TMAG5273']]],
+  ['setinterruptpulsed',['setInterruptPulsed',['../class_adafruit___t_m_a_g5273.html#ab65ab4c40b9d6bdcbdb3308ec7bae534',1,'Adafruit_TMAG5273']]],
   ['setlownoisemode',['setLowNoiseMode',['../class_adafruit___t_m_a_g5273.html#aaff9ebfd742fb97d5e2e35b147628f26',1,'Adafruit_TMAG5273']]],
   ['setmagneticchannels',['setMagneticChannels',['../class_adafruit___t_m_a_g5273.html#ab032c42749f4f5e97528118ab5809d00',1,'Adafruit_TMAG5273']]],
   ['setmagtempcomp',['setMagTempComp',['../class_adafruit___t_m_a_g5273.html#ad77538d49e03b9de2d5940a96d6b5d92',1,'Adafruit_TMAG5273']]],

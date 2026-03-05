@@ -30,6 +30,9 @@ var searchData=
   ['tmag5273_5freg_5fz_5flsb_5fresult',['TMAG5273_REG_Z_LSB_RESULT',['../_adafruit___t_m_a_g5273_8h.html#a8802d9e0745c169d797fe878e3e5d7c5',1,'Adafruit_TMAG5273.h']]],
   ['tmag5273_5freg_5fz_5fmsb_5fresult',['TMAG5273_REG_Z_MSB_RESULT',['../_adafruit___t_m_a_g5273_8h.html#ae75c2824016089e9216debc26d46b7f2',1,'Adafruit_TMAG5273.h']]],
   ['tmag5273_5freg_5fz_5fthr_5fconfig',['TMAG5273_REG_Z_THR_CONFIG',['../_adafruit___t_m_a_g5273_8h.html#a469b1a5910b4727725c56ae693668100',1,'Adafruit_TMAG5273.h']]],
+  ['tmag5273_5fstatus_5fdiag_5ffail',['TMAG5273_STATUS_DIAG_FAIL',['../_adafruit___t_m_a_g5273_8h.html#a67e11f19cfed308d4062efd522eda8f8',1,'Adafruit_TMAG5273.h']]],
+  ['tmag5273_5fstatus_5fpor',['TMAG5273_STATUS_POR',['../_adafruit___t_m_a_g5273_8h.html#a8262dc5de8297ab03ae0393b0c1fbb87',1,'Adafruit_TMAG5273.h']]],
+  ['tmag5273_5fstatus_5fresult_5fready',['TMAG5273_STATUS_RESULT_READY',['../_adafruit___t_m_a_g5273_8h.html#aefc1fd2d8af5d0c2e5a016391590780c',1,'Adafruit_TMAG5273.h']]],
   ['tmag5273_5ftemp_5fadc_5fres',['TMAG5273_TEMP_ADC_RES',['../_adafruit___t_m_a_g5273_8cpp.html#a50eaad5961cac314f0d189df8086fdaa',1,'Adafruit_TMAG5273.cpp']]],
   ['tmag5273_5ftemp_5fadc_5ft0',['TMAG5273_TEMP_ADC_T0',['../_adafruit___t_m_a_g5273_8cpp.html#a683297bbda0c0f0c5e6d52b37cd2b316',1,'Adafruit_TMAG5273.cpp']]],
   ['tmag5273_5ftemp_5fsens_5ft0',['TMAG5273_TEMP_SENS_T0',['../_adafruit___t_m_a_g5273_8cpp.html#a02be22ac5f0006e100c045cf4acf0ab8',1,'Adafruit_TMAG5273.cpp']]]

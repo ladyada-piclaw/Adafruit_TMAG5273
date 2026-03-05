@@ -206,6 +206,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:affb90651aebe1bbb6302ea209f971b26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___t_m_a_g5273.html#affb90651aebe1bbb6302ea209f971b26">enableThresholdInterrupt</a> (bool enable)</td></tr>
 <tr class="memdesc:affb90651aebe1bbb6302ea209f971b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable threshold interrupt.  <a href="#affb90651aebe1bbb6302ea209f971b26">More...</a><br /></td></tr>
 <tr class="separator:affb90651aebe1bbb6302ea209f971b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab65ab4c40b9d6bdcbdb3308ec7bae534"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___t_m_a_g5273.html#ab65ab4c40b9d6bdcbdb3308ec7bae534">setInterruptPulsed</a> (bool pulsed)</td></tr>
+<tr class="memdesc:ab65ab4c40b9d6bdcbdb3308ec7bae534"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set interrupt pin to pulsed or latched mode.  <a href="#ab65ab4c40b9d6bdcbdb3308ec7bae534">More...</a><br /></td></tr>
+<tr class="separator:ab65ab4c40b9d6bdcbdb3308ec7bae534"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf4b464d00d469d4a55861c62476b163"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___t_m_a_g5273.html#adf4b464d00d469d4a55861c62476b163">getInterruptPulsed</a> ()</td></tr>
+<tr class="memdesc:adf4b464d00d469d4a55861c62476b163"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get interrupt pin mode.  <a href="#adf4b464d00d469d4a55861c62476b163">More...</a><br /></td></tr>
+<tr class="separator:adf4b464d00d469d4a55861c62476b163"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abafe137443c4133f75aec94f3ffd45d0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___t_m_a_g5273.html#abafe137443c4133f75aec94f3ffd45d0">setXThreshold</a> (int8_t threshold)</td></tr>
 <tr class="memdesc:abafe137443c4133f75aec94f3ffd45d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set X-axis threshold.  <a href="#abafe137443c4133f75aec94f3ffd45d0">More...</a><br /></td></tr>
 <tr class="separator:abafe137443c4133f75aec94f3ffd45d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1160,6 +1166,53 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success </dd></dl>
+
+</div>
+</div>
+<a id="ab65ab4c40b9d6bdcbdb3308ec7bae534"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab65ab4c40b9d6bdcbdb3308ec7bae534">&#9670;&nbsp;</a></span>setInterruptPulsed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Adafruit_TMAG5273::setInterruptPulsed </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>pulsed</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set interrupt pin to pulsed or latched mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pulsed</td><td>True for pulsed (10us pulse), false for latched </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success </dd></dl>
+
+</div>
+</div>
+<a id="adf4b464d00d469d4a55861c62476b163"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf4b464d00d469d4a55861c62476b163">&#9670;&nbsp;</a></span>getInterruptPulsed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Adafruit_TMAG5273::getInterruptPulsed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get interrupt pin mode. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if pulsed, false if latched </dd></dl>
 
 </div>
 </div>
