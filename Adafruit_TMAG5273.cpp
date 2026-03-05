@@ -128,14 +128,9 @@ bool Adafruit_TMAG5273::begin(uint8_t addr, TwoWire* theWire) {
  * @return Manufacturer ID (0x5449 = "TI")
  */
 uint16_t Adafruit_TMAG5273::getManufacturerID() {
-  Adafruit_BusIO_Register reg_lsb =
-      Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_MANUFACTURER_ID_LSB, 1);
-  Adafruit_BusIO_Register reg_msb =
-      Adafruit_BusIO_Register(i2c_dev, TMAG5273_REG_MANUFACTURER_ID_MSB, 1);
-
-  uint8_t lsb = reg_lsb.read();
-  uint8_t msb = reg_msb.read();
-  return ((uint16_t)msb << 8) | lsb;
+  Adafruit_BusIO_Register reg = Adafruit_BusIO_Register(
+      i2c_dev, TMAG5273_REG_MANUFACTURER_ID_LSB, 2, LSBFIRST);
+  return reg.read();
 }
 
 /*!
